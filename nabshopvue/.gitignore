@@ -1,14 +1,8 @@
-# python
-*__pycache__
-Pipfile.lock
-
-*.pyc
-general.log
-
 .DS_Store
 node_modules
+package-lock.json
 /dist
-/pycache
+
 
 # local env files
 .env.local
@@ -28,5 +22,3 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-
-
