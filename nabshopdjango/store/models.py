@@ -54,18 +54,29 @@ class Category(models.Model):
   class Meta:
     ordering = ['title']
 
+class Author(models.Model):
+  """Model for an author"""
+  first_name = models.CharField(max_length=255)
+  last_name = models.CharField(max_length=255)
+  birth_date = models.DateField(null=True, blank=True)
+  country = models.CharField(max_length=255)
+
+  def __str__(self) -> str:
+    return f'{self.first_name} {self.last_name}'
+
+  class Meta:
+    ordering = ['first_name', 'last_name']
+
 
 class Book(models.Model):
   """Model for a book"""
   title = models.CharField(max_length=255)
   slug = models.SlugField()
   description = models.TextField(null=True, blank=True)
-  author = models.CharField(max_length=255)
-  bookcover = models.ImageField()
+  author = models.ForeignKey(Author, on_delete=models.CASCADE)
   category = models.ForeignKey(Category,
                                on_delete=models.PROTECT,
                                related_name='books')
-  discounts = models.ManyToManyField('Discount', blank=True)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
@@ -121,7 +132,20 @@ class BookImage(models.Model):
     img.save(thumb_io, 'JPEG', quality=85)
 
 
-class Inventory(models.Model):
+class Publisher(models.Model):
+  """Model for a Publisher"""
+  publisherhouse = models.CharField(max_length=255)
+  city = models.CharField(max_length=255)
+  country = models.CharField(max_length=255)
+
+  def __str__(self) -> str:
+    return f'{self.publisherhouse}-{self.country}'
+
+  class Meta:
+    ordering = ['publisherhouse']
+
+
+class BookEdition(models.Model):
   """Model for an inventory"""
   BOOKTYPE_EBOOK = 'E'
   BOOKTYPE_PAPERBACK = 'P'
@@ -139,12 +163,15 @@ class Inventory(models.Model):
                                    validators=[MinValueValidator(1)])
   pages = models.PositiveIntegerField(validators=[MinValueValidator(0)])
   bookformat = models.CharField(max_length=255)
+  publisher = models.ForeignKey(Publisher,
+                                on_delete=models.CASCADE,
+                                related_name="bookeditions")
   publicationdate = models.DateField()
   quantity = models.IntegerField(validators=[MinValueValidator(0)])
   book = models.ForeignKey(Book,
                            on_delete=models.CASCADE,
-                           related_name='inventories')
-
+                           related_name='bookeditions')
+  discounts = models.ManyToManyField('Discount', blank=True)
   updated_at = models.DateTimeField(auto_now=True)
 
 
@@ -173,12 +200,27 @@ class Customer(models.Model):
 
 class Address(models.Model):
   """Model of an address of the customer"""
+  ITEM_STATUS_YES = 'Y'
+  ITEM_STATUS_NO = ('N')
+    
+  ITEM_STATUS_CHOICES = [
+    (ITEM_STATUS_YES, 'Yes'),
+    (ITEM_STATUS_NO, 'No'),
+    ]
   fullname = models.CharField(max_length=255)
   phone = models.CharField(max_length=255)
   country = models.CharField(max_length=255)
   city = models.CharField(max_length=255)
   zipcode = models.CharField(max_length=255)
   street = models.CharField(max_length=255)
+  building = models.CharField(max_length=255)
+  shippingstatus = models.CharField(
+    max_length=1, choices=ITEM_STATUS_CHOICES,
+    default=ITEM_STATUS_NO)
+  billingstatus = models.CharField(
+    max_length=1,
+    choices=ITEM_STATUS_CHOICES,
+    default=ITEM_STATUS_NO)
   customer = models.ForeignKey(Customer,
                                on_delete=models.CASCADE,
                                related_name="addresses")
@@ -224,13 +266,13 @@ class CartItem(models.Model):
   cart = models.ForeignKey(Cart,
                            on_delete=models.CASCADE,
                            related_name="items")
-  book = models.ForeignKey(Book,
-                           on_delete=models.CASCADE)
+  bookedition = models.ForeignKey(BookEdition,
+                                  on_delete=models.CASCADE)
   quantity = models.PositiveSmallIntegerField(
     validators=[MinValueValidator(1)])
 
   class Meta:
-    unique_together = [['cart', 'book']]
+    unique_together = [['cart', 'bookedition']]
 
 
 class Order(models.Model):
@@ -258,9 +300,9 @@ class OrderItem(models.Model):
   order = models.ForeignKey(Order,
                             on_delete=models.PROTECT,
                             related_name="items")
-  book = models.ForeignKey(Book,
-                           on_delete=models.PROTECT,
-                           related_name="orderitems")
+  bookedition = models.ForeignKey(BookEdition,
+                                  on_delete=models.PROTECT,
+                                  related_name="orderitems")
   quantity = models.PositiveSmallIntegerField()
   unit_price = models.DecimalField(max_digits=5,
                                    decimal_places=2)
