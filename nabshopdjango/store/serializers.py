@@ -4,8 +4,9 @@ from django.conf import settings
 from django.db import transaction
 from rest_framework import serializers
 
-from .models import (Address, Book, BookImage, Cart, CartItemn, Category,
-                     Customer, Inventory, Order, OrderItem, Review)
+from .models import (Address, Author, Book, BookEdition, BookImage, Cart,
+                     CartItem, Category, Customer, Order, OrderItem, Publisher,
+                     Review)
 
 
 class CategorySerializer(serializers.ModelSerializer):
