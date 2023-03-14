@@ -3,6 +3,8 @@
 Pipfile.lock
 
 *.pyc
+/media/
+/static/
 general.log
 
 .DS_Store
