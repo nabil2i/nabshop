@@ -5,23 +5,23 @@ from django.db import transaction
 from rest_framework import serializers
 
 from .models import (Address, Author, Book, BookEdition, BookImage, Cart,
-                     CartItem, Category, Customer, Order, OrderItem, Publisher,
+                     CartItem, Customer, Genre, Order, OrderItem, Publisher,
                      Review)
 
 
-class CategorySerializer(serializers.ModelSerializer):
-  """Serializer for Category model"""
+class GenreSerializer(serializers.ModelSerializer):
+  """Serializer for Genre model"""
   class Meta:
-    model = Category
+    model = Genre
     fields = ['id', 'title', 'books_count']
 
   books_count = serializers.IntegerField(read_only=True)
 
 
-class SimpleCategorySerializer(serializers.ModelSerializer):
-  """Serializer for simple Category model"""
+class SimpleGenreSerializer(serializers.ModelSerializer):
+  """Serializer for simple Genre model"""
   class Meta:
-    model = Category
+    model = Genre
     fields = ['id', 'title']
 
 
@@ -32,7 +32,7 @@ class AuthorSerializer(serializers.ModelSerializer):
     fields = ['id', 'first_name', 'last_name']
 
 class PublisherSerializer(serializers.ModelSerializer):
-  """Serializer for simple Category model"""
+  """Serializer for simple Genre model"""
   class Meta:
     model = Publisher
     fields = ['id', 'publisherhouse', 'city', 'country']
@@ -41,11 +41,11 @@ class PublisherSerializer(serializers.ModelSerializer):
 class SimpleBookSerializer(serializers.ModelSerializer):
   """Serializer for displaying a Book in BookEdition"""
   author = AuthorSerializer(read_only=True)
-  category = SimpleCategorySerializer(read_only=True)
+  genre = SimpleGenreSerializer(read_only=True)
 
   class Meta:
     model = Book
-    fields = ['id', 'title', 'author', 'category']
+    fields = ['id', 'title', 'author', 'genre']
 
 
 class SimplestBookSerializer(serializers.ModelSerializer):
@@ -60,7 +60,7 @@ class BookEditionSerializer(serializers.ModelSerializer):
   """Serializer for BookEdition model"""
   book = SimpleBookSerializer(read_only=True)
   publisher = PublisherSerializer(read_only=True)
-  
+
   class Meta:
     model = BookEdition
     fileds = ['id', 'book', 'booktype', 'isbn', 'unit_price',
@@ -78,7 +78,7 @@ class BookEditionSerializer(serializers.ModelSerializer):
 class SimpleBookEditionSerializer(serializers.ModelSerializer):
   """Serializer for simple BookEdition model"""
   publisher = PublisherSerializer(read_only=True)
-  
+
   class Meta:
     model = BookEdition
     fileds = ['id', 'booktype', 'isbn', 'unit_price',
@@ -97,8 +97,8 @@ class SimplestBookEditionSerializer(serializers.ModelSerializer):
 class BookImageSerializer(serializers.ModelSerializer):
   """Serializer for BookImage"""
   # def create(self, validated_data):
-  #       book_id = self.context['book_id']
-  #       return BookImage.objects.create(book_id=book_id, **validated_data)
+  #   book_id = self.context['book_id']
+  #   return BookImage.objects.create(book_id=book_id, **validated_data)
 
   class Meta:
     model = BookImage
@@ -110,7 +110,7 @@ class BookSerializer(serializers.ModelSerializer):
   bookeditions = SimpleBookEditionSerializer(many=True, read_only=True)
   images = BookImageSerializer(many=True, read_only=True)
   author = AuthorSerializer()
-  category = SimpleCategorySerializer()
+  genre = SimpleGenreSerializer()
 
   class Meta:
     model = Book
@@ -119,11 +119,11 @@ class BookSerializer(serializers.ModelSerializer):
               'description',
               'slug',
               'author',
-              'category',
+              'genre',
               'bookeditions'
               'images'
     ]
-  
+
 
 class SimpleUserSerializer(serializers.ModelSerializer):
   """Seralizer for a User displayed in the review"""
@@ -148,7 +148,7 @@ class ReviewSerializer(serializers.ModelSerializer):
   class Meta:
     model = Review
     fields = ['id', 'created_at',
-              'customer', 'description'         
+              'customer', 'description'
     ]
 
   def create(self, validated_data):
@@ -162,9 +162,9 @@ class CartItemSerializer(serializers.ModelSerializer):
   """Serializer for CartItem model"""
   bookedition = SimplestBookEditionSerializer()
   total_price = serializers.SerializerMethodField()
-   
+
   def get_total_price(self, cart_item: CartItem):
-    return cart_item.quantity * cart_item.bookedition.unit_price    
+    return cart_item.quantity * cart_item.bookedition.unit_price
 
   class Meta:
     model = CartItem
@@ -178,13 +178,14 @@ class CartSerializer(serializers.ModelSerializer):
   total_price = serializers.SerializerMethodField()
 
   def get_total_price(self, cart):
-    return sum([item.quantity * item.bookedition.unit_price  for item in cart.items.all()])  
+    return sum([item.quantity * item.bookedition.unit_price  for item in cart.items.all()])
 
   class Meta:
     model = Cart
     fields = ['id', 'items', 'total_price']
 
-class AddCartItemSerializer(serializers.ModelSerializers):
+
+class AddCartItemSerializer(serializers.ModelSerializer):
   """Serializer to add a cart item"""
   bookedition_id = serializers.IntegerField()
 
@@ -194,7 +195,7 @@ class AddCartItemSerializer(serializers.ModelSerializers):
         'The book with the given ID is not found'
       )
     return value
-  
+
   def save(self, **kwargs):
     cart_id = self.context['cart_id']
     bookedition_id = self.validated_data['bookedition_id']
@@ -218,7 +219,7 @@ class AddCartItemSerializer(serializers.ModelSerializers):
     fields = ['id', 'bookedition_id', 'quantity']
 
 
-# class RemoveCartItemSerializer(serializers.ModelSerializers):
+# class RemoveCartItemSerializer(serializers.ModelSerializer):
 #   """Serializer to add a cart item"""
 #   bookedition_id = serializers.IntegerField()
 
@@ -228,7 +229,7 @@ class AddCartItemSerializer(serializers.ModelSerializers):
 #         'The book with the given ID is not found'
 #       )
 #     return value
-  
+
 #   def save(self, **kwargs):
 #     cart_id = self.context['cart_id']
 #     bookedition_id = self.validated_data['bookedition_id']

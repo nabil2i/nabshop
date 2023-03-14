@@ -32,8 +32,8 @@ class Discount(models.Model):
   updated_at = models.DateTimeField(auto_now=True)
   
 
-class Category(models.Model):
-  """Model for a book category"""
+class Genre(models.Model):
+  """Model for a book genre"""
   title = models.CharField(max_length=255)
   slug = models.SlugField()
   featured_book = models.ForeignKey('Book',
@@ -74,10 +74,10 @@ class Book(models.Model):
   slug = models.SlugField()
   description = models.TextField(null=True, blank=True)
   author = models.ForeignKey(Author, on_delete=models.CASCADE)
-  category = models.ForeignKey(Category,
-                               on_delete=models.PROTECT,
-                               related_name='books')
-  created_at = models.DateTimeField(auto_now_add=True)
+  genre = models.ForeignKey(Genre,
+                            on_delete=models.PROTECT,
+                            related_name='books')
+  # created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
   def __str__(self) -> str:
@@ -85,10 +85,10 @@ class Book(models.Model):
 
   def get_absolute_url():
     """Return the url for the frontend"""
-    return f'/{self.category.slug}/{self.slug}/'
+    return f'/{self.genre.slug}/{self.slug}/'
 
   class Meta:
-    ordering = ['-created_at']
+    ordering = ['title']
 
 
 class BookImage(models.Model):
@@ -154,6 +154,7 @@ class BookEdition(models.Model):
         (BOOKTYPE_EBOOK, 'Ebook'),
         (BOOKTYPE_PAPERBACK, 'Paperback')
   ]
+  slug = models.SlugField()
   booktype = models.CharField(max_length=1,
                               choices=BOOKTYPE_CHOICES,
                               default=BOOKTYPE_EBOOK)
@@ -173,6 +174,16 @@ class BookEdition(models.Model):
                            related_name='bookeditions')
   discounts = models.ManyToManyField('Discount', blank=True)
   updated_at = models.DateTimeField(auto_now=True)
+
+  def get_absolute_url():
+    """Returns the url for the frontend"""
+    return f'/{self.book.slug}/{self.slug}/'
+
+  def __str__(self) -> str:
+    return f'{self.book.title}-{self.booktype}'
+
+  class Meta:
+    ordering = ['book__title']
 
 
 class Customer(models.Model):
