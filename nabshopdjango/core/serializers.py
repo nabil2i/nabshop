@@ -22,3 +22,23 @@ class UserSerializer(BaseUserSerializer):
     fields = ['id',
               'username',
               'email', 'first_name', 'last_name']
+
+
+class UserEmailSerializer(BaseUserSerializer):
+  class Meta(BaseUserSerializer.Meta):
+    fields = ['id',
+              # 'username',
+              'email',
+              # 'first_name',
+              # 'last_name'
+            ]
+
+
+class UserNameSerializer(BaseUserSerializer):
+  class Meta(BaseUserSerializer.Meta):
+    fields = ['id',
+              # 'username',
+              # 'email',
+              'first_name',
+              'last_name'
+            ]
