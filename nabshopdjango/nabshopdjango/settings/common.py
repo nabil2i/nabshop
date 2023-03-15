@@ -140,17 +140,19 @@ AUTH_USER_MODEL = 'core.User'
 
 REST_FRAMEWORK = {
     'COERCE_DECIMAL_TO_STRING': False,
+    # 'PAGE_SIZE':10, # set locally
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', # set globally
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
 
-# DJOSER = {
-#     'SERIALIZERS': {
-#         'user_create': 'core.serializers.UserCreateSerializer',
-#         'current_user': 'core.serializers.UserSerializer',
-#     }
-# }
+DJOSER = {
+    'SERIALIZERS': {
+       'user_create': 'core.serializers.UserCreateSerializer',
+       'current_user': 'core.serializers.UserSerializer',
+   }
+}
 
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT',),

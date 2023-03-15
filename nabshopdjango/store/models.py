@@ -77,7 +77,7 @@ class Book(models.Model):
   genre = models.ForeignKey(Genre,
                             on_delete=models.PROTECT,
                             related_name='books')
-  # created_at = models.DateTimeField(auto_now_add=True)
+  created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
   def __str__(self) -> str:
@@ -139,7 +139,7 @@ class Publisher(models.Model):
   country = models.CharField(max_length=255)
 
   def __str__(self) -> str:
-    return f'{self.publisherhouse}-{self.country}'
+    return f'{self.publisherhouse}, {self.country}'
 
   class Meta:
     ordering = ['publisherhouse']
@@ -168,11 +168,12 @@ class BookEdition(models.Model):
                                 on_delete=models.CASCADE,
                                 related_name="bookeditions")
   publicationdate = models.DateField()
-  quantity = models.IntegerField(validators=[MinValueValidator(0)])
+  stock = models.IntegerField(validators=[MinValueValidator(0)])
   book = models.ForeignKey(Book,
                            on_delete=models.CASCADE,
                            related_name='bookeditions')
   discounts = models.ManyToManyField('Discount', blank=True)
+  created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
   def get_absolute_url():
@@ -197,11 +198,11 @@ class Customer(models.Model):
     return f'{self.user.first_name} {self.user.last_name}'
 
   # add methods to get first name and last name at admin panel
-  @admin.display
+  @admin.display(ordering='user__first_name')
   def first_name(self):
     return self.user.first_name
 
-  @admin.display
+  @admin.display(ordering='user__last_name')
   def last_name(self):
     return self.user.last_name
 
@@ -254,6 +255,16 @@ class Review(models.Model):
 
 # class PaymentMethod(models.Model):
 #   """Model of a payment method of the customer"""
+#   PAYMENTMETHOD_STATUS_YES = 'Y'
+#   PAYMENTMETHOD_STATUS_NO = ('N')
+    
+#   PAYMENTMETHOD_STATUS_CHOICES = [
+#     (PAYMENTMETHOD_STATUS_YES, 'Yes'),
+#     (PAYMENTMETHOD_STATUS_NO, 'No'),
+#     ]
+#   paymentmethodstatus = models.CharField(
+#     max_length=1, choices=PAYMENTMETHOD_STATUS_CHOICES,
+#     default=PAYMENTMETHOD_STATUS_NO)
 #   name = models.CharField(max_length=255)
 #   paymenttype = models.CharField(max_length=255)
 #   provider = models.CharField(max_length=255)
@@ -283,6 +294,7 @@ class CartItem(models.Model):
     validators=[MinValueValidator(1)])
 
   class Meta:
+    # to have a single instance of a bookedition in the cart
     unique_together = [['cart', 'bookedition']]
 
 
@@ -304,6 +316,11 @@ class Order(models.Model):
                                on_delete=models.PROTECT,
                                related_name="orders")
   placed_at = models.DateTimeField(auto_now_add=True)
+
+  class Meta:
+    permissions = [
+      ('cancel_order', 'Can cancel an order')
+    ]
 
 
 class OrderItem(models.Model):

@@ -63,9 +63,9 @@ class BookEditionSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = BookEdition
-    fileds = ['id', 'book', 'booktype', 'isbn', 'unit_price',
+    fields = ['id', 'book', 'booktype', 'isbn', 'unit_price',
               'price_with_tax', 'pages', 'bookformat',
-              'publisher', 'publicationdate', 'quantity']
+              'publisher', 'publicationdate', 'stock']
 
   price_with_tax = serializers.SerializerMethodField(
     method_name='calculate_tax'
@@ -77,21 +77,32 @@ class BookEditionSerializer(serializers.ModelSerializer):
 
 class SimpleBookEditionSerializer(serializers.ModelSerializer):
   """Serializer for simple BookEdition model"""
-  publisher = PublisherSerializer(read_only=True)
+  # publisher = PublisherSerializer(read_only=True)
+  publisher = serializers.StringRelatedField()
 
   class Meta:
     model = BookEdition
-    fileds = ['id', 'booktype', 'isbn', 'unit_price',
+    fields = ['id', 'booktype', 'isbn', 'unit_price',
+              'price_with_tax', 'stock',
               'pages', 'bookformat', 'publisher',
               'publicationdate']
+  
+  price_with_tax = serializers.SerializerMethodField(
+    method_name='calculate_tax'
+  )
+
+  def calculate_tax(self, bookedition: BookEdition):
+    return bookedition.unit_price * Decimal(1)
 
 class SimplestBookEditionSerializer(serializers.ModelSerializer):
   """Serializer for simplest BookEdition model"""
-  book = SimplestBookSerializer()
-
+  # book = SimplestBookSerializer()
+  book = serializers.StringRelatedField()
+  # book__title = serializers.StringRelatedField(read_only=True)
+  
   class Meta:
     model = BookEdition
-    fileds = ['id', 'book', 'booktype', 'unit_price']
+    fields = ['id', 'book', 'booktype', 'unit_price']
 
 
 class BookImageSerializer(serializers.ModelSerializer):
@@ -109,8 +120,10 @@ class BookSerializer(serializers.ModelSerializer):
   """Serializer for Book model"""
   bookeditions = SimpleBookEditionSerializer(many=True, read_only=True)
   images = BookImageSerializer(many=True, read_only=True)
-  author = AuthorSerializer()
-  genre = SimpleGenreSerializer()
+  # author = AuthorSerializer()
+  author = serializers.StringRelatedField()
+  # genre = SimpleGenreSerializer()
+  genre = serializers.StringRelatedField()
 
   class Meta:
     model = Book
@@ -120,30 +133,31 @@ class BookSerializer(serializers.ModelSerializer):
               'slug',
               'author',
               'genre',
-              'bookeditions'
+              'bookeditions',
               'images'
     ]
 
 
-class SimpleUserSerializer(serializers.ModelSerializer):
-  """Seralizer for a User displayed in the review"""
-  class Meta:
-    model = settings.AUTH_USER_MODEL
-    fields = ['id', 'first_name', 'last_name']
+# class SimpleUserSerializer(serializers.ModelSerializer):
+#   """Seralizer for a User displayed in the review"""
+#   class Meta:
+#     model = settings.AUTH_USER_MODEL
+#     fields = ['id', 'first_name', 'last_name']
 
 
-class CustomerReviewSerializer(serializers.ModelSerializer):
-  """Serializer for a Customer of a Review"""
-  user = SimpleUserSerializer(read_only=True)
+# class CustomerReviewSerializer(serializers.ModelSerializer):
+#   """Serializer for a Customer of a Review"""
+#   user = SimpleUserSerializer(read_only=True)
 
-  class Meta:
-    model = Customer
-    fields = ['id', 'user']
+#   class Meta:
+#     model = Customer
+#     fields = ['id', 'user']
 
 
 class ReviewSerializer(serializers.ModelSerializer):
   """Serializer for Review model"""
-  customer = CustomerReviewSerializer(read_only=True)
+  customer = serializers.StringRelatedField()
+  # customer_id = serializers.IntegerField(read_only=True)
 
   class Meta:
     model = Review
@@ -155,12 +169,14 @@ class ReviewSerializer(serializers.ModelSerializer):
     book_id = self.context['book_id']
     customer_id = self.context['customer_id']
     return Review.objects.create(book_id=book_id,
+                                 customer_id=customer_id,
                                  **validated_data)
 
 
 class CartItemSerializer(serializers.ModelSerializer):
   """Serializer for CartItem model"""
   bookedition = SimplestBookEditionSerializer()
+  # bookedition = serializers.StringRelatedField()
   total_price = serializers.SerializerMethodField()
 
   def get_total_price(self, cart_item: CartItem):
@@ -208,6 +224,7 @@ class AddCartItemSerializer(serializers.ModelSerializer):
       cart_item.save()
       self.instance = cart_item
     except CartItem.DoesNotExist:
+      # create new item
       self.instance = CartItem.objects.create(
         cart_id=cart_id, **self.validated_data
       )
@@ -256,8 +273,8 @@ class AddCartItemSerializer(serializers.ModelSerializer):
 class UpdateCartItemSerializer(serializers.ModelSerializer):
   """Update a CartItem"""
   class Meta:
-        model = CartItem
-        fields = ['quantity']
+    model = CartItem
+    fields = ['quantity']
 
 class CustomerSerializer(serializers.ModelSerializer):
   """Serializer for a Customer"""
