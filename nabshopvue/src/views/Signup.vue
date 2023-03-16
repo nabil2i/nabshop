@@ -1,5 +1,5 @@
 <template>
-  <div class="home container signup">
+  <div class="home">
     <Signupform/>
   </div> 
 </template>

@@ -9,6 +9,8 @@ import Profile from '../views/Profile.vue'
 import Signup from '../views/Signup.vue'
 import Cart from '../views/Cart.vue'
 import Addresses from '../views/Addresses.vue'
+import BookDetail from '../views/BookDetail.vue'
+import ChangePassword from '../views/ChangePassword.vue'
 
 const routes = [
   {
@@ -19,7 +21,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: Login
+    component: ChangePassword
   },
   {
     path: '/sign-up',
@@ -30,6 +32,11 @@ const routes = [
     path: '/store',
     name: 'store',
     component: Catalogue
+  },
+  {
+    path: '/book-detail',
+    name: 'bookdetail',
+    component: BookDetail
   },
   {
     path: '/contact',

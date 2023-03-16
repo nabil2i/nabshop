@@ -1,5 +1,5 @@
 <template>
-  <div class="home login container">
+  <div class="home">
     
     <!-- <h1>This is login page</h1> -->
     <Loginform> </Loginform>

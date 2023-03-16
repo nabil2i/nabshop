@@ -38,7 +38,7 @@
       </div>
 
       <!-- Submit button -->
-      <button type="submit" class="btn btn-success btn-block mb-4">Sign in</button>
+      <button type="submit" class="btn btn-success btn-block btn-nabshop mb-4">Sign in</button>
 
       <!-- Register buttons -->
       <div class="text-center">
@@ -67,5 +67,8 @@ export default {
   background: rgb(219, 217, 217);
   padding: 20px 40px;
   margin-top: 50px
+}
+.btn-nabshop {
+  width: 100%;
 }
 </style>

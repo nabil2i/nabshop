@@ -1,19 +1,21 @@
 <template>
-  <div class="home container catalogue">
-    <h1>This is a catalogue page</h1>
+  <div class="home">
     <Store/>
-  </div> 
+    <Shopfooter/>
+  </div>
+
 </template>
 
 <script>
 // @ is an alias to /src
 import Store from '@/components/Store.vue'
-
+import Shopfooter from '@/components/Shopfooter.vue'
 
 export default {
   name: 'Catalogue',
   components: {
-    Store
+    Store,
+    Shopfooter
   }
 }
 </script>

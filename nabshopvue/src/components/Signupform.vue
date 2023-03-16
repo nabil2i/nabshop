@@ -50,7 +50,7 @@
       </div> -->
 
       <!-- Submit button -->
-      <button type="submit" class="btn btn-success btn-block mb-4">Continue</button>
+      <button type="submit" class="btn btn-success btn-block btn-nabshop mb-4">Continue</button>
 
       <!-- Register buttons -->
       <div class="text-center">
@@ -81,4 +81,10 @@ export default {
   padding: 20px 40px;
   margin-top: 50px
 }
+
+.btn-nabshop {
+  width: 100%;
+}
+
+
 </style>
