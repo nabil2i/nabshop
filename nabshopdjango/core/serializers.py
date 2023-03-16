@@ -1,11 +1,12 @@
 from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer
 from djoser.serializers import UserSerializer as BaseUserSerializer
-# from store.models import Customer
-# from rest_framework import serializers
+
 
 class UserCreateSerializer(BaseUserCreateSerializer):
-  # birth_date = serializers.DAteField()
-  
+  # def save(self, **kwargs):
+  #   user = super().save(**kwargs)
+  #   Customer.objects.create(user=user)
+
   class Meta(BaseUserCreateSerializer.Meta):
     fields = ['id',
               'username',
@@ -13,32 +14,4 @@ class UserCreateSerializer(BaseUserCreateSerializer):
               'password',
               'first_name',
               'last_name'
-              # 'birth_date'
     ]
-
-
-class UserSerializer(BaseUserSerializer):
-  class Meta(BaseUserSerializer.Meta):
-    fields = ['id',
-              'username',
-              'email', 'first_name', 'last_name']
-
-
-class UserEmailSerializer(BaseUserSerializer):
-  class Meta(BaseUserSerializer.Meta):
-    fields = ['id',
-              # 'username',
-              'email',
-              # 'first_name',
-              # 'last_name'
-            ]
-
-
-class UserNameSerializer(BaseUserSerializer):
-  class Meta(BaseUserSerializer.Meta):
-    fields = ['id',
-              # 'username',
-              # 'email',
-              'first_name',
-              'last_name'
-            ]

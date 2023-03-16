@@ -1,5 +1,5 @@
 from decimal import Decimal
-
+from .signals import order_created
 from django.conf import settings
 from django.db import transaction
 from rest_framework import serializers
@@ -329,7 +329,7 @@ class CreateOrderSerializer(serializers.Serializer):
       cart_id = self.validated_data['cart_id']
 
       # retrive the customer to place the order
-      (customer, created) = Customer.objects.get_or_create(
+      customer = Customer.objects.get(
         user_id=self.context['user_id']
       )
       # create the order
@@ -357,7 +357,10 @@ class CreateOrderSerializer(serializers.Serializer):
       # make payment here
 
       # send a signal when an order is complete
-      # order_created.send_robust(self.__class__, order=order)
+      # send(): if a receiver failes to receive, other will not get notified
+      order_created.send_robust(self.__class__, order=order)
 
       # update the payment status of the order
       return order
+
+
