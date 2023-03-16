@@ -1,5 +1,5 @@
 from decimal import Decimal
-from .signals import order_created
+
 from django.conf import settings
 from django.db import transaction
 from rest_framework import serializers
@@ -7,6 +7,7 @@ from rest_framework import serializers
 from .models import (Address, Author, Book, BookEdition, BookImage, Cart,
                      CartItem, Customer, Genre, Order, OrderItem, Publisher,
                      Review)
+from .signals import order_created
 
 
 class GenreSerializer(serializers.ModelSerializer):
@@ -364,3 +365,28 @@ class CreateOrderSerializer(serializers.Serializer):
       return order
 
 
+class AddressSerializer(serializers.ModelSerializer):
+  """Serializer for Address model"""
+  # customer = CustomerSerializer(read_only=True)
+  customer_id = serializers.IntegerField(read_only=True)
+  id = serializers.IntegerField(read_only=True)
+
+  class Meta:
+    model = Address
+    fields = [ 'id', 'fullname', 'phone', 'country',
+              'city', 'zipcode' ,'street', 'building',
+              'shippingstatus', 'billingstatus', 'customer_id']
+
+  def create(self, validated_data):
+    customer_id = self.context['customer_id']
+    return Address.objects.create(customer_id=customer_id,
+                                 **validated_data)
+
+
+# class PaymentMethodSerializer(serializers.ModelSerializer):
+#   """Serializer for PaymentMethod model"""
+#   class Meta:
+#     model = PaymentMethod
+#     fields = ['id', 'paymentmethodstatus', 'cardholder',
+#               'country', 'paymenttype', 'provider', 'accountnumber',
+#               "expirationdate"]

@@ -2,15 +2,15 @@
   <div class="hello">
     <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark navbar-dark">
       <div class="container-fluid justify-content-between">
-        <router-link to="/home" class="navbar-brand ms-0 ms-lg-5"><img src="../assets/nabshop-dark.png" width="150" alt="Logo"> </router-link>
+        <router-link to="/" class="navbar-brand ms-0 ms-lg-5"><img src="../assets/nabshop-dark.png" width="150" alt="Logo"> </router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarScroll">
           <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <router-link to="/home" class="nav-link active" aria-current="page">Home</router-link>
-            </li>
+            </li> -->
             <li class="nav-item">
               <router-link to="/store" class="nav-link active" aria-current="page">Catalogue</router-link>
             </li>
@@ -21,10 +21,10 @@
               <router-link to="/store" class="nav-link" >Prose</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link">About</router-link>
+              <router-link to="/about" class="nav-link active" aria-current="page">About</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link">Contact</router-link>
+              <router-link to="/contact" class="nav-link" >Contact</router-link>
             </li>
           </ul>
 

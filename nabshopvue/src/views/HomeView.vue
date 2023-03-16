@@ -1,7 +1,7 @@
 <template>
   <div class="home container">
     Hello
-    <Nabshop/> 
+    <nabshop/> 
   </div>
 </template>
 

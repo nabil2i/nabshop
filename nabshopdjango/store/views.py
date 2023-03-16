@@ -19,9 +19,10 @@ from .filters import BookEditionFilter
 from .models import (Address, Author, Book, BookEdition, BookImage, Cart,
                      CartItem, Customer, Genre, Order, OrderItem, Publisher,
                      Review)
-from .serializers import (AddCartItemSerializer, AuthorSerializer,
-                          BookEditionSerializer, BookImageSerializer,
-                          BookSerializer, CartItemSerializer, CartSerializer,
+from .serializers import (AddCartItemSerializer, AddressSerializer,
+                          AuthorSerializer, BookEditionSerializer,
+                          BookImageSerializer, BookSerializer,
+                          CartItemSerializer, CartSerializer,
                           CreateOrderSerializer, CustomerSerializer,
                           GenreSerializer, OrderItemSerializer,
                           OrderSerializer, PublisherSerializer,
@@ -224,3 +225,28 @@ class OrderViewSet(ModelViewSet):
 
   # def get_serializer_context(self):
   #   return {'user_id': self.request.user.id}
+
+
+class AddressViewSet(ModelViewSet):
+  http_method_names = ['get', 'post', 'patch', 'delete', 'head', 'options']
+
+  def get_permissions(self):
+    if self.request.method in ['DELETE']:
+      return [IsAdminUser()]
+    return [IsAuthenticated()]
+
+  def get_queryset(self):
+    user = self.request.user
+    user_id = user.id
+    print(user_id)
+    customer_id = Customer.objects.only('id').get(user_id=user_id).id
+    print(customer_id)
+    return Address.objects.filter(customer_id=customer_id)
+
+  def get_serializer_context(self):
+    user = self.request.user
+    customer_id = Customer.objects.only('id').get(user_id=user.id).id
+    return {'customer_id': customer_id}
+
+  serializer_class = AddressSerializer
+  

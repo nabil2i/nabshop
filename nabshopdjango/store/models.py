@@ -226,7 +226,7 @@ class Address(models.Model):
   phone = models.CharField(max_length=255)
   country = models.CharField(max_length=255)
   city = models.CharField(max_length=255)
-  zipcode = models.CharField(max_length=255)
+  zipcode = models.SmallIntegerField()
   street = models.CharField(max_length=255)
   building = models.CharField(max_length=255)
   shippingstatus = models.CharField(
@@ -268,7 +268,7 @@ class Review(models.Model):
 #   paymentmethodstatus = models.CharField(
 #     max_length=1, choices=PAYMENTMETHOD_STATUS_CHOICES,
 #     default=PAYMENTMETHOD_STATUS_NO)
-#   name = models.CharField(max_length=255)
+#   cardholder = models.CharField(max_length=255)
 #   paymenttype = models.CharField(max_length=255)
 #   provider = models.CharField(max_length=255)
 #   accountnumber = models.PositiveIntegerField()

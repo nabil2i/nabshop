@@ -4,15 +4,18 @@
     <router-link to="/about">About</router-link>
   </nav> -->
   <navbar> </navbar>
+  
   <router-view/>
 </template>
 
 <script>
   import Navbar from './components/Navbar.vue';
+  import Nabshop from './components/Nabshop.vue';
 
   export default {
     components: {
       Navbar,
+      Nabshop,
     }
   }
 </script>
