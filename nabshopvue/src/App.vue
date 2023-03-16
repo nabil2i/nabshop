@@ -1,9 +1,5 @@
 <template>
-  <!-- <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav> -->
-  <navbar> </navbar>
+  <Navbar></Navbar>
   
   <router-view/>
 </template>
@@ -11,12 +7,13 @@
 <script>
   import Navbar from './components/Navbar.vue';
   import Nabshop from './components/Nabshop.vue';
+  // import Shopfooter from './components/Shopfooter.vue';
 
   export default {
     components: {
-      Navbar,
-      Nabshop,
-    }
+        Navbar,
+        //Shopfooter
+      } 
   }
 </script>
 

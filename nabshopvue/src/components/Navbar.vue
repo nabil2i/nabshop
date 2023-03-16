@@ -12,6 +12,9 @@
               <router-link to="/home" class="nav-link active" aria-current="page">Home</router-link>
             </li> -->
             <li class="nav-item">
+              <router-link to="/" class="nav-link active" aria-current="page">Home</router-link>
+            </li>
+            <li class="nav-item">
               <router-link to="/store" class="nav-link active" aria-current="page">Catalogue</router-link>
             </li>
             <li class="nav-item">
@@ -33,12 +36,12 @@
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
 
-          <ul class="navbar-nav ms-auto navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+          <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
             <li class="nav-item">
-              <router-link to="/home" class="nav-link" aria-current="page">Login</router-link>
+              <router-link to="/login" class="nav-link" aria-current="page">Login</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/store" class="nav-link" aria-current="page">Sign up</router-link>
+              <router-link to="/sign-up" class="nav-link" aria-current="page">Sign up</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/cart" class="nav-link active" aria-current="page" >
@@ -52,11 +55,11 @@
                 Hello, John
               </a>
               <ul class="dropdown-menu" >
-                <li><router-link to="/about" class="dropdown-item" href="#">Account</router-link></li>
-                <li><router-link to="/about" class="dropdown-item" href="#">Addresses</router-link></li>
-                <li><router-link to="/about" class="dropdown-item" href="#">Orders</router-link></li>
+                <li><router-link to="/profile" class="dropdown-item" href="#">Account</router-link></li>
+                <li><router-link to="/orders" class="dropdown-item" href="#">Orders</router-link></li>
+                <li><router-link to="/addresses" class="dropdown-item" href="#">Addresses</router-link></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><router-link to="/about" class="dropdown-item" href="#">Logout</router-link></li>
+                <li><router-link to="/" class="dropdown-item" href="#">Logout</router-link></li>
               </ul>
             </li>
           </ul>

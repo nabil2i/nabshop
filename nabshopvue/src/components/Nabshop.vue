@@ -10,15 +10,15 @@
                 <p>
                   Hello! I'm Nabil. Welcome to nabshop! Your place to discover and buy my books.
                 </p>
-                <div class="hero-btn mt-5">
+                <div class="hero-btn mt-5 d-flex">
                     <button class="btn custom-btn btn-info mr-4">Explore</button>
-                    <button class="btn custom-btn btn-outline-secondary">Products</button>
+                    <button class="btn custom-btn btn-outline-secondary ms-4">Products</button>
                 </div>
               </div>
             </div>
             <div class="col-md-7">
                 <div class="graphic">
-                    <img src="/img/svg/graphic.svg" alt="">
+                    <img src="/images/svg/landing.svg" alt="">
                 </div>
             </div>
           </div>
