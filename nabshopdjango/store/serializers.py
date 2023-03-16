@@ -329,7 +329,7 @@ class CreateOrderSerializer(serializers.Serializer):
       cart_id = self.validated_data['cart_id']
 
       # retrive the customer to place the order
-      customer = Customer.objects.get(
+      (customer, created) = Customer.objects.get_or_create(
         user_id=self.context['user_id']
       )
       # create the order
@@ -354,6 +354,10 @@ class CreateOrderSerializer(serializers.Serializer):
       # delete the cart
       Cart.objects.filter(pk=cart_id).delete()
 
-      order_created.send_robust(self.__class__, order=order)
+      # make payment here
 
+      # send a signal when an order is complete
+      # order_created.send_robust(self.__class__, order=order)
+
+      # update the payment status of the order
       return order

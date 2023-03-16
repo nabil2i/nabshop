@@ -113,11 +113,11 @@ class ReviewViewSet(ModelViewSet):
     return Review.objects.filter(book_id=self.kwargs['book_pk'])
 
   def get_serializer_context(self):
+    user = self.request.user
+    (customer_id, created) = Customer.objects.only('id').get_or_create(user_id=user.id)
     return {
       'book_id' : self.kwargs['book_pk'],
-      # modify the customer_id to be the connected customer_id
-      # request.user.customer_id
-      'customer_id': 1
+      'customer_id': customer_id
       }
 
 
@@ -189,5 +189,38 @@ class CustomerViewSet(ModelViewSet
 
 
 class OrderViewSet(ModelViewSet):
-  queryset = Order.objects.all()
-  serializer_class = OrderSerializer
+  #permission_classes = [IsAuthenticated]
+  http_method_names = ['get', 'post', 'patch', 'delete', 'head', 'options']
+
+  def get_permissions(self):
+    if self.request.method in ['PATCH', 'DELETE']:
+      return [IsAdminUser()]
+    return [IsAuthenticated()]
+  # to get an order object instead of a cart_id we
+  # need to override the create() method
+  def create(self, request, *args, **kwargs):
+    serializer = CreateOrderSerializer(
+      data=request.data,
+      context={'user_id': self.request.user.id}
+      )
+    serializer.is_valid(raise_exception=True)
+    order = serializer.save()
+    serializer = OrderSerializer(order)
+    return Response(serializer.data)
+
+  def get_serializer_class(self):
+    if self.request.method == 'POST':
+      return CreateOrderSerializer
+    elif self.request.method == 'PATCH':
+      return UpdateOrderSerializer
+    return OrderSerializer
+  
+  def get_queryset(self):
+    user = self.request.user
+    if user.is_staff:
+      return Order.objects.all()
+    (customer_id, creates) = Customer.objects.only('id').get_or_create(user_id=user.id)
+    return Order.objects.filter(customer_id=customer_id)
+
+  # def get_serializer_context(self):
+  #   return {'user_id': self.request.user.id}
