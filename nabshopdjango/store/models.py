@@ -96,11 +96,12 @@ class BookImage(models.Model):
   book = models.ForeignKey(Book,
                            on_delete=models.CASCADE,
                            related_name="images")
-  image = models.ImageField(upload_to='store/uploads',
+  image = models.ImageField(upload_to='store/images',
                             validators=[validate_file_size],
                             blank=True,
                             null=True)
-  thumbnail = models.ImageField(upload_to='store/uploads',
+  # image = models.Image.Field(upload_to)
+  thumbnail = models.ImageField(upload_to='store/thumbnails',
                                 blank=True,
                                 null=True)
   updated_at = models.DateTimeField(auto_now=True)
@@ -123,13 +124,18 @@ class BookImage(models.Model):
       else:
         return ''
 
-  def make_thumbnail(self, image, size=(300, 200)):
+  def make_thumbnail(self, image, size=(200, 300)):
     """Makes a thumbnail based of an image"""
     img = Image.open(image)
     img.convert('RGB')
-    impg.thumbnail(size)
+    img.thumbnail(size)
+
     thumb_io = BytesIO()
     img.save(thumb_io, 'JPEG', quality=85)
+
+    thumbnail = File(thumb_io, name=image.name)
+
+    return thumbnail
 
 
 class Publisher(models.Model):

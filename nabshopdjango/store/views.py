@@ -250,3 +250,17 @@ class AddressViewSet(ModelViewSet):
 
   serializer_class = AddressSerializer
   
+class BookImageViewSet(ModelViewSet):
+  serializer_class = BookImageSerializer
+  http_method_names = ['get', 'post', 'patch', 'delete', 'head', 'options']
+
+  def get_permissions(self):
+    if self.request.method in ['POST', 'PATCH', 'DELETE']:
+      return [IsAdminUser()]
+    return [AllowAny()]
+
+  def get_serializer_context(self):
+    return {'book_id': self.kwargs['book_pk']}
+
+  def get_queryset(self):
+    return BookImage.objects.filter(book_id=self.kwargs['book_pk'])

@@ -108,13 +108,13 @@ class SimplestBookEditionSerializer(serializers.ModelSerializer):
 
 class BookImageSerializer(serializers.ModelSerializer):
   """Serializer for BookImage"""
-  # def create(self, validated_data):
-  #   book_id = self.context['book_id']
-  #   return BookImage.objects.create(book_id=book_id, **validated_data)
+  def create(self, validated_data):
+    book_id = self.context['book_id']
+    return BookImage.objects.create(book_id=book_id, **validated_data)
 
   class Meta:
     model = BookImage
-    fields = ['id', 'get_image', 'get_thumbnail']
+    fields = ['id', 'image', 'get_image', 'get_thumbnail']
 
 
 class BookSerializer(serializers.ModelSerializer):

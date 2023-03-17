@@ -53,6 +53,29 @@ class GenreAdmin(admin.ModelAdmin):
       books_count=Count('books')
       )
 
+
+class BookImageInline(admin.TabularInline):
+  model = models.BookImage
+  readonly_fields = ['thumbnail_image',
+                     'get_image',
+                     'get_thumbnail',
+                     # 'thumbnails',
+                     ]
+  # thumbnail method 1
+  # if we didn't put the tumbnail in the model
+  # we can generate one here
+  # def thumbnails(self, instance):
+  #   if instance.image.name != '':
+  #     return format_html(f'<img src="{instance.image.url}" class="thumbnail"/>')
+  #   return ''
+  
+  # thumbnail method 2
+  def thumbnail_image(self, instance):
+    if instance.get_thumbnail() != '':
+      return format_html(f'<img src="{instance.get_image()}" class="thumbnail"/>')
+    return ''  
+  
+
 @admin.register(models.Book)
 class BookAdmin(admin.ModelAdmin):
   """Customize the list page of books"""
@@ -63,11 +86,17 @@ class BookAdmin(admin.ModelAdmin):
   list_filter = ['genre', 'updated_at']
   # set this search field to use autocomple in BOokEditionAdmin
   search_fields = ['title']
-
+  inlines = [BookImageInline]
   # genre__title belongs to another table
   # this function imports it in the BookAdmin table
   def genre_title(self, book):
     return book.genre.title
+
+  class Media:
+    # load on bookadmin page
+    css = {
+      'all': ['store/styles.css']
+    }
 
 
 @admin.register(models.Author)
