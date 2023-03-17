@@ -3,10 +3,14 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark navbar-dark">
       <div class="container-fluid justify-content-between">
         <router-link to="/" class="navbar-brand ms-0 ms-lg-5"><img src="../assets/nabshop-dark.png" width="150" alt="Logo"> </router-link>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          class="navbar-toggler" type="button"
+          data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+          aria-controls="navbarScroll" aria-expanded="false"
+          aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarScroll">
+        <div class="collapse navbar-collapse" id="navbarScroll" :class="{'is-active': showPhoneMenu}">
           <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
             <!-- <li class="nav-item">
               <router-link to="/home" class="nav-link active" aria-current="page">Home</router-link>
@@ -55,9 +59,9 @@
                 Hello, John
               </a>
               <ul class="dropdown-menu" >
-                <li><router-link to="/profile" class="dropdown-item" href="#">Account</router-link></li>
-                <li><router-link to="/orders" class="dropdown-item" href="#">Orders</router-link></li>
-                <li><router-link to="/addresses" class="dropdown-item" href="#">Addresses</router-link></li>
+                <li><router-link to="/profile" class="dropdown-item" >Account</router-link></li>
+                <li><router-link to="/orders" class="dropdown-item" >Orders</router-link></li>
+                <li><router-link to="/addresses" class="dropdown-item" >Addresses</router-link></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><router-link to="/" class="dropdown-item" href="#">Logout</router-link></li>
               </ul>
@@ -75,6 +79,11 @@ export default {
   name: 'Navbar',
   props: {
     msg: String
+  },
+  data() {
+    return {
+      showPhoneMenu: false,
+    };
   }
 }
 </script>

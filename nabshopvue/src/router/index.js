@@ -21,7 +21,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: ChangePassword
+    component: Login
   },
   {
     path: '/sign-up',
@@ -73,7 +73,7 @@ const routes = [
   },
   {
     path: '/addresses',
-    name: 'paddresses',
+    name: 'addresses',
     component: Addresses
   },
 ]
