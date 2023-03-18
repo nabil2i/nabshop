@@ -1,6 +1,7 @@
 <template>
   <div class="bookdetail">
     <div class="container mt-5">
+    
       <div class="row">
       
         <div class="col-md-3">
@@ -34,7 +35,10 @@
               aria-describedby="button-addon1"
               v-model="quantity"
             />
-            <button class="btn btn-success" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+            <button
+              class="btn btn-success" type="button"
+              id="button-addon1" data-mdb-ripple-color="dark"
+              @click="addToCart">
                 Add to cart
             </button>
           </div>
@@ -86,6 +90,17 @@ import axios from 'axios'
             console.log(error)
           })
         
+      },
+      addToCart() {
+        if (isNaN(this.quantity) || this.quantity < 1) {
+          this.quantity = 1
+        }
+        const item = {
+          bookedition: this.bookedition,
+          quantity: this.quantity
+        }
+
+        this.$store.commit('addToCart', item)
       }
     }
   }

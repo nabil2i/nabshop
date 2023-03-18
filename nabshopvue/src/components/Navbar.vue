@@ -50,7 +50,7 @@
             <li class="nav-item">
               <router-link to="/cart" class="nav-link active" aria-current="page" >
                 <span><i class='fas fa-shopping-cart' style='color:#3c8fc3'></i></span>
-                <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                <span class="badge rounded-pill badge-notification bg-danger">{{ cartTotalLength }}</span>
               </router-link>
               
             </li>
@@ -80,10 +80,29 @@ export default {
   props: {
     msg: String
   },
+  computed: {
+    cartTotalLength() {
+      let totalLength = 0
+      for (let i = 0; i < this.cart.items.length; i++) {
+        totalLength += this.cart.items[i].quantity
+      }
+      return totalLength
+    }
+  },
+  mounted() {
+    this.cart = this.$store.state.cart
+  },
   data() {
     return {
       showPhoneMenu: false,
+      cart: {
+        items: []
+      }
     };
+  },
+  beforeCreate() {
+    //commit: call the function in the mutation of the store
+    this.$store.commit('initializeStore')
   }
 }
 </script>
