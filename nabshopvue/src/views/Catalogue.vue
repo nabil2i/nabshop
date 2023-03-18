@@ -15,16 +15,24 @@
               <div class="card-text">{{ book?.author }}</div>
               
               <div class="row mt-3">
-                <div class="col-md-6 d-flex justify-content-center mb-2">
+                <div class="col-md-6 d-flex justify-content-center">
                  
-                  <a to="" class="btn btn-success btn-nabshop"><div>Buy paperback</div>$<span>{{ book.bookeditions?.[0]?.unit_price }}</span>
-                  </a> 
+                  <!-- <a  class="btn btn-success btn-nabshop"><div>Buy paperback</div>$<span>{{ book.bookeditions?.[0]?.unit_price }}</span>
+                  </a>  -->
+                  <router-link :to="book.bookeditions?.[1]?.get_id_url" class=" btn btn-success btn-nabshop" aria-current="page">
+                    <div>Buy paperback</div>$<span>{{ book.bookeditions?.[1]?.unit_price }}</span>
+                  </router-link>
                 </div>
 
                 <div class="col-md-6 d-flex justify-content-center">
-                
-                  <a  class="btn btn-success btn-nabshop mb-2"><div>Buy Ebook</div>$<span>{{ book.bookeditions?.[2]?.unit_price }}</span>
-                  </a>
+                  <!-- <a  class="btn btn-success btn-nabshop mb-2"><div>Buy Ebook</div>$<span>{{ book.bookeditions?.[2]?.unit_price }}</span>
+                  </a> -->
+                  <!-- <router-link to="/"  class=" btn btn-success btn-nabshop" aria-current="page">
+                    <div>Buy Ebook</div>$<span>{{ book.bookeditions?.[2]?.unit_price }}</span>
+                  </router-link> -->
+                  <router-link :to="book.bookeditions?.[0]?.get_id_url" class=" btn btn-success btn-nabshop" aria-current="page">
+                    <div>Buy Ebook</div>$<span>{{ book.bookeditions?.[0]?.unit_price }}</span>
+                  </router-link>
                 </div>
               </div>
               
@@ -68,9 +76,9 @@ export default {
       axios
         .get('/store/books/')
         .then((response) => {
-          console.log(response.data.results)
+          //console.log(response.data.results)
           this.books = response.data.results
-          console.log(this.books)
+          //console.log(this.books)
           
         })
         .catch((error) => {

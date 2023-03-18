@@ -22,10 +22,10 @@
               <router-link to="/store" class="nav-link active" aria-current="page">Catalogue</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/store" class="nav-link active" aria-current="page">Poetry</router-link>
+              <router-link to="/store/poetry" class="nav-link active" aria-current="page">Poetry</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/store" class="nav-link" >Prose</router-link>
+              <router-link to="/store/prose" class="nav-link" >Prose</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/about" class="nav-link active" aria-current="page">About</router-link>

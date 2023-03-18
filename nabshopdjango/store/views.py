@@ -54,7 +54,7 @@ class BookViewSet(ModelViewSet):
   queryset = Book.objects.prefetch_related('images', 'bookeditions').all()
   serializer_class = BookSerializer
   filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-  filterset_fields = ['genre_id']
+  filterset_fields = ['genre__id']
   pagination_class = DefaultPagination
   permission_classes = [IsAdminOrReadOnly]
   

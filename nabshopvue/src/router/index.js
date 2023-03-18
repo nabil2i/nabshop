@@ -10,6 +10,7 @@ import Signup from '../views/Signup.vue'
 import Cart from '../views/Cart.vue'
 import Addresses from '../views/Addresses.vue'
 import BookDetail from '../views/BookDetail.vue'
+import BookDetailEbook from '../views/BookDetailEbook.vue'
 import ChangePassword from '../views/ChangePassword.vue'
 
 const routes = [
@@ -31,12 +32,29 @@ const routes = [
   {
     path: '/store',
     name: 'store',
-    component: Catalogue
+    component: Catalogue,
+    children: [
+      {
+        path: 'poetry',
+        name: 'poetry',
+        component: Catalogue
+      },
+      {
+        path: 'prose',
+        name: 'prose',
+        component: Catalogue
+      },
+    ]
   },
   {
-    path: '/book-detail',
-    name: 'bookdetail',
+    path: '/:bookedition_id/',
+    name: 'BookDetail',
     component: BookDetail
+  },
+  {
+    path: '/:bookedition_id/',
+    name: 'BookDetailEbook',
+    component: BookDetailEbook
   },
   {
     path: '/contact',

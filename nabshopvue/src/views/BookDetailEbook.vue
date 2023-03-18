@@ -22,8 +22,8 @@
           <div class=" justify-content-left"><strong>Booktype: </strong>{{bookedition.booktype}}</div>
           <div class=" justify-content-left"><strong>ISBN: </strong> {{bookedition.isbn}}</div>
           <div class=" justify-content-left"><strong>Pages: </strong> {{bookedition.pages}}</div>
-          <div class=" justify-content-left"><strong>Paperback price: </strong> $<span>{{bookedition.unit_price}}</span></div>
-          <!-- <div class=" justify-content-left"><strong>Ebook price: </strong> $<span>{{bookedition.unit_price}}</span></div> -->
+          <!-- <div class=" justify-content-left"><strong>Paperback price: </strong> $<span>1.99</span></div> -->
+          <div class=" justify-content-left"><strong>Ebook price: </strong> $<span>{{bookedition.unit_price}}</span></div>
 
           <div class="input-group w-auto mt-3">
             <input
@@ -55,7 +55,7 @@ import Shopfooter from '@/components/Shopfooter.vue'
 import axios from 'axios'
 
   export default {
-    name: 'BookDetail',
+    name: 'BookDetailEbook',
     components: {
       Shopfooter,
     },

@@ -47,9 +47,10 @@ class Genre(models.Model):
   def __str__(self) -> str:
     return self.title
 
-  def get_absolute_url():
+  def get_id_url(self):
     """Returns the url for the frontend"""
-    return f'/{self.slug}/'
+    # return f'/{self.slug}/'
+    return f'/{self.id}/'
 
   class Meta:
     ordering = ['title']
@@ -83,9 +84,10 @@ class Book(models.Model):
   def __str__(self) -> str:
     return self.title
 
-  def get_absolute_url():
+  def get_id_url(self):
     """Return the url for the frontend"""
-    return f'/{self.genre.slug}/{self.slug}/'
+    # return f'/{self.genre.slug}/{self.slug}/'
+    return f'/{self.id}/'
 
   class Meta:
     ordering = ['title']
@@ -153,15 +155,15 @@ class Publisher(models.Model):
 
 class BookEdition(models.Model):
   """Model for an inventory"""
-  BOOKTYPE_EBOOK = 'E'
-  BOOKTYPE_PAPERBACK = 'P'
+  BOOKTYPE_EBOOK = 'Ebook'
+  BOOKTYPE_PAPERBACK = 'Paperback'
 
   BOOKTYPE_CHOICES = [
         (BOOKTYPE_EBOOK, 'Ebook'),
         (BOOKTYPE_PAPERBACK, 'Paperback')
   ]
   slug = models.SlugField()
-  booktype = models.CharField(max_length=1,
+  booktype = models.CharField(max_length=10,
                               choices=BOOKTYPE_CHOICES,
                               default=BOOKTYPE_EBOOK)
   isbn = models.CharField(max_length=255)
@@ -182,9 +184,10 @@ class BookEdition(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
-  def get_absolute_url():
+  def get_id_url(self):
     """Returns the url for the frontend"""
-    return f'/{self.book.slug}/{self.slug}/'
+    # return f'/{self.book.slug}/{self.slug}/'
+    return f'/{self.id}/'
 
   def __str__(self) -> str:
     return f'{self.book.title}-{self.booktype}'

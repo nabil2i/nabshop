@@ -39,6 +39,17 @@ class PublisherSerializer(serializers.ModelSerializer):
     fields = ['id', 'publisherhouse', 'city', 'country']
 
 
+class BookImageSerializer(serializers.ModelSerializer):
+  """Serializer for BookImage"""
+  def create(self, validated_data):
+    book_id = self.context['book_id']
+    return BookImage.objects.create(book_id=book_id, **validated_data)
+
+  class Meta:
+    model = BookImage
+    fields = ['id', 'image', 'get_image', 'get_thumbnail']
+
+
 class SimpleBookSerializer(serializers.ModelSerializer):
   """Serializer for displaying a Book in BookEdition"""
   author = AuthorSerializer(read_only=True)
@@ -47,6 +58,18 @@ class SimpleBookSerializer(serializers.ModelSerializer):
   class Meta:
     model = Book
     fields = ['id', 'title', 'author', 'genre']
+
+class MyBookSerializer(serializers.ModelSerializer):
+  """Serializer for displaying a Book in BookEdition"""
+  # author = AuthorSerializer(read_only=True)
+  # genre = SimpleGenreSerializer(read_only=True)
+  images = BookImageSerializer(many=True, read_only=True)
+  author = serializers.StringRelatedField()
+  genre = serializers.StringRelatedField()
+
+  class Meta:
+    model = Book
+    fields = ['id', 'title', 'author', 'genre', 'description', 'images']
 
 
 class SimplestBookSerializer(serializers.ModelSerializer):
@@ -59,14 +82,16 @@ class SimplestBookSerializer(serializers.ModelSerializer):
 
 class BookEditionSerializer(serializers.ModelSerializer):
   """Serializer for BookEdition model"""
-  book = SimpleBookSerializer(read_only=True)
-  publisher = PublisherSerializer(read_only=True)
+  # book = SimpleBookSerializer(read_only=True)
+  book = MyBookSerializer(read_only=True)
+  # publisher = PublisherSerializer(read_only=True)
+  publisher = serializers.StringRelatedField()
 
   class Meta:
     model = BookEdition
     fields = ['id', 'book', 'booktype', 'isbn', 'unit_price',
               'price_with_tax', 'pages', 'bookformat',
-              'publisher', 'publicationdate', 'stock']
+              'publisher', 'publicationdate', 'stock', 'get_id_url']
 
   price_with_tax = serializers.SerializerMethodField(
     method_name='calculate_tax'
@@ -86,7 +111,7 @@ class SimpleBookEditionSerializer(serializers.ModelSerializer):
     fields = ['id', 'booktype', 'isbn', 'unit_price',
               'price_with_tax', 'stock',
               'pages', 'bookformat', 'publisher',
-              'publicationdate']
+              'publicationdate', 'get_id_url']
   
   price_with_tax = serializers.SerializerMethodField(
     method_name='calculate_tax'
@@ -104,17 +129,6 @@ class SimplestBookEditionSerializer(serializers.ModelSerializer):
   class Meta:
     model = BookEdition
     fields = ['id', 'book', 'booktype', 'unit_price']
-
-
-class BookImageSerializer(serializers.ModelSerializer):
-  """Serializer for BookImage"""
-  def create(self, validated_data):
-    book_id = self.context['book_id']
-    return BookImage.objects.create(book_id=book_id, **validated_data)
-
-  class Meta:
-    model = BookImage
-    fields = ['id', 'image', 'get_image', 'get_thumbnail']
 
 
 class BookSerializer(serializers.ModelSerializer):
