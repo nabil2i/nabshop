@@ -54,12 +54,13 @@ class BookViewSet(ModelViewSet):
   queryset = Book.objects.prefetch_related('images', 'bookeditions').all()
   serializer_class = BookSerializer
   filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+  search_fields = ['title']
   filterset_fields = ['genre__id']
   pagination_class = DefaultPagination
   permission_classes = [IsAdminOrReadOnly]
   
   # search button in the navbar
-  search_fields = ['title', 'description', 'genre__title']
+ 
   
   # ordering
   ordering_fields = ['created_at']

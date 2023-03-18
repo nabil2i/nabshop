@@ -12,7 +12,8 @@ import Addresses from '../views/Addresses.vue'
 import BookDetail from '../views/BookDetail.vue'
 import BookDetailEbook from '../views/BookDetailEbook.vue'
 import ChangePassword from '../views/ChangePassword.vue'
-
+import Genre from '../views/Genre.vue'
+import Search from '../views/Search.vue'
 const routes = [
   {
     path: '/',
@@ -47,6 +48,11 @@ const routes = [
     ]
   },
   {
+    path: '/genre/:genre_id/',
+    name: 'Genre',
+    component: Genre
+  },
+  {
     path: '/:bookedition_id/',
     name: 'BookDetail',
     component: BookDetail
@@ -55,6 +61,11 @@ const routes = [
     path: '/:bookedition_id/',
     name: 'BookDetailEbook',
     component: BookDetailEbook
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
   },
   {
     path: '/contact',

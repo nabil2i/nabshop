@@ -7,6 +7,7 @@ import './assets/app.scss'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+//import VueBootstrapToasts from "vue-bootstrap-toasts";
 window.$ = window.jQuery = jQuery
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000';

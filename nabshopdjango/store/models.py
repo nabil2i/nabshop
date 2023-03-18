@@ -50,7 +50,7 @@ class Genre(models.Model):
   def get_id_url(self):
     """Returns the url for the frontend"""
     # return f'/{self.slug}/'
-    return f'/{self.id}/'
+    return f'/genres/{self.id}/'
 
   class Meta:
     ordering = ['title']

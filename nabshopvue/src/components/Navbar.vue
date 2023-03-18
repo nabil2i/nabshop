@@ -21,12 +21,12 @@
             <li class="nav-item">
               <router-link to="/store" class="nav-link active" aria-current="page">Catalogue</router-link>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <router-link to="/store/poetry" class="nav-link active" aria-current="page">Poetry</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/store/prose" class="nav-link" >Prose</router-link>
-            </li>
+            </li> -->
             <li class="nav-item">
               <router-link to="/about" class="nav-link active" aria-current="page">About</router-link>
             </li>
@@ -35,17 +35,18 @@
             </li>
           </ul>
 
-          <form class="flex-row d-none d-md-flex " role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <form class="flex-row d-none d-md-flex " role="search" action="/search">
+          <!-- <span><i class="fas fa-search"></i></span> -->
+            <input class="form-control me-2" name="query" type="search" placeholder="Search for a book" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
 
           <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
             <li class="nav-item">
-              <router-link to="/login" class="nav-link" aria-current="page">Login</router-link>
+              <router-link to="/login" class="nav-link active" aria-current="page">Login</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/sign-up" class="nav-link" aria-current="page">Sign up</router-link>
+              <router-link to="/" class="nav-link active" aria-current="page">Sign up</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/cart" class="nav-link active" aria-current="page" >

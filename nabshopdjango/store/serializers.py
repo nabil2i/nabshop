@@ -10,11 +10,12 @@ from .models import (Address, Author, Book, BookEdition, BookImage, Cart,
 from .signals import order_created
 
 
+
 class GenreSerializer(serializers.ModelSerializer):
   """Serializer for Genre model"""
   class Meta:
     model = Genre
-    fields = ['id', 'title', 'books_count']
+    fields = ['id', 'title', 'books_count', 'get_id_url']
 
   books_count = serializers.IntegerField(read_only=True)
 

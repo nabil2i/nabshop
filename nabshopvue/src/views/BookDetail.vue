@@ -1,7 +1,13 @@
 <template>
   <div class="bookdetail">
     <div class="container mt-5">
-    
+      <Toasts
+        :show-progress="true"
+        :rtl="false"
+        :max-messages="5"
+        :time-out="3000"
+        :closeable="true"
+      ></Toasts>
       <div class="row">
       
         <div class="col-md-3">
@@ -73,23 +79,25 @@ import axios from 'axios'
       this.getBookEdition()
     },
     methods: {
-      getBookEdition() {
+      async getBookEdition() {
+        this.$store.commit('setIsLoading', true)
         const bookedition_id = this.$route.params.bookedition_id
         const api_url = `/store/bookeditions/${bookedition_id}/`
         console.log(api_url)
         
-        axios
+        await axios
           .get(api_url)
           .then((response) => {
-            console.log(response.data)
+            //console.log(response.data)
             this.bookedition = response.data
-            console.log(this.bookedition)
+            //console.log(this.bookedition)
+            document.title = this.bookedition.book.title + ' | NabShop'
             
           })
           .catch((error) => {
             console.log(error)
           })
-        
+        this.$store.commit('setIsLoading', false) 
       },
       addToCart() {
         if (isNaN(this.quantity) || this.quantity < 1) {
@@ -101,6 +109,7 @@ import axios from 'axios'
         }
 
         this.$store.commit('addToCart', item)
+        //this.$toast.success('You have added item(s) to the cart');
       }
     }
   }

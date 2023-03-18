@@ -16,6 +16,9 @@ export default {
     Nabshop,
     Shopfooter
  
+  },
+  mounted() {
+    document.title = 'Home - NabShop'
   }
 }
 </script>
