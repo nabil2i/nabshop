@@ -12,20 +12,20 @@
 
       </div>
     </div>
-    <Shopfooter/>
+    <ShopFooter/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Shopfooter from '@/components/Shopfooter.vue'
+import ShopFooter from '@/components/ShopFooter.vue'
 import BookBox from '@/components/BookBox.vue'
 import axios from 'axios'
 
 export default {
   name: 'Searh',
   components: {
-    Shopfooter,
+    ShopFooter,
     BookBox
   },
   data() {

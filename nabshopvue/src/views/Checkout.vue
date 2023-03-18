@@ -2,19 +2,19 @@
   <div class="home">
     <h1>Checkout</h1>
 
-    <Shopfooter/>
+    <ShopFooter/>
   </div>
  
 </template>
 
 <script>
 // @ is an alias to /src
-import Shopfooter from '@/components/Shopfooter.vue'
+import ShopFooter from '@/components/ShopFooter.vue'
 
 export default {
   name: 'Checkout',
   components: {
-    Shopfooter
+    ShopFooter
   }
 }
 </script>

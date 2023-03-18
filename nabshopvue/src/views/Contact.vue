@@ -2,19 +2,19 @@
 <div class="home mt-5">
     <h1 class="mt-5 mb-5"> Contact</h1>
 
-    <Shopfooter/>
+    <ShopFooter/>
   </div>
  
 </template>
 
 <script>
 // @ is an alias to /src
-import Shopfooter from '@/components/Shopfooter.vue'
+import ShopFooter from '@/components/ShopFooter.vue'
 
 export default {
   name: 'Contact',
   components: {
-    Shopfooter
+    ShopFooter
   }
 }
 </script>

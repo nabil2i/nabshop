@@ -13,12 +13,44 @@
 
 <script>
   import Navbar from './components/Navbar.vue';
- 
+  import axios from 'axios'
 
   export default {
     components: {
         Navbar,
       },
+      beforeCreate() {
+        this.$store.commit('initializeStore')
+        const access = this.$store.state.access
+        if (access) {
+          axios.defaults.headers.common['Authorization'] = "JWT " + access
+        } else {
+          axios.defaults.headers.common['Authorization'] = ''
+        }
+      },
+      mounted() {
+        setInterval(() => {
+          this.getAccess()
+        }, 840000)
+      },
+      methods: {
+        getAccess() {
+          const accessData = {
+            refresh: this.$store.state.refresh
+          }
+
+          axios
+            .post('/auth/jwt/refresh', accessData)
+            .then(response => {
+              const access = response.data.access
+              localStorage.setItem('access', access)
+              this.$store.commit('setAccess', access)
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        }
+      }
       
   }
 </script>

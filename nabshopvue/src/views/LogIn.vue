@@ -2,19 +2,20 @@
   <div class="home">
     
     <!-- <h1>This is login page</h1> -->
-    <Loginform> </Loginform>
+    <LogInForm> </LogInForm>
     
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Loginform from "@/components/Loginform.vue";
+import LogInForm from "@/components/LogInForm.vue";
+
 
 export default {
   name: 'Login',
   components: {
-    Loginform
+    LogInForm
   }
 }
 </script>

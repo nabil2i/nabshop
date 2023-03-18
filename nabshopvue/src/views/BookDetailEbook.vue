@@ -46,18 +46,18 @@
 
       </div>
     </div>
-    <Shopfooter/>
+    <ShopFooter/>
   </div>
 </template>
 
 <script>
-import Shopfooter from '@/components/Shopfooter.vue'
+import ShopFooter from '@/components/ShopFooter.vue'
 import axios from 'axios'
 
   export default {
     name: 'BookDetailEbook',
     components: {
-      Shopfooter,
+      ShopFooter,
     },
     data() {
       return {

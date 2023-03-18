@@ -38,7 +38,7 @@
 
       </div>
     </div>
-    <Shopfooter/>
+    <ShopFooter/>
   </div>
 
 
@@ -51,14 +51,14 @@
 <script>
 // @ is an alias to /src
 import Store from '@/components/Store.vue'
-import Shopfooter from '@/components/Shopfooter.vue'
+import ShopFooter from '@/components/ShopFooter.vue'
 import axios from 'axios'
 
 export default {
   name: 'Catalogue',
   components: {
     Store,
-    Shopfooter,
+    ShopFooter,
   },
   data() {
     return {

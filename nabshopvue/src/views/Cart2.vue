@@ -57,20 +57,20 @@
     
   </div>
 </section>    
-    <Shopfooter/>
+    <ShopFooter/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Shopfooter from '@/components/Shopfooter.vue'
+import ShopFooter from '@/components/ShopFooter.vue'
 import axios from 'axios'
 import CartItem from '@/components/CartItem.vue'
 
 export default {
   name: 'Cart',
   components: {
-    Shopfooter,
+    ShopFooter,
     CartItem
   },
   data() {

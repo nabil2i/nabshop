@@ -78,18 +78,18 @@
   </div>
 
 </div>
-    <Shopfooter/>
+    <ShopFooter/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Shopfooter from '@/components/Shopfooter.vue'
+import ShopFooter from '@/components/ShopFooter.vue'
 
 export default {
   name: 'Addresses',
   components: {
-    Shopfooter
+    ShopFooter
   }
 }
 </script>

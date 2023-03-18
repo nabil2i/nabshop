@@ -44,14 +44,14 @@
 
       </div>
     </div>
-    <Shopfooter/>
+    <ShopFooter/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Store from '@/components/Store.vue'
-import Shopfooter from '@/components/Shopfooter.vue'
+import ShopFooter from '@/components/ShopFooter.vue'
 import BookBox from '@/components/BookBox.vue'
 import axios from 'axios'
 
@@ -59,7 +59,7 @@ export default {
   name: 'Genre',
   components: {
     Store,
-    Shopfooter,
+    ShopFooter,
     BookBox
   },
   data() {

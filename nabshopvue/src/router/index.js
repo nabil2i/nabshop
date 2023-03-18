@@ -1,19 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
+import LogIn from '../views/LogIn.vue'
 import Catalogue from '../views/Catalogue.vue'
 import Checkout from '../views/Checkout.vue'
 import Contact from '../views/Contact.vue'
 import Orders from '../views/Orders.vue'
-import Profile from '../views/Profile.vue'
-import Signup from '../views/Signup.vue'
+import Account from '../views/Account.vue'
+import SignUp from '../views/SignUp.vue'
 import Cart from '../views/Cart.vue'
 import Addresses from '../views/Addresses.vue'
 import BookDetail from '../views/BookDetail.vue'
 import BookDetailEbook from '../views/BookDetailEbook.vue'
+import ChangeEmail from '../views/ChangeEmail.vue'
 import ChangePassword from '../views/ChangePassword.vue'
 import Genre from '../views/Genre.vue'
 import Search from '../views/Search.vue'
+import store from '../store'
+
 const routes = [
   {
     path: '/',
@@ -22,13 +25,13 @@ const routes = [
   },
   {
     path: '/login',
-    name: 'login',
-    component: Login
+    name: 'LogIn',
+    component: LogIn
   },
   {
     path: '/sign-up',
-    name: 'signup',
-    component: Signup
+    name: 'signUP',
+    component: SignUp
   },
   {
     path: '/store',
@@ -91,25 +94,60 @@ const routes = [
     component: Checkout
   },
   {
-    path: '/profile',
-    name: 'profile',
-    component: Profile
+    path: '/account',
+    name: 'Account',
+    component: Account,
+    meta: {
+      requireLogin: true
+    },
+    children: [
+      {
+        path: '/change-email',
+        name: 'ChangeEmail',
+        component: ChangeEmail,
+        meta: {
+          requireLogin: true
+        },
+      },
+      {
+        path: '/change-password',
+        name: 'ChangePassword',
+        component: ChangePassword,
+        meta: {
+          requireLogin: true
+        },
+      },
+    ]
   },
   {
     path: '/orders',
     name: 'order',
-    component: Orders
+    component: Orders,
+    meta: {
+      requireLogin: true
+    },
   },
   {
     path: '/addresses',
     name: 'addresses',
-    component: Addresses
+    component: Addresses,
+    meta: {
+      requireLogin: true
+    },
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requireLogin) && !store.state.isAuthenticated) {
+    next({ name: 'LogIn', query: { to: to.path} });
+  } else {
+    next()
+  }
 })
 
 export default router

@@ -1,17 +1,17 @@
 <template>
   <div class="home mt-5">
     <h1 class="mt-5 mb-5">About</h1>
-    <Shopfooter/>
+    <ShopFooter/>
   </div>
 </template>
 
 <script>
-import Shopfooter from '@/components/Shopfooter.vue'
+import ShopFooter from '@/components/ShopFooter.vue'
 
 export default {
   name: 'About',
   components: {
-    Shopfooter
+    ShopFooter
   } 
 }
 </script>

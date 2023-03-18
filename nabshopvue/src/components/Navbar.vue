@@ -46,26 +46,27 @@
               <router-link to="/login" class="nav-link active" aria-current="page">Login</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/" class="nav-link active" aria-current="page">Sign up</router-link>
+              <router-link to="/sign-up" class="nav-link active" aria-current="page">Sign up</router-link>
             </li>
-            <li class="nav-item">
+            
+            <li class="nav-item dropdown me-2 ms-0 me-lg-0">
+              <a class="nav-link dropdown-toggle" href="/profile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Hello,
+              </a>
+              <ul class="dropdown-menu" >
+                <li><router-link to="/account" class="dropdown-item" >Account</router-link></li>
+                <li><router-link to="/orders" class="dropdown-item" >Orders</router-link></li>
+                <li><router-link to="/addresses" class="dropdown-item" >Addresses</router-link></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><button class="dropdown-item" @click="logout">Logout</button></li>
+              </ul>
+            </li>
+            <li class="nav-item me-5">
               <router-link to="/cart" class="nav-link active" aria-current="page" >
                 <span><i class='fas fa-shopping-cart' style='color:#3c8fc3'></i></span>
                 <span class="badge rounded-pill badge-notification bg-danger">{{ cartTotalLength }}</span>
               </router-link>
               
-            </li>
-            <li class="nav-item dropdown me-2 ms-2 me-lg-5">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Hello, John
-              </a>
-              <ul class="dropdown-menu" >
-                <li><router-link to="/profile" class="dropdown-item" >Account</router-link></li>
-                <li><router-link to="/orders" class="dropdown-item" >Orders</router-link></li>
-                <li><router-link to="/addresses" class="dropdown-item" >Addresses</router-link></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><router-link to="/" class="dropdown-item" href="#">Logout</router-link></li>
-              </ul>
             </li>
           </ul>
           
@@ -76,10 +77,11 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Navbar',
   props: {
-    msg: String
+    // user_data: Object
   },
   computed: {
     cartTotalLength() {
@@ -101,9 +103,22 @@ export default {
       }
     };
   },
-  beforeCreate() {
-    //commit: call the function in the mutation of the store
-    this.$store.commit('initializeStore')
+  // beforeCreate() {
+  //  //commit: call the function in the mutation of the store
+  //   this.$store.commit('initializeStore')
+  // }
+  methods: {
+    logout() {
+      axios.defaults.headers.common['Authorization'] = ''
+
+      localStorage.removeItem("access")
+      localStorage.removeItem("username")
+      localStorage.removeItem("id")
+
+      this.$store.commit('removeAccess')
+
+      this.$router.push('/')
+    }
   }
 }
 </script>
