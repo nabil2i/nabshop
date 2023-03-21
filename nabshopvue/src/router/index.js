@@ -2,25 +2,23 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import LogIn from '../views/LogIn.vue'
 import Catalogue from '../views/Catalogue.vue'
-import Catalogue2 from '../views/Catalogue2.vue'
 import Checkout from '../views/Checkout.vue'
 import Contact from '../views/Contact.vue'
 import Orders from '../views/Orders.vue'
 import Account from '../views/Account.vue'
 import SignUp from '../views/SignUp.vue'
 import Cart from '../views/Cart.vue'
-import Cart2 from '../views/Cart2.vue'
 import Addresses from '../views/Addresses.vue'
 import BookDetail from '../views/BookDetail.vue'
-import BookDetail2 from '../views/BookDetail2.vue'
 import BookDetailEbook from '../views/BookDetailEbook.vue'
-import BookDetailEbook2 from '../views/BookDetailEbook2.vue'
 import ChangeEmail from '../views/ChangeEmail.vue'
 import ChangePassword from '../views/ChangePassword.vue'
 import Genre from '../views/Genre.vue'
 import Search from '../views/Search.vue'
 import store from '../store'
 import Success from '../views/Success.vue'
+import Privacy from '../views/Privacy.vue'
+import Conditions from '../views/Conditions.vue'
 
 const routes = [
   {
@@ -87,6 +85,16 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/conditions',
+    name: 'Conditions',
+    component: Conditions
+  },
+  {
+    path: '/privacy',
+    name: 'Privacy',
+    component: Privacy
   },
   {
     path: '/cart',

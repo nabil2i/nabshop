@@ -316,7 +316,37 @@ class OrderItemSerializer(serializers.ModelSerializer):
               # 'unit_price',
               'price',
             ]
+    
+class DisplayOrderItemSerializer(serializers.ModelSerializer):
+  """Serializer for OrderItem in user account"""
+  bookedition = BookEditionSerializer(read_only=True)
+  
+  class Meta:
+    model = OrderItem
+    fields = [
+              'bookedition',
+              'quantity',
+              # 'unit_price',
+              'price',
+            ]
 
+
+class DisplayOrderSerializer(serializers.ModelSerializer):
+  """Serializer for Order in user account"""
+  items = DisplayOrderItemSerializer(many=True)
+  customer = serializers.StringRelatedField(read_only=True)
+    
+  class Meta:
+    model = Order
+    fields = [
+              'id', 
+              'customer',
+              'fullname', 'phone', 'email',
+              'shippingaddress', 'street',
+              'zipcode', 'placed_at',
+              'items', 'stripe_token','total_amount',
+              'payment_status',
+              ]   
 
 class OrderSerializer(serializers.ModelSerializer):
   """Serializer for an Order"""
@@ -361,19 +391,27 @@ class CreateOrderSerializer(serializers.Serializer):
       )
       # create the order
       # order = Order.objects.create(customer=customer, **validated_data)
-      stripe.api_key = settings.STRIPE_SECRET_KEY
-      total_amount = sum((
+      print(stripe.api_key)
+  
+      total_amount = sum(
         item.get('quantity') * item.get('bookedition').unit_price
-          for item in self.validated_data['items']
-        ))
-    
+        # item.get('price') for item in serializer.data['items']
+          # for item in serializer.validated_data['items']
+          for item in serializer.validated_data['items']
+          )
+      
+      print("the total amount is", total_amount)
+   
       try:
+        print("about to charge")
         charge = stripe.Charge.create(
           amount=int(total_amount * 100),
           currency='USD',
           description='Charge from NabShop',
-          source=serializer.validated_data['stripe_token']
+          source=serializer.validated_data['stripe_token'] # validated_data
         )
+        print("charged")
+    
         order = Order.objects.create(customer=customer, total_amount=total_amount, **validated_data)
         
         # retrieve the items in the cart 

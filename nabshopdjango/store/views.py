@@ -31,7 +31,9 @@ from .serializers import (AddCartItemSerializer, AddressSerializer,
                           SimpleBookSerializer, SimpleGenreSerializer,
                           SimplestBookEditionSerializer,
                           SimplestBookSerializer, UpdateCartItemSerializer,
-                          UpdateOrderSerializer)
+                          UpdateOrderSerializer,
+                          DisplayOrderSerializer,
+                          DisplayOrderItemSerializer)
 
 import stripe
 from django.conf import settings
@@ -67,7 +69,7 @@ class BookViewSet(ModelViewSet):
   filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
   search_fields = ['title']
   filterset_fields = ['genre__id']
-  pagination_class = DefaultPagination
+  # pagination_class = DefaultPagination
   permission_classes = [IsAdminOrReadOnly]
   
   # search button in the navbar
@@ -217,40 +219,63 @@ class CustomerViewSet(ModelViewSet
 #       data=request.data,
 #       context={'user_id': self.request.user.id}
 #       )
-#     serializer.is_valid()
-#     # print(serializer.validated_data)
+#     answer = serializer.is_valid()
+#     print(answer)
+#     print("serializer is: ", serializer)
+#     print("initial data: ", serializer.initial_data)
+#     print("validated_data is: ", serializer.validated_data)
     
 #     order = serializer.save()
     
 #     serializer = OrderSerializer(order)
 #     return Response(serializer.data)
     
-    # except Exception:
-    #   return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+#   def get_serializer_class(self):
+#     if self.request.method == 'POST':
+#       return CreateOrderSerializer
+#     elif self.request.method == 'PATCH':
+#       return UpdateOrderSerializer
+#     return OrderSerializer
+  
+#   def get_queryset(self):
+#     user = self.request.user
+#     if user.is_staff:
+#       return Order.objects.all()
+#     customer_id = Customer.objects.only('id').get(user_id=user.id)
+#     return Order.objects.filter(customer_id=customer_id)
+
+#   # def get_serializer_context(self):
+#   #   return {'user_id': self.request.user.id}
+
+class OrderViewSet(ModelViewSet):
+  #permission_classes = [IsAuthenticated]
+  http_method_names = ['get', 'patch', 'delete', 'head', 'options']
+
+  def get_permissions(self):
+    if self.request.method in ['PATCH', 'DELETE']:
+      return [IsAdminUser()]
+    return [IsAuthenticated()]
 
   def get_serializer_class(self):
-    if self.request.method == 'POST':
-      return CreateOrderSerializer
-    elif self.request.method == 'PATCH':
+    if self.request.method == 'PATCH':
       return UpdateOrderSerializer
-    return OrderSerializer
+    return DisplayOrderSerializer
   
   def get_queryset(self):
     user = self.request.user
     if user.is_staff:
       return Order.objects.all()
-    customer_id = Customer.objects.only('id').get(user_id=user.id)
-    return Order.objects.filter(customer_id=customer_id)
+    customer = Customer.objects.only('id').get(user_id=user.id)
+    return Order.objects.filter(customer=customer)
 
-  # def get_serializer_context(self):
-  #   return {'user_id': self.request.user.id}
+  def get_serializer_context(self):
+    return {'user_id': self.request.user.id}
 
 
 ##########################################
 
 @api_view(['POST'])
-#@authentication_classes([authentication.JWT])
 @permission_classes([permissions.IsAuthenticated])
 def checkout(request):
   customer = Customer.objects.get(user_id=request.user.id)

@@ -14,13 +14,11 @@
 
 <script>
   import Navbar from './components/Navbar.vue';
-  import Navbar2 from './components/Navbar2.vue';
   import axios from 'axios'
 
   export default {
     components: {
         Navbar,
-        Navbar2,
       },
       data() {
         // navbar_reload: 0

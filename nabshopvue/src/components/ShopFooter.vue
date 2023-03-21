@@ -88,10 +88,10 @@
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a href="#!" class="text-white">Conditions of Use</a>
+              <router-link to="/conditions" class="text-white">Conditions of Use</router-link>
             </li>
             <li>
-              <a href="#!" class="text-white">Privacy Policy</a>
+              <router-link to="/privacy"  class="text-white">Privacy Policy</router-link>
             </li>
           </ul>
         </div>
@@ -101,10 +101,10 @@
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a href="#!" class="text-white">About</a>
+              <router-link to="/about"  href="#!" class="text-white">About</router-link>
             </li>
             <li>
-              <a href="#!" class="text-white">Contact</a>
+              <router-link to="/contact"  class="text-white">Contact</router-link>
             </li>
           </ul>
         </div>
