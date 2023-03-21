@@ -8,8 +8,7 @@ from .models import (Address, Author, Book, BookEdition, BookImage, Cart,
                      CartItem, Customer, Genre, Order, OrderItem, Publisher,
                      Review)
 from .signals import order_created
-
-
+import stripe
 
 class GenreSerializer(serializers.ModelSerializer):
   """Serializer for Genre model"""
@@ -191,7 +190,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class CartItemSerializer(serializers.ModelSerializer):
   """Serializer for CartItem model"""
-  bookedition = SimplestBookEditionSerializer()
+  bookedition = BookEditionSerializer()
   # bookedition = serializers.StringRelatedField()
   total_price = serializers.SerializerMethodField()
 
@@ -208,13 +207,17 @@ class CartSerializer(serializers.ModelSerializer):
   id = serializers.UUIDField(read_only=True)
   items = CartItemSerializer(many=True, read_only=True)
   total_price = serializers.SerializerMethodField()
+  items_count = serializers.SerializerMethodField()
 
   def get_total_price(self, cart):
     return sum([item.quantity * item.bookedition.unit_price  for item in cart.items.all()])
 
+  def get_items_count(self, cart):
+    return sum(item.quantity for item in cart.items.all())
+  
   class Meta:
     model = Cart
-    fields = ['id', 'items', 'total_price']
+    fields = ['id', 'items', 'items_count', 'total_price']
 
 
 class AddCartItemSerializer(serializers.ModelSerializer):
@@ -252,38 +255,38 @@ class AddCartItemSerializer(serializers.ModelSerializer):
     fields = ['id', 'bookedition_id', 'quantity']
 
 
-# class RemoveCartItemSerializer(serializers.ModelSerializer):
-#   """Serializer to add a cart item"""
-#   bookedition_id = serializers.IntegerField()
+class RemoveCartItemSerializer(serializers.ModelSerializer):
+  """Serializer to add a cart item"""
+  bookedition_id = serializers.IntegerField()
 
-#   def validate_bookedition_id(self, value):
-#     if not BookEdition.objects.filter(pk=value).exists():
-#       raise serializers.ValidationError(
-#         'The book with the given ID is not found'
-#       )
-#     return value
+  def validate_bookedition_id(self, value):
+    if not BookEdition.objects.filter(pk=value).exists():
+      raise serializers.ValidationError(
+        'The book with the given ID is not found'
+      )
+    return value
 
-#   def save(self, **kwargs):
-#     cart_id = self.context['cart_id']
-#     bookedition_id = self.validated_data['bookedition_id']
-#     quantity = self.validated_data['quantity']
+  def save(self, **kwargs):
+    cart_id = self.context['cart_id']
+    bookedition_id = self.validated_data['bookedition_id']
+    quantity = self.validated_data['quantity']
 
-#     try:
-#       cart_item = CartItem.objects.get(
-#         cart_id=cart_id, bookedition_id=bookedition_id)
-#       cart_item.quantity += quantity
-#       cart_item.save()
-#       self.instance = cart_item
-#     except CartItem.DoesNotExist:
-#       self.instance = CartItem.objects.create(
-#         cart_id=cart_id, **self.validated_data
-#       )
+    try:
+      cart_item = CartItem.objects.get(
+        cart_id=cart_id, bookedition_id=bookedition_id)
+      cart_item.quantity += quantity
+      cart_item.save()
+      self.instance = cart_item
+    except CartItem.DoesNotExist:
+      self.instance = CartItem.objects.create(
+        cart_id=cart_id, **self.validated_data
+      )
 
-#     return self.instance
+    return self.instance
 
-#   class Meta:
-#     model = CartItem
-#     fields = ['id', 'bookedition_id', 'quantity']
+  class Meta:
+    model = CartItem
+    fields = ['id', 'bookedition_id', 'quantity']
 
 
 class UpdateCartItemSerializer(serializers.ModelSerializer):
@@ -303,20 +306,41 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 class OrderItemSerializer(serializers.ModelSerializer):
   """Serializer for OrderItem"""
-  bookedition = SimplestBookEditionSerializer()
-
+  #bookedition = BookEditionSerializer(read_only=True)
+  
   class Meta:
     model = OrderItem
-    fields = ['id', 'bookedition', 'unit_price', 'quantity']
+    fields = [
+              'bookedition',
+              'quantity',
+              # 'unit_price',
+              'price',
+            ]
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    """Serializer for an Order"""
-    items = OrderItemSerializer(many=True)
+  """Serializer for an Order"""
+  items = OrderItemSerializer(many=True)
 
-    class Meta:
-        model = Order
-        fields = ['id', 'customer', 'placed_at', 'payment_status', 'items']
+  class Meta:
+    model = Order
+    fields = [
+              'id', 
+              # 'customer',
+              'fullname', 'phone', 'email',
+              'shippingaddress', 'street',
+              'zipcode',
+              'items', 'stripe_token','total_amount',
+              'payment_status',
+              ]
+  def create(self, validated_data):
+    cart_items = validated_data.pop('items')
+    order = Order.objects.create(**validated_data)
+    
+    for item_data in cart_items:
+      OrderItem.objects.create(order=order, **item_data)
+
+    return order
 
 
 class UpdateOrderSerializer(serializers.ModelSerializer):
@@ -328,56 +352,49 @@ class UpdateOrderSerializer(serializers.ModelSerializer):
 
 class CreateOrderSerializer(serializers.Serializer):
   """Serializer for creating an order"""
-  cart_id = serializers.UUIDField()
-
-  def validate_cart_id(self, cart_id):
-    if not Cart.objects.filter(pk=cart_id).exists():
-      raise serializers.ValidationError(
-        'There is no cart with the given ID'
-      )
-    if CartItem.objects.filter(cart_id=cart_id).count() == 0:
-      raise serializers.ValidationError('The cart is empty!')
-    return cart_id
 
   def save(self, **kwargs):
     with transaction.atomic():
-      # retrive the cart_id
-      cart_id = self.validated_data['cart_id']
-
       # retrive the customer to place the order
       customer = Customer.objects.get(
         user_id=self.context['user_id']
       )
       # create the order
-      order = Order.objects.create(customer=customer)
+      # order = Order.objects.create(customer=customer, **validated_data)
+      stripe.api_key = settings.STRIPE_SECRET_KEY
+      total_amount = sum((
+        item.get('quantity') * item.get('bookedition').unit_price
+          for item in self.validated_data['items']
+        ))
+    
+      try:
+        charge = stripe.Charge.create(
+          amount=int(total_amount * 100),
+          currency='USD',
+          description='Charge from NabShop',
+          source=serializer.validated_data['stripe_token']
+        )
+        order = Order.objects.create(customer=customer, total_amount=total_amount, **validated_data)
+        
+        # retrieve the items in the cart 
+        cart_items = validated_data.pop('items')
+  
+        # we create the order items for performance
+        for item_data in cart_items:
+          OrderItem.objects.create(order=order, **item_data)
+        # delete the cart
+        #Cart.objects.filter(pk=cart_id).delete()
 
-      # retrieve the items in the cart
-      cart_items = CartItem.objects \
-        .select_related('bookedition') \
-        .filter(cart_id=cart_id)
-      # move the cart  items into the order
-      order_items = [
-        OrderItem(
-          order=order,
-          bookedition=item.bookedition,
-          unit_price=item.bookedition.unit_price,
-          quantity=item.quantity
-        ) for item in cart_items
-      ]
-      # we bulk create the order items for performance
-      OrderItem.objects.bulk_create(order_items)
+        # make payment here
 
-      # delete the cart
-      Cart.objects.filter(pk=cart_id).delete()
+        # send a signal when an order is complete
+        # send(): if a receiver failes to receive, other will not get notified
+        order_created.send_robust(self.__class__, order=order)
 
-      # make payment here
-
-      # send a signal when an order is complete
-      # send(): if a receiver failes to receive, other will not get notified
-      order_created.send_robust(self.__class__, order=order)
-
-      # update the payment status of the order
-      return order
+        # update the payment status of the order
+        return order
+      except Exception:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class AddressSerializer(serializers.ModelSerializer):

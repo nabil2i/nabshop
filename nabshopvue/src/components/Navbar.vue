@@ -42,16 +42,19 @@
           </form>
 
           <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <template v-if="!$store.state.isAuthenticated">
             <li class="nav-item">
               <router-link to="/login" class="nav-link active" aria-current="page">Login</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/sign-up" class="nav-link active" aria-current="page">Sign up</router-link>
             </li>
+            </template>
             
+            <template v-else>
             <li class="nav-item dropdown me-2 ms-0 me-lg-0">
               <a class="nav-link dropdown-toggle" href="/profile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Hello,
+                Hello <span> {{name }}</span> 
               </a>
               <ul class="dropdown-menu" >
                 <li><router-link to="/account" class="dropdown-item" >Account</router-link></li>
@@ -61,6 +64,8 @@
                 <li><button class="dropdown-item" @click="logout">Logout</button></li>
               </ul>
             </li>
+            </template>
+            
             <li class="nav-item me-5">
               <router-link to="/cart" class="nav-link active" aria-current="page" >
                 <span><i class='fas fa-shopping-cart' style='color:#3c8fc3'></i></span>
@@ -81,7 +86,8 @@ import axios from 'axios'
 export default {
   name: 'Navbar',
   props: {
-    // user_data: Object
+    user_data: Object
+
   },
   computed: {
     cartTotalLength() {
@@ -94,10 +100,13 @@ export default {
   },
   mounted() {
     this.cart = this.$store.state.cart
+    // this.getUserData()
   },
   data() {
     return {
       showPhoneMenu: false,
+      //name: this.$store.state.name,
+      name: localStorage.getItem('name'),
       cart: {
         items: []
       }
@@ -108,14 +117,24 @@ export default {
   //   this.$store.commit('initializeStore')
   // }
   methods: {
+    // getUserData() {
+    //   axios
+    //     .get('/auth/users/me/')
+    //     .then(response => {
+    //       console.log(response.data)
+    //       this.user_data = response.data
+    //     })
+    // },
     logout() {
       axios.defaults.headers.common['Authorization'] = ''
 
       localStorage.removeItem("access")
       localStorage.removeItem("username")
       localStorage.removeItem("id")
+      localStorage.removeItem("name")
 
       this.$store.commit('removeAccess')
+      this.$store.commit('removeName')
 
       this.$router.push('/')
     }

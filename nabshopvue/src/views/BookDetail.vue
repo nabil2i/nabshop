@@ -1,5 +1,7 @@
 <template>
   <div class="bookdetail">
+    <!-- <Navbar
+      v-bind:user_data="user_data"/> -->
     <div class="container mt-5">
       <Toasts
         :show-progress="true"
@@ -47,6 +49,13 @@
               @click="addToCart">
                 Add to cart
             </button>
+          </div>
+          <div class="mt-5">
+            <router-link to="/store" type="button" class="btn btn-primary btn-block btn-lg">
+              <div class="d-flex justify-content-between">
+                <span>Add other books</span>
+              </div>
+            </router-link>
           </div>
 
           <!-- <div>

@@ -60,7 +60,7 @@ class Author(models.Model):
   first_name = models.CharField(max_length=255)
   last_name = models.CharField(max_length=255)
   birth_date = models.DateField(null=True, blank=True)
-  country = models.CharField(max_length=255)
+  country = models.CharField(max_length=255, null=True, blank=True)
 
   def __str__(self) -> str:
     return f'{self.first_name} {self.last_name}'
@@ -143,11 +143,11 @@ class BookImage(models.Model):
 class Publisher(models.Model):
   """Model for a Publisher"""
   publisherhouse = models.CharField(max_length=255)
-  city = models.CharField(max_length=255)
-  country = models.CharField(max_length=255)
+  city = models.CharField(max_length=255, null=True, blank=True)
+  country = models.CharField(max_length=255, null=True, blank=True)
 
   def __str__(self) -> str:
-    return f'{self.publisherhouse}, {self.country}'
+    return f'{self.publisherhouse}'
 
   class Meta:
     ordering = ['publisherhouse']
@@ -295,6 +295,8 @@ class Cart(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
 
 
+# if storing cart and cartitems in localstorage
+# Cart and CartItem are not needed
 class CartItem(models.Model):
   """Model of an item in a cart"""
   cart = models.ForeignKey(Cart,
@@ -327,12 +329,30 @@ class Order(models.Model):
   customer = models.ForeignKey(Customer,
                                on_delete=models.PROTECT,
                                related_name="orders")
-  placed_at = models.DateTimeField(auto_now_add=True)
+  placed_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+  
+  # new implementation adding these fields
+  fullname = models.CharField(max_length=255)
+  phone = models.CharField(max_length=255)
+  email = models.CharField(max_length=255)
+  # email = models.EmailField(max_length=255)
+  shippingaddress = models.CharField(max_length=255)
+  zipcode = models.CharField(max_length=255)
+  street = models.CharField(max_length=255)
+
+  
+  total_amount = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+  stripe_token = models.CharField(max_length=255)
+
 
   class Meta:
     permissions = [
       ('cancel_order', 'Can cancel an order')
     ]
+    ordering = ['-placed_at']
+  
+  def __str__(self):
+    return self.fullname
 
 
 class OrderItem(models.Model):
@@ -343,6 +363,11 @@ class OrderItem(models.Model):
   bookedition = models.ForeignKey(BookEdition,
                                   on_delete=models.PROTECT,
                                   related_name="orderitems")
-  quantity = models.PositiveSmallIntegerField()
-  unit_price = models.DecimalField(max_digits=5,
-                                   decimal_places=2)
+  quantity = models.PositiveSmallIntegerField(default=1)
+  # unit_price = models.DecimalField(max_digits=8,
+  #                                  decimal_places=2)
+  price = models.DecimalField(max_digits=8,
+                                  decimal_places=2)
+
+  def __str__(self):
+    return '%s' % self.id

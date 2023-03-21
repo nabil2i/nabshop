@@ -16,7 +16,7 @@
         <label class="form-label" for="password">Password</label>
       </div>
 
-      <div class="row mb-4">
+      <!-- <div class="row mb-4">
         <div class="col-md-6 d-flex justify-content-center">
 
           <div class="form-check mb-3 mb-md-0">
@@ -26,10 +26,10 @@
         </div>
 
         <div class="col-md-6 d-flex justify-content-center">
-          <!-- Simple link -->
+          
           <a href="#!">Forgot password?</a>
         </div>
-      </div>
+      </div> -->
 
       <div class="toast align-items-center text-white bg-primary border-0"
         v-if="success"
@@ -91,6 +91,7 @@ export default {
           axios.defaults.headers.common['Authorization'] = 'JWT ' + access
           localStorage.setItem('access', access)
           localStorage.setItem('refresh', refresh)
+          this.getUserData()
 
           const toPath = this.$route.query.to || '/cart'
           this.$router.push(toPath)
@@ -105,6 +106,17 @@ export default {
             this.errors.push('Something went wrong. Please try again')
             console.log(JSON.stringify(error))
           }
+        })
+    },
+    getUserData() {
+      axios
+        .get('/auth/users/me/')
+        .then(response => {
+          // console.log(response.data)
+          // this.user_data = response.data
+          localStorage.setItem('name', response.data.first_name)
+          this.$store.commit('setName', response.data.first_name)
+
         })
     }
   }

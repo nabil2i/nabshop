@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <Navbar></Navbar>
+    <!-- <Navbar/> -->
+    <Navbar/>
     <!-- <div class="progress">
       <div class="progress-bar progress-bar-striped progress-bar-animated"
         v-bind:class="{'loading': $store.state.isLoading}"
@@ -13,11 +14,19 @@
 
 <script>
   import Navbar from './components/Navbar.vue';
+  import Navbar2 from './components/Navbar2.vue';
   import axios from 'axios'
 
   export default {
     components: {
         Navbar,
+        Navbar2,
+      },
+      data() {
+        // navbar_reload: 0
+        return {
+         // user_data: {},
+        }
       },
       beforeCreate() {
         this.$store.commit('initializeStore')
@@ -31,9 +40,22 @@
       mounted() {
         setInterval(() => {
           this.getAccess()
-        }, 840000)
+        }, 840000);
+
+        //this.getUserData()
       },
       methods: {
+        // reload() {
+        //   this.navbar_reload += 1
+        // },
+        // getUserData() {
+        //   axios
+        //     .get('/auth/users/me/')
+        //     .then(response => {
+        //       //console.log(response.data)
+        //       this.user_data = response.data
+        //     })
+        // },
         getAccess() {
           const accessData = {
             refresh: this.$store.state.refresh

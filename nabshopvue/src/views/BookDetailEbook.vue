@@ -1,5 +1,7 @@
 <template>
   <div class="bookdetail">
+    <!-- <Navbar
+      v-bind:user_data="user_data"/> -->
     <div class="container mt-5">
       <div class="row">
       
@@ -38,7 +40,13 @@
                 Add to cart
             </button>
           </div>
-
+          <div class="mt-5">
+            <router-link to="/store" type="button" class="btn btn-primary btn-block btn-lg">
+              <div class="d-flex justify-content-between">
+                <span>Add other books</span>
+              </div>
+            </router-link>
+          </div>
           <!-- <div>
             <a href="#" class="btn btn-success btn-nabshop mt-3" type="submit"><div>Buy Ebook</div>$<span>1.99</span></a>
           </div>  -->
@@ -72,14 +80,14 @@ import axios from 'axios'
       getBookEdition() {
         const bookedition_id = this.$route.params.bookedition_id
         const api_url = `/store/bookeditions/${bookedition_id}/`
-        console.log(api_url)
+        // console.log(api_url)
         
         axios
           .get(api_url)
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             this.bookedition = response.data
-            console.log(this.bookedition)
+            // console.log(this.bookedition)
             
           })
           .catch((error) => {

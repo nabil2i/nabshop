@@ -1,5 +1,7 @@
 <template>
 <div>
+  <!-- <Navbar
+      v-bind:user_data="user_data"/> -->
   <div class="loginform2 container" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
     <div class="text-center mb-5">
         <h1 class="mt-4">Change password</h1>

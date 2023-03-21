@@ -1,15 +1,14 @@
 <template>
 <div>
-
+  <!-- <Navbar
+      v-bind:user_data="user_data"/> -->
 
 <div class="loginform2 container" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
     <div class="text-center mb-5">
         <h1 class="mt-4">Add address</h1>
     </div>
 
-    <form>
-
-      
+    <form> 
       <div class="form-floating mb-4">
         <input type="text" id="fullname" class="form-control" />
         <label class="form-label" for="fullname">Full name</label>
@@ -271,7 +270,7 @@
         <label class="form-label" for="country" placeholder>Country</label>
       </div>
 
-       <div class="form-floating mb-4">
+      <div class="form-floating mb-4">
         <input type="text" id="city" class="form-control"  />
         <label class="form-label" for="city">City</label>
       </div>

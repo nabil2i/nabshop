@@ -32,3 +32,5 @@ pnpm-debug.log*
 *.sw?
 
 credentials
+TrashTemplateForCatalogue.vue
+*2.vue

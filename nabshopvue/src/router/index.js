@@ -2,20 +2,25 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import LogIn from '../views/LogIn.vue'
 import Catalogue from '../views/Catalogue.vue'
+import Catalogue2 from '../views/Catalogue2.vue'
 import Checkout from '../views/Checkout.vue'
 import Contact from '../views/Contact.vue'
 import Orders from '../views/Orders.vue'
 import Account from '../views/Account.vue'
 import SignUp from '../views/SignUp.vue'
 import Cart from '../views/Cart.vue'
+import Cart2 from '../views/Cart2.vue'
 import Addresses from '../views/Addresses.vue'
 import BookDetail from '../views/BookDetail.vue'
+import BookDetail2 from '../views/BookDetail2.vue'
 import BookDetailEbook from '../views/BookDetailEbook.vue'
+import BookDetailEbook2 from '../views/BookDetailEbook2.vue'
 import ChangeEmail from '../views/ChangeEmail.vue'
 import ChangePassword from '../views/ChangePassword.vue'
 import Genre from '../views/Genre.vue'
 import Search from '../views/Search.vue'
 import store from '../store'
+import Success from '../views/Success.vue'
 
 const routes = [
   {
@@ -30,23 +35,23 @@ const routes = [
   },
   {
     path: '/sign-up',
-    name: 'signUP',
+    name: 'SignUP',
     component: SignUp
   },
   {
     path: '/store',
-    name: 'store',
-    component: Catalogue,
+    name: 'Catalogue',
+    component: Catalogue, // 1 or 2
     children: [
       {
         path: 'poetry',
         name: 'poetry',
-        component: Catalogue
+        component: Catalogue // 1 or 2
       },
       {
         path: 'prose',
         name: 'prose',
-        component: Catalogue
+        component: Catalogue // 1 or 2
       },
     ]
   },
@@ -58,12 +63,12 @@ const routes = [
   {
     path: '/:bookedition_id/',
     name: 'BookDetail',
-    component: BookDetail
+    component: BookDetail // 1 or 2
   },
   {
     path: '/:bookedition_id/',
     name: 'BookDetailEbook',
-    component: BookDetailEbook
+    component: BookDetailEbook // 1 or 2
   },
   {
     path: '/search',
@@ -85,13 +90,21 @@ const routes = [
   },
   {
     path: '/cart',
-    name: 'cart',
-    component: Cart
+    name: 'Cart',
+    component: Cart // 1 or 2
   },
   {
-    path: '/checkout',
+    path: '/cart/success',
+    name: 'Success',
+    component: Success
+  },
+  {
+    path: '/cart/checkout',
     name: 'checkout',
-    component: Checkout
+    component: Checkout,
+    meta: {
+      requireLogin: true
+    }
   },
   {
     path: '/account',

@@ -14,42 +14,32 @@
     <td class="align-middle">
       <p class="mb-0" style="font-weight: 500;">{{ item.bookedition?.booktype}}</p>
     </td>
-    <td class="align-middle">
+    <!-- <td class="align-middle">
       <p class="mb-0" style="font-weight: 500;"><span>$</span>{{ item.bookedition.unit_price}}</p>
-    </td>
+    </td> -->
     <td class="align-middle">
-      <div class="d-flex flex-row">
+      <!-- <div class="d-flex flex-row"> -->
         <!-- <button class="btn btn-link px-2"
-          onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-          >
+          onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
           <i class="fas fa-minus"></i>
         </button> -->
-        <button class="btn btn-link px-2"
-          @click="decrementQuantity(item)"
-          >
-          <i class="fas fa-minus"></i>
-        </button>
 
-        <input id="form1" min="0" name="quantity" v-model="item.quantity" type="number"
-          class="form-control form-control-sm" style="width: 50px;" />
+        <!-- <input id="form1" min="0" name="quantity" v-model="item.quantity" type="number"
+          class="form-control form-control-sm" style="width: 50px;" /> -->
+      <p class="mb-0" style="font-weight: 500;"><span>$</span>{{ item.quantity }}</p>
 
-        <button class="btn btn-link px-2"
-          @click="incrementQuantity(item)"
-          >
-          <i class="fas fa-plus"></i>
-        </button>
         <!-- <button class="btn btn-link px-2"
           onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
           <i class="fas fa-plus"></i>
         </button> -->
-      </div>
+      <!-- </div> -->
     </td>
     <td class="align-middle">
       <p class="mb-0" style="font-weight: 500;"><span>$</span>{{ getItemTotal(item).toFixed(2) }}</p>
     </td>
-    <td class="align-middle">
+    <!-- <td class="align-middle">
       <button class="" @click="removeFromCart(item)"><i class="fas fa-trash fa-lg"></i></button>  
-    </td>
+    </td> -->
   </tr>
 
   
@@ -58,7 +48,7 @@
 <script>
 
 export default {
-  name: 'CartItem',
+  name: 'CartItemCheckout',
   props: {
     initialItem: Object
   },
@@ -78,19 +68,8 @@ export default {
   },
   methods: {
     getItemTotal(item) {
-      // console.log(this.item)
+      console.log(this.item)
       return item.quantity * item.bookedition.unit_price
-    },
-    incrementQuantity(item) {
-      item.quantity += 1
-      this.updateCart()
-    },
-    decrementQuantity(item) {
-      item.quantity -= 1
-      if (item.quantity === 0) {
-        this.$emit('removeFromCart', item)
-      }
-      this.updateCart()
     },
     updateCart() {
       localStorage.setItem('cart', JSON.stringify(this.$store.cart))

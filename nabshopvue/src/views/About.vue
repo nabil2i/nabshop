@@ -1,5 +1,7 @@
 <template>
-  <div class="home mt-5">
+  <div class="home">
+    <!-- <Navbar
+      v-bind:user_data="user_data"/> -->
     <h1 class="mt-5 mb-5">About</h1>
     <ShopFooter/>
   </div>
@@ -11,7 +13,7 @@ import ShopFooter from '@/components/ShopFooter.vue'
 export default {
   name: 'About',
   components: {
-    ShopFooter
+    ShopFooter,
   } 
 }
 </script>

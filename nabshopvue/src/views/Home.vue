@@ -1,7 +1,8 @@
 <template>
   <div class="home">
-    <Nabshop
-      v-bind:user_data="user_data"/>
+    <!-- <Navbar
+      v-bind:user_data="user_data"/> -->
+    <Nabshop/>
   </div>
  
   </template>
@@ -9,6 +10,7 @@
 <script>
 // @ is an alias to /src
 import Nabshop from '@/components/Nabshop.vue'
+import Navbar from '@/components/Navbar.vue'
 import ShopFooter from '@/components/ShopFooter.vue'
 import axios from 'axios'
 
@@ -17,26 +19,20 @@ export default {
   components: {
     Nabshop,
     ShopFooter,
+    Navbar,
  
   },
   data() {
     return {
-      user_data: {},
+      // user_data: {},
     }
   },
   mounted() {
     document.title = 'Home - NabShop'
-    this.getUserData()
+    // this.getUserData()
   },
   methods: {
-    getUserData() {
-      axios
-        .get('/auth/users/me/')
-        .then(response => {
-          //console.log(response.data)
-          this.user_data = response.data
-        })
-    }
+    
   }
 }
 </script>

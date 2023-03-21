@@ -23,7 +23,8 @@ from .serializers import (AddCartItemSerializer, AddressSerializer,
                           AuthorSerializer, BookEditionSerializer,
                           BookImageSerializer, BookSerializer,
                           CartItemSerializer, CartSerializer,
-                          CreateOrderSerializer, CustomerSerializer,
+                          CreateOrderSerializer, 
+                          CustomerSerializer,
                           GenreSerializer, OrderItemSerializer,
                           OrderSerializer, PublisherSerializer,
                           ReviewSerializer, SimpleBookEditionSerializer,
@@ -31,6 +32,16 @@ from .serializers import (AddCartItemSerializer, AddressSerializer,
                           SimplestBookEditionSerializer,
                           SimplestBookSerializer, UpdateCartItemSerializer,
                           UpdateOrderSerializer)
+
+import stripe
+from django.conf import settings
+from rest_framework import status, authentication, permissions
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.http import Http404
+from django.shortcuts import render
+
 
 
 class GenreViewSet(ModelViewSet):
@@ -188,27 +199,35 @@ class CustomerViewSet(ModelViewSet
       serializer.is_valid(raise_exception=True)
       serializer.save()
       return Response(serializer.data)
+############################################
 
+# class OrderViewSet(ModelViewSet):
+#   #permission_classes = [IsAuthenticated]
+#   http_method_names = ['get', 'post', 'patch', 'delete', 'head', 'options']
 
-class OrderViewSet(ModelViewSet):
-  #permission_classes = [IsAuthenticated]
-  http_method_names = ['get', 'post', 'patch', 'delete', 'head', 'options']
+#   def get_permissions(self):
+#     if self.request.method in ['PATCH', 'DELETE']:
+#       return [IsAdminUser()]
+#     return [IsAuthenticated()]
+  
+#   # to get an order object instead of a cart_id we
+#   # need to override the create() method
+#   def create(self, request, *args, **kwargs):
+#     serializer = CreateOrderSerializer(
+#       data=request.data,
+#       context={'user_id': self.request.user.id}
+#       )
+#     serializer.is_valid()
+#     # print(serializer.validated_data)
+    
+#     order = serializer.save()
+    
+#     serializer = OrderSerializer(order)
+#     return Response(serializer.data)
+    
+    # except Exception:
+    #   return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-  def get_permissions(self):
-    if self.request.method in ['PATCH', 'DELETE']:
-      return [IsAdminUser()]
-    return [IsAuthenticated()]
-  # to get an order object instead of a cart_id we
-  # need to override the create() method
-  def create(self, request, *args, **kwargs):
-    serializer = CreateOrderSerializer(
-      data=request.data,
-      context={'user_id': self.request.user.id}
-      )
-    serializer.is_valid(raise_exception=True)
-    order = serializer.save()
-    serializer = OrderSerializer(order)
-    return Response(serializer.data)
 
   def get_serializer_class(self):
     if self.request.method == 'POST':
@@ -228,6 +247,56 @@ class OrderViewSet(ModelViewSet):
   #   return {'user_id': self.request.user.id}
 
 
+##########################################
+
+@api_view(['POST'])
+#@authentication_classes([authentication.JWT])
+@permission_classes([permissions.IsAuthenticated])
+def checkout(request):
+  customer = Customer.objects.get(user_id=request.user.id)
+  
+  print("user id: ", request.user.id)
+  print("customer: ", customer)
+  
+  serializer = OrderSerializer(data=request.data)
+  answer = serializer.is_valid()
+  
+  print(answer)
+  print("serializer is: ", serializer)
+  print("initial data: ", serializer.initial_data)
+  print("validated_data is: ", serializer.validated_data)
+  
+
+  stripe.api_key = settings.STRIPE_SECRET_KEY
+  
+  print(stripe.api_key)
+  
+  total_amount = sum(
+    item.get('quantity') * item.get('bookedition').unit_price
+    # item.get('price') for item in serializer.data['items']
+      # for item in serializer.validated_data['items']
+      for item in serializer.validated_data['items']
+      )
+  
+  print("the total amount is", total_amount)
+   
+  try:
+    print("about to charge")
+    charge = stripe.Charge.create(
+      amount=int(total_amount * 100),
+      currency='USD',
+      description='Charge from NabShop',
+      source=serializer.validated_data['stripe_token'] # validated_data
+    )
+    print("charged")
+    
+    serializer.save(customer=customer, total_amount=total_amount)
+    print("saved ok")
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+  except Exception:
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  
+  
 class AddressViewSet(ModelViewSet):
   http_method_names = ['get', 'post', 'patch', 'delete', 'head', 'options']
 
