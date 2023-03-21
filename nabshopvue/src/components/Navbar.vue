@@ -59,7 +59,7 @@
               <ul class="dropdown-menu" >
                 <li><router-link to="/account" class="dropdown-item" >Account</router-link></li>
                 <li><router-link to="/orders" class="dropdown-item" >Orders</router-link></li>
-                <li><router-link to="/addresses" class="dropdown-item" >Addresses</router-link></li>
+                <!-- <li><router-link to="/addresses" class="dropdown-item" >Addresses</router-link></li> -->
                 <li><hr class="dropdown-divider"></li>
                 <li><button class="dropdown-item" @click="logout">Logout</button></li>
               </ul>
@@ -105,8 +105,8 @@ export default {
   data() {
     return {
       showPhoneMenu: false,
-      //name: this.$store.state.name,
-      name: localStorage.getItem('name'),
+      name: this.$store.state.name,
+      //name: localStorage.getItem('name'),
       cart: {
         items: []
       }
