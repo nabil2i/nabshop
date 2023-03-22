@@ -1,0 +1,19 @@
+__pycache__
+# Git
+.git
+.gitignore
+
+# Docker
+.docker
+
+# Python
+nabshopdjango/__pycache__/
+nabshopdjango/*/__pycache__/
+nabshopdjango/*/*/__pycache__/
+nabshopdjango/*/*/*/__pycache__/
+.env/
+.venv/
+venv/
+
+# Local PostgreSQL data
+data/
