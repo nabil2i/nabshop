@@ -41,10 +41,10 @@ export default createStore({
       //   state.cart_id = localStorage.getItem('cart_id')
       // }
       if (localStorage.getItem('name')) {
-        state.cart_id = localStorage.getItem('name')
+        state.name = localStorage.getItem('name')
       } else {
         localStorage.setItem('name', '')
-        state.cart_id = localStorage.getItem('name')
+        state.name = localStorage.getItem('name')
       }
       
     },

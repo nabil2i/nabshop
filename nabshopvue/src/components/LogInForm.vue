@@ -108,8 +108,8 @@ export default {
           }
         })
     },
-    getUserData() {
-      axios
+    async getUserData() {
+      await axios
         .get('/auth/users/me/')
         .then(response => {
           // console.log(response.data)

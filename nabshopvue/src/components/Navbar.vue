@@ -16,10 +16,10 @@
               <router-link to="/home" class="nav-link active" aria-current="page">Home</router-link>
             </li> -->
             <li class="nav-item">
-              <router-link to="/" class="nav-link active" aria-current="page">Home</router-link>
+              <router-link to="/" class="nav-link " >Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/store" class="nav-link active" aria-current="page">Catalogue</router-link>
+              <router-link to="/store" class="nav-link " >Catalogue</router-link>
             </li>
             <!-- <li class="nav-item">
               <router-link to="/store/poetry" class="nav-link active" aria-current="page">Poetry</router-link>
@@ -28,7 +28,7 @@
               <router-link to="/store/prose" class="nav-link" >Prose</router-link>
             </li> -->
             <li class="nav-item">
-              <router-link to="/about" class="nav-link active" aria-current="page">About</router-link>
+              <router-link to="/about" class="nav-link " >About</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/contact" class="nav-link" >Contact</router-link>
@@ -44,22 +44,22 @@
           <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
             <template v-if="!$store.state.isAuthenticated">
             <li class="nav-item">
-              <router-link to="/login" class="nav-link active" aria-current="page">Login</router-link>
+              <router-link to="/login" class="nav-link" aria-current="page">Login</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/sign-up" class="nav-link active" aria-current="page">Sign up</router-link>
+              <router-link to="/sign-up" class="nav-link" aria-current="page">Sign up</router-link>
             </li>
             </template>
             
             <template v-else>
             <li class="nav-item dropdown me-2 ms-0 me-lg-0">
               <a class="nav-link dropdown-toggle" href="/profile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Hello <span> {{name }}</span> 
+                Hello <span> {{ name }}</span> 
               </a>
               <ul class="dropdown-menu" >
                 <li><router-link to="/account" class="dropdown-item" >Account</router-link></li>
                 <li><router-link to="/orders" class="dropdown-item" >Orders</router-link></li>
-                <li><router-link to="/addresses" class="dropdown-item" >Addresses</router-link></li>
+                <!-- <li><router-link to="/addresses" class="dropdown-item" >Addresses</router-link></li> -->
                 <li><hr class="dropdown-divider"></li>
                 <li><button class="dropdown-item" @click="logout">Logout</button></li>
               </ul>
@@ -105,8 +105,8 @@ export default {
   data() {
     return {
       showPhoneMenu: false,
-      //name: this.$store.state.name,
-      name: localStorage.getItem('name'),
+      name: this.$store.state.name,
+      //name: localStorage.getItem('name'),
       cart: {
         items: []
       }

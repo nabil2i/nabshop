@@ -4,6 +4,14 @@
       v-bind:user_data="user_data"/> -->
     <h1 class="mt-5 mb-5"> You have successfully place your order </h1>
       <p> Your order is being proccessed and will be delievered shorlty!</p>
+
+      <div class="container"> 
+        <router-link to="/store" type="button" class="btn btn-primary btn-block btn-lg">
+          <div class="d-flex justify-content-between">
+            <span>Go back shopping</span>
+          </div>
+        </router-link>
+      </div>
     <ShopFooter/>
   </div>
 </template>

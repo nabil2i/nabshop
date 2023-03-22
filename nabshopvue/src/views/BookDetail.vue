@@ -25,9 +25,9 @@
       
         <div class="col-md-3 justify-content-left">
           <div><h5 class=""><strong>Details</strong></h5></div>
-          <div class=""> <strong> Genre: </strong>eztzetzt</div>
+          <div class=""> <strong> Genre: </strong>{{bookedition?.book?.genre}}</div>
           <div class=" justify-content-left"><strong>Publication date: </strong> {{bookedition.publicationdate}}</div>
-          <div class=" justify-content-left"><strong>Format: </strong>{{bookedition.format}}</div>
+          <div class=" justify-content-left"><strong>Format: </strong>{{bookedition.bookformat}}</div>
           <div class=" justify-content-left"><strong>Booktype: </strong>{{bookedition.booktype}}</div>
           <div class=" justify-content-left"><strong>ISBN: </strong> {{bookedition.isbn}}</div>
           <div class=" justify-content-left"><strong>Pages: </strong> {{bookedition.pages}}</div>

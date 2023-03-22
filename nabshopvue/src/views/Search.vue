@@ -54,7 +54,7 @@ export default {
         .get(api_url)
         .then((response) => {
           //console.log(response.data.results)
-          this.books = response.data.results
+          this.books = response.data
           //console.log(this.books)
           
         })

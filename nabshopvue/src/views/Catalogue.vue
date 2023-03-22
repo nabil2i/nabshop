@@ -44,7 +44,7 @@ export default {
         .get('/store/books/')
         .then((response) => {
           //console.log(response.data.results)
-          this.books = response.data.results
+          this.books = response.data
           //console.log(this.books)
           
         })

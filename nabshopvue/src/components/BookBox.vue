@@ -6,8 +6,8 @@
               <div><h5 class="card-title"><strong>{{ book?.title }}</strong></h5></div>
               <div class="card-text">{{ book?.author }}</div>
               
-              <div class="row mt-3">
-                <div class="col-md-6 d-flex justify-content-center">
+              <div class=" row">
+                <div class="col-lg-6 mt-3 d-flex justify-content-center">
                  
                   <!-- <a  class="btn btn-success btn-nabshop"><div>Buy paperback</div>$<span>{{ book.bookeditions?.[0]?.unit_price }}</span>
                   </a>  -->
@@ -16,7 +16,7 @@
                   </router-link>
                 </div>
 
-                <div class="col-md-6 d-flex justify-content-center">
+                <div class="col-lg-6 mt-3 d-flex justify-content-center">
                   <!-- <a  class="btn btn-success btn-nabshop mb-2"><div>Buy Ebook</div>$<span>{{ book.bookeditions?.[2]?.unit_price }}</span>
                   </a> -->
                   <!-- <router-link to="/"  class=" btn btn-success btn-nabshop" aria-current="page">
@@ -90,7 +90,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .btn-nabshop {
-  width:150px;
+  width:120px;
 }
 
 .btn-nabshop:hover {
