@@ -143,14 +143,14 @@
                     </div> <!-- End of col 2: col 2 is divided into 2 cols-->
                     <div class="col-lg-4 col-xl-3">
                       <div class="d-flex justify-content-between" style="font-weight: 500;">
-                        <p class="mb-2">Subtotal</p>
+                        <p class="mb-2">Total</p>
                         <p class="mb-2">${{ cartTotalPrice.toFixed(2) }}</p>
                       </div>
 
-                      <div class="d-flex justify-content-between" style="font-weight: 500;">
+                      <!-- <div class="d-flex justify-content-between" style="font-weight: 500;">
                         <p class="mb-0">Shipping</p>
-                        <p class="mb-0">$2.99</p>
-                      </div>
+                        <p class="mb-0">$0</p>
+                      </div> -->
 
                       <hr class="my-4">
 
@@ -215,7 +215,7 @@ export default {
     this.cart = this.$store.state.cart
 
     if (this.cartTotalLength > 0) {
-      this.stripe = Stripe('pk_test_51MnI9lBwcqwfQakZJKP6TSwWHxImEgpWrJ70qWhdDV0PAEYukUZSz7kmlnjI2vKMgISif1QzO34cdKy4Ec4m9jv500VLVvHh6x')
+      this.stripe = Stripe(process.env.VUE_APP_STRIPE_TOKEN)
       const elements = this.stripe.elements();
       this.card = elements.create('card', { hidePostalCode: true})
       this.card.mount('#stripe-card')

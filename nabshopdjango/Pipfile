@@ -17,6 +17,7 @@ django-filter = "*"
 drf-nested-routers = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
+whitenoise = "*"
 
 [dev-packages]
 

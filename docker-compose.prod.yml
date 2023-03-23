@@ -7,11 +7,7 @@ services:
     command: ./docker-entrypoint.sh
     ports:
       - 8000:8000
-    image: nabshop_backend:1
-    restart: on-failure
-    volumes:
-      - ./nabshopdjango:/app
-      # - ./nabshopdjango/media:/vol/web
+    restart: unless-stopped
     environment:
       - SECRET_KEY=django-insecure-qoqt=gb(b7^dquy$ohkpai2r-n79i9k%8qepgr#y6g4-%-bo66
       - STRIPE_SECRET_KEY=sk_test_51MnI9lBwcqwfQakZcJKfr282Uh9fQqo9bjbxy8JYqVO2Xk3o9U69hmkrEUZVavTvzFfvozrvDWuChPJo2GV9Vclc00FzDbL7Ne
@@ -21,27 +17,25 @@ services:
       - DB_NAME=nabshop
       - DB_PASS=root
       - DB_USER=root
-      - ALLOWED_HOSTS=127.0.0.1,localhost
+      - ALLOWED_HOSTS=143.110.230.206
     depends_on:
       - db 
 
   nabshopvue:
     build:
       context: ./nabshopvue
+      dockerfile: Dockerfile.prod
     depends_on:
       - db
     ports:
-      - 8080:8080
-    image: nabshop_frontend:1
-    restart: on-failure
-    volumes:
-      - ./nabshopvue:/app
+      - 80:80
+    restart: unless-stopped
 
   db:
     image: mysql:8.0
     ports:
       - 33000:3306
-    restart: always
+    restart: unless-stopped
     environment:
       - MYSQL_DATABASE=nabshop
       - MYSQL_ROOT_PASSWORD=root

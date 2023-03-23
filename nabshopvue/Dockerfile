@@ -6,9 +6,7 @@ WORKDIR /app
 COPY --chown=app:node package*.json ./
 RUN npm install
 COPY --chown=app:node . .
-COPY  . .
 
 EXPOSE 8080 
 
-# ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD ["npm", "run", "serve"]

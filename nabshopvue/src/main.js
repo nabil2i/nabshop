@@ -10,7 +10,7 @@ import axios from 'axios'
 //import VueBootstrapToasts from "vue-bootstrap-toasts";
 window.$ = window.jQuery = jQuery
 
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = process.env.VUE_APP_URL;
 
 const app = createApp(App)
 

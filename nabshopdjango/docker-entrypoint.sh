@@ -1,24 +1,28 @@
 #!/bin/sh
 
+# Wait for database to load
 while ! nc -z db 3306 ; do
-  echo "Waiting for the MySQL Server"
+  echo "Waiting for the MySQL Server..."
   sleep 3
 done
 
-# python manage.py wait_for_db
+# Applying database migrations
+echo "Applying database migrations..."
 
-# Apply database migrations
-echo "Apply database migrations"
-# python manage.py nabshop
+# Run the migrations
+echo "Running migratoins..."
 python manage.py migrate
 
+# Populate the database with some sample data
+echo "Populating the database with dummy data..."
 python manage.py nabshopdb
 
-# echo "Collection static"
-# python manage.py collectstatic --no-input
+# Collect static files
+echo "Collecting static files..."
+python manage.py collectstatic --no-input
 
 # Start server
-echo "Starting server"
+echo "Starting server..."
 # python manage.py runserver 0.0.0.0:8000
 
 gunicorn nabshopdjango.wsgi:application --bind 0.0.0.0:8000

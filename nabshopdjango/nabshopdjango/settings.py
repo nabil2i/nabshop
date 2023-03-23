@@ -32,9 +32,9 @@ DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 SECRET_KEY = os.environ['SECRET_KEY']
 
 
-STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
-
 #STRIPE_SECRET_KEY = 'sk_test_51MnI9lBwcqwfQakZcJKfr282Uh9fQqo9bjbxy8JYqVO2Xk3o9U69hmkrEUZVavTvzFfvozrvDWuChPJo2GV9Vclc00FzDbL7Ne'
+
+STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -96,7 +96,7 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
