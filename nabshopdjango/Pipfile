@@ -16,6 +16,7 @@ djangorestframework-simplejwt = "*"
 django-filter = "*"
 drf-nested-routers = "*"
 gunicorn = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 

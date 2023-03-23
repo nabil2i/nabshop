@@ -3,8 +3,8 @@
 Pipfile.lock
 
 *.pyc
-/media/
-/static/
+/nabshopdjango/media/
+/nabshopdjango/static/
 general.log
 
 .DS_Store

@@ -48,7 +48,7 @@ DATABASES = {
         # 'NAME': 'nabshop',
         # 'HOST': 'localhost',
         # 'USER': 'root',
-        # 'PASSWORD': 'rootnabil'
+        # 'PASSWORD': 'root'
         
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ.get('DB_NAME'),
@@ -179,6 +179,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# STATIC_URL = '/static/static/'
+# STATIC_ROOT = '/vol/web/static'
+
+# MEDIA_URL = '/static/media/'
+# MEDIA_ROOT = '/vol/web/media'  # on the app files system
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

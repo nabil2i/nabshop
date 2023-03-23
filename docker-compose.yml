@@ -11,6 +11,7 @@ services:
     restart: on-failure
     volumes:
       - ./nabshopdjango:/app
+      # - ./nabshopdjango/media:/vol/web
     environment:
       - SECRET_KEY=django-insecure-qoqt=gb(b7^dquy$ohkpai2r-n79i9k%8qepgr#y6g4-%-bo66
       - STRIPE_SECRET_KEY=sk_test_51MnI9lBwcqwfQakZcJKfr282Uh9fQqo9bjbxy8JYqVO2Xk3o9U69hmkrEUZVavTvzFfvozrvDWuChPJo2GV9Vclc00FzDbL7Ne
@@ -20,13 +21,14 @@ services:
       - DB_NAME=nabshop
       - DB_PASS=root
       - DB_USER=root
-      #- ALLOWED_HOSTS=127.0.0.1
+      - ALLOWED_HOSTS=0.0.0.0,localhost
     depends_on:
       - db 
 
   nabshopvue:
     build:
       context: ./nabshopvue
+      # dockerfile: Dockerfile.prod
     depends_on:
       - db
     ports:
@@ -45,7 +47,9 @@ services:
       - MYSQL_DATABASE=nabshop
       - MYSQL_ROOT_PASSWORD=root
     volumes:
-      - mysqldata:/var/lib/mysql     
+      - mysqldata:/var/lib/mysql
+    command:
+      - --default-authentication-plugin=mysql_native_password     
 
 volumes:
   mysqldata:
