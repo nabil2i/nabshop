@@ -37,129 +37,90 @@ Here are some features of the ecommerce website.
 ### 1- browse the catalogue of books
 Even without an account, the user can browse the catalogue of books available in the store
 
-![catalogue](/public/images/catalogue.png)
+![sign-up](./public/images/sign-up.png)
 
 ### 2- view book details
 A click on button probided for each book in the store will take the user to the book detail page that gives more information about the book
-
-![book-detail](/public/images/book-detail.png)
+![sign-up](./public/images/sign-up.png)
 
 ### 3- search for a book
 The user can type in the search box in the navigation menu key words of a book and find it
 
-![search](/public/images/search.png)
+![sign-up](./public/images/sign-up.png)
 
 ### 4- add to cart
 The website give the possibility to select a quantity for a book and add it to the cart that keeps a count of the number of items in it
 
+![sign-up](./public/images/sign-up.png)
+
 ### 5- see items in the cart
 When a user fills a cart with books, the can have the summary of the content of their cart displayed upon clicking the cart iconin the menu
-
-![sign-up](/public/images/see-cart.png)
 
 ### 6- checkout
 When the user is ready to order (having registered to the website) the can place go to the checkout page, fill in the relevent information and proceed to payment
 
-![ckeckout](/public/images/checkout.png)
-![success](/public/images/success.png)
+![sign-up](./public/images/sign-up.png)
 
 
 ### 7- sign-up
 The user must sign up before placing an order
 
-![sign-up](/public/images/sign-up.png)
+![sign-up](./public/images/sign-up.png)
 
 ### 7- log-in
 Once the user has opened an account, they can sign in
 
-![login](/public/images/login.png)
+![login](./public/images/login.png)
 
 ### 7- admin
-The admin user users can manage the website in the admin panel, add-edit-update-delete books, see customers etc.
+The admin user users can manage the website inthe admin panel, add-edit-update-delete books, see customers etc.
 
 
-![admin](/public/images/book-page.png)
+![login](./public/images/login.png)
 
 
 
-[Click here to watch the video presenting the app](https://youtu.be/)
 
-<!-- ## Known bugs
-*  -->
+
+[![video-features](./public/images/home.png)](https://youtu.be/)
+
+## Known bugs
+* 
 
 ## Future for the App
 There are other components to add to the website, like a part responsible for handling the shipping and tracking the order, the ability to browse the store by genre and much more. This would make the website a complete and functional ecommerce application
 
 
 # Architecture
-![technology](/public/images/technology-architecture.png)
+![technology](./public/images/tech.png)
 The website is a fullstack project involving the backend and the frontend
-
-## Frontend App:
-- **Vue.js:** *Vue.js* frontend framework was used to build the front endapp that will be requesting data to the backend via a REST API and will display that to the user. The frontend is served in production by *nginx*
+## Front End App:
+- **Vue.js**: *Vue.js* frontend framework was used to build the front end app that will be provisiong the webpages visible to the user and which which they can interact
 
 ## Backend & REST API
-- **Django:** The backend is in python using the *django* framework 
-- **REST API:** The back implements a REST API with CRUD operations (GET, POST...) provisioning different endpoints based on the needs of the frontend and the privileges of the user.
-The backend is served by *gunicorn*
-
-![api-root](/public/images/api-root.png)
-![book-list](/public/images/book-list.png)
+- **REST API** with methods GET, POST ... requests are handeled
+- **Google Distance Matrix API** is used to compute distance between origins and destinations
 
 
 ## Database
 - **MySQL Relationational Database** to store data
-- Handle database with **Django ORM**
-![database](/public/images/data-model.png)
+- Handle database with ORM (**SQLAlchemy**)
+![database](./public/images/database.png)
 
-
-## Docker
-**Docker compose** is used to dockerize the application. The network of apps comprises:
-- backend-app container
-- frontend-app container
-- mysql database container
+## Back End
+- **Flask** web framework based on Python
 
 ## Server/Deployment
-- The deployment in production used an instance at digitalocean.com
-- The app is deploy at [nabshop](http://143.110.230.206)
-
-# Installation
-**Requirements:**
-- Docker (https://www.docker.com/)
-- Docker compose
-
-**Installation in local development:**
-- Navigate to the repository roo folder
-- Launch docker compose command
-```shell
-  docker compose up --build
-  ```
-
-  **Test***
-  When all containers are launched and connected:
-  - type `http://localhost:8080/` in the browser for the frontend app
-  - type `http://localhost:8000/` in the browser for the back app (`http://localhost:8000/store/`, `http://localhost:8000/admin/`)
-  - to add images to the preloaded books provided in the folder [/public/images/books/](/public/images/books/) , create an admin user, navigate to the books page in the admin panel and add an image to a book:
-  ```shell
-  # list the container and note the ID of the backend container
-  docker ps
-
-  # enter the container in interactive mode 
-  docker exec -ti containerID sh
-
-  # create a superuser
-  python manage.py createsuperuser
-
-  ```
-
+- Linode Ubuntu 22.04 LTS instance
+- Nginx Web server / Gunicorn
 
 # Acknowledegments
 
-* **ALX staff** - For this amazing year full with emotions, learnings, growth, developement, discovery...
+* **ALX staff** - For the help, advice and resources they granted us from the beginning of the curriculum and during the project.
 
-* **Cohort 5 and all ALX students** - For your friendship, support throughout the year
+* **Cohort 5 and all ALX students** - For your friendship, support throughout the year.
 
-* **YOU, the reader** - For taking the time to go through my project!
+* **YOU, the reader** - For taking the time to go through our project!
 
 
 # License
