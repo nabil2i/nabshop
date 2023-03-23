@@ -5,11 +5,11 @@
 # Introduction
 
 ## The Project
-**NabShop** is an ecommerce website that allows people to purchase books. A user without an account can browse the catalogue of books available in the store, see the prices, view details of each book including the description and so on. They can search for a particular book by typing in the search bar in the navigation menu. While still not having registered to the website, they can add books in their cart, see what's in their cart, and when they are ready to make a purchase, they will prompted to open an account, fill in payment details and place the orther.
+**NabShop** is an ecommerce website that allows people to purchase books. A user without an account can browse the catalogue of books available in the store, see the prices, view details of each book including the description and so on. They can search for a particular book by typing in the search bar in the navigation menu. While still not having registered to the website, they can add books in their cart, see what's in their cart, and when they are ready to make a purchase, they will be prompted to open an account, fill in payment details and place the orther.
 The user that has an account can view their account details, their past orders.
 
 ## The Context
-A webstack portfolio project is a requirement for completing the advanced curicullum of the ALX SE program. Having an affinity with literature and having published a few books, I decided to use the skills learned in the ALX SE program to build an ecommerce website to sell those books. We were able to choose our project partners and project topic, as long as we present a working program at the end of the three weeks of development. I worked on this project alone as it is about someting personal and also I wanted to touch the backend and the frontend.
+A webstack portfolio project is a requirement for completing the advanced curicullum of the ALX SE program. Having an affinity with literature and having published a few books, I decided to use the skills learned in the ALX SE program to build an ecommerce website to sell those books. We were able to choose our project partners and project topic, as long as we present a working program at the end of the three weeks of development. I worked on this project alone as it is about someting personal and also I wanted to touch the backend and the frontend during the whole process of the project.
 
 <!-- ## Story behind ARC
 Since COVID-19, it has proven necessary to not only have in person  healthcare assistance services but also virtual health care services. With a healthcare website that intends to bridge the gap between time and a user's needs, lives could be saved and better.
@@ -17,7 +17,7 @@ Oftentimes when people get sick (nothing too serious but still need to see a doc
 We aim to use technology to propose sustainable solutions to the problems we face daily in the different aspects of our  lives, the health domain being one of the most important ones. We ceased this opportunity to propose something that has the potential of saving people's lives. -->
 
 ## Author
-My name is Nabil. I passionate about providing sustainable solutions to problems around us in order to make life easier and more beautiful for all.
+My name is Nabil. I am passionate about providing sustainable solutions to problems around us in order to make life easier and more beautiful for all.
 
 [**Nabil Affo**](https://www.linkedin.com/in/thenabverse/) - Author, Poet, Artist , Content Creator, Telecoms & Software Engineer.
 
@@ -32,50 +32,53 @@ I wrote a blog post about my NabShop journey.
 <!-- ## Take a tour of the deployed version at [https://african-rapid-care.tk](https://african-rapid-care.tk) -->
 
 # Features
-Here are some features of the ecommerce website.
+![technology](/public/images/user-stories.png)
 
-### 1- browse the catalogue of books
+
+Here are some features of the ecommerce website based on the user stories defined in the initial phase of the conception of the project.
+
+### *1- browse the catalogue of books*
 Even without an account, the user can browse the catalogue of books available in the store
 
 ![catalogue](/public/images/catalogue.png)
 
-### 2- view book details
-A click on button probided for each book in the store will take the user to the book detail page that gives more information about the book
+### *2- view book details*
+A click on buttons provided for each book in the store will take the user to the book detail page that gives more information about the book
 
 ![book-detail](/public/images/book-detail.png)
 
-### 3- search for a book
+### *3- search for a book*
 The user can type in the search box in the navigation menu key words of a book and find it
 
 ![search](/public/images/search.png)
 
-### 4- add to cart
-The website give the possibility to select a quantity for a book and add it to the cart that keeps a count of the number of items in it
+### *4- add to cart*
+The website gives the possibility to select a quantity for a book and add it to the cart that keeps a count of the number of items in it
 
-### 5- see items in the cart
-When a user fills a cart with books, the can have the summary of the content of their cart displayed upon clicking the cart iconin the menu
+### *5- see items in the cart*
+When a user fills a cart with books, they can have the summary of the content of their cart displayed upon clicking the cart icon in the navigation bar
 
 ![sign-up](/public/images/see-cart.png)
 
-### 6- checkout
-When the user is ready to order (having registered to the website) the can place go to the checkout page, fill in the relevent information and proceed to payment
+### *6- checkout*
+When the user is ready to order (having registered to the website), they can go to the checkout page, fill in the relevent information and proceed to payment
 
 ![ckeckout](/public/images/checkout.png)
 ![success](/public/images/success.png)
 
 
-### 7- sign-up
+### *7- sign-up*
 The user must sign up before placing an order
 
 ![sign-up](/public/images/sign-up.png)
 
-### 7- log-in
-Once the user has opened an account, they can sign in
+### *8- log-in*
+Once the user has opened an account, they can sign in, see their account details, their previous orders
 
 ![login](/public/images/login.png)
 
-### 7- admin
-The admin user users can manage the website in the admin panel, add-edit-update-delete books, see customers etc.
+### *9- admin*
+The admin users can manage the website in the admin panel, add-edit-update-delete books, see customers etc. depending on their privileges
 
 
 ![admin](/public/images/book-page.png)
@@ -88,15 +91,16 @@ The admin user users can manage the website in the admin panel, add-edit-update-
 *  -->
 
 ## Future for the App
-There are other components to add to the website, like a part responsible for handling the shipping and tracking the order, the ability to browse the store by genre and much more. This would make the website a complete and functional ecommerce application
+There are other functionalities to add to the website, like a part responsible for handling the shipping and tracking orders, the ability to browse the store by genre and much more. This would make the website a complete and functional ecommerce application
 
 
-# Architecture
+# Architecture & Technology
+![architecture](/public/images/architecture.png)
 ![technology](/public/images/technology-architecture.png)
 The website is a fullstack project involving the backend and the frontend
 
 ## Frontend App:
-- **Vue.js:** *Vue.js* frontend framework was used to build the front endapp that will be requesting data to the backend via a REST API and will display that to the user. The frontend is served in production by *nginx*
+- **Vue.js:** *Vue.js* frontend framework was used to build the frontend app that will be requesting data from the backend via a REST API and will display that to the user. The frontend is served in production by *nginx*
 
 ## Backend & REST API
 - **Django:** The backend is in python using the *django* framework 
@@ -128,24 +132,25 @@ The backend is served by *gunicorn*
 - Docker (https://www.docker.com/)
 - Docker compose
 
-**Installation in local development:**
-- Navigate to the repository roo folder
-- Launch docker compose command
+**Installation in local setup:**
+- Navigate to the repository root folder
+- Execute docker compose command
 ```shell
   docker compose up --build
   ```
 
-  **Test***
+  **Test:**
+
   When all containers are launched and connected:
-  - type `http://localhost:8080/` in the browser for the frontend app
-  - type `http://localhost:8000/` in the browser for the back app (`http://localhost:8000/store/`, `http://localhost:8000/admin/`)
+  - type `http://localhost:8080/` in the browser for the frontend app and try it out
+  - type `http://localhost:8000/` in the browser for the backend app (`http://localhost:8000/store/`) you can try the API endpoints and see the response returned. You can try admin operations in the admin panel (`http://localhost:8000/admin/`)
   - to add images to the preloaded books provided in the folder [/public/images/books/](/public/images/books/) , create an admin user, navigate to the books page in the admin panel and add an image to a book:
   ```shell
-  # list the container and note the ID of the backend container
+  # list the running containers and note the ID of the backend container
   docker ps
 
-  # enter the container in interactive mode 
-  docker exec -ti containerID sh
+  # enter the container in interactive mode and use the shell
+  docker exec -ti [containerID] sh
 
   # create a superuser
   python manage.py createsuperuser
