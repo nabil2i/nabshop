@@ -13,19 +13,18 @@
           <h5 class=""><strong>{{bookedition?.book?.title}}</strong></h5>
           <div class="">{{bookedition?.book?.author}}</div>
           <hr>
-          <div class="justify-content-left"> {{bookedition?.book?.description}}</div>
+          <div class="justify-content-start"> {{bookedition?.book?.description}}</div>
         </div>
       
-        <div class="col-md-3 justify-content-left">
+        <div class="col-md-3 mt-3">
           <div><h5 class=""><strong>Details</strong></h5></div>
-          <div class=""> <strong> Genre: </strong>{{bookedition.book.genre}}</div>
-          <div class=" justify-content-left"><strong>Publication date: </strong> {{bookedition.publicationdate}}</div>
-          <div class=" justify-content-left"><strong>Format: </strong>{{bookedition.bookformat}}</div>
-          <div class=" justify-content-left"><strong>Booktype: </strong>{{bookedition.booktype}}</div>
-          <div class=" justify-content-left"><strong>ISBN: </strong> {{bookedition.isbn}}</div>
-          <div class=" justify-content-left"><strong>Pages: </strong> {{bookedition.pages}}</div>
-          <!-- <div class=" justify-content-left"><strong>Paperback price: </strong> $<span>1.99</span></div> -->
-          <div class=" justify-content-left"><strong>Ebook price: </strong> $<span>{{bookedition.unit_price}}</span></div>
+          <div class=""> <strong>Genre: </strong>{{bookedition.book.genre}}</div>
+          <div class=" justify-content-start"><strong>Publication date: </strong> {{bookedition.publicationdate}}</div>
+          <div class=" justify-content-start"><strong>Format: </strong>{{bookedition.bookformat}}</div>
+          <div class=" justify-content-start"><strong>Booktype: </strong>{{bookedition.booktype}}</div>
+          <div class=" justify-content-start"><strong>ISBN: </strong> {{bookedition.isbn}}</div>
+          <div class=" justify-content-start"><strong>Pages: </strong> {{bookedition.pages}}</div>
+          <div class=" justify-content-start"><strong>Ebook price: </strong> $<span>{{bookedition.unit_price}}</span></div>
 
           <div class="input-group w-auto mt-3">
             <input

@@ -116,7 +116,7 @@ export default {
           // this.user_data = response.data
           localStorage.setItem('name', response.data.first_name)
           this.$store.commit('setName', response.data.first_name)
-
+          location.reload();
         })
     }
   }

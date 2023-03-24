@@ -9,7 +9,7 @@
 The user that has an account can view their account details, their past orders.
 
 ## The Context
-A webstack portfolio project is a requirement for completing the advanced curicullum of the ALX SE program. Having an affinity with literature and having published a few books, I decided to use the skills learned in the ALX SE program to build an ecommerce website to sell those books. We were able to choose our project partners and project topic, as long as we present a working program at the end of the three weeks of development. 
+A webstack portfolio project is a requirement for completing the advanced curicullum of the ALX SE program. Having an affinity with literature and having published a few books, I decided to use the skills learned in the ALX SE program to build an ecommerce website to sell those books. We were able to choose our project partners and project topic, as long as we present a working program at the end of the two weeks of development. 
 <!-- ## Story behind ARC
 Since COVID-19, it has proven necessary to not only have in person  healthcare assistance services but also virtual health care services. With a healthcare website that intends to bridge the gap between time and a user's needs, lives could be saved and better.
 Oftentimes when people get sick (nothing too serious but still need to see a doctor), they encounter several challenges trying to get treated as soon as possible. The hospital could be far away from them in the city, there could be a long queue there… This is why we wanted to build **“ARC”** (African Rapid Care).

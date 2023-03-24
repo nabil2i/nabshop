@@ -5,7 +5,7 @@
         <h1 class="mt-4">Sign up</h1>
     </div>
 
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="submitForm" class="signup-form">
       <div class="form-floating mb-4">
         <input type="text" id="username" class="form-control" v-model="username" />
         <label class="form-label" for="username">Username</label>
@@ -17,17 +17,26 @@
         <label class="form-label" for="email">Email</label>
       </div>
 
-
       <div class="form-floating mb-4">
-        <input type="password" id="password" class="form-control" v-model="password"/>
-        <label class="form-label" for="password">Password</label>
+        <input type="text" id="first_name" class="form-control" v-model="first_name" />
+        <label class="form-label" for="first_name">First name</label>
       </div>
 
+      <div class="form-floating mb-4">
+        <input type="text" id="last_name" class="form-control" v-model="last_name" />
+        <label class="form-label" for="last_name">Last name</label>
+      </div>
+
+      <div class="form-floating mb-4">
+        <input type="password" id="password" class="form-control" v-model="password" />
+        <label class="form-label" for="password">Password</label>
+      </div>
  
       <div class="form-floating mb-4">
         <input type="password" id="password2" class="form-control" v-model="password2" />
         <label class="form-label" for="password2">Confirm Password</label>
       </div>
+
 
       <div class="" v-if="errors.length">
         <p v-for="error in errors" v-bind:key="error">{{ error}}</p>
@@ -65,6 +74,8 @@ export default {
     return {
       username: '',
       email: '',
+      first_name: '',
+      last_name: '',
       password: '',
       password2: '',
       errors: [],
@@ -73,7 +84,7 @@ export default {
   },
   methods: {
     submitForm(e) {
-      console.log(this.username, this.email, this.password, this.password2, this.errors)
+      console.log(this.username, this.email, this.first_name, this.last_name, this.password, this.password2, this.errors)
       this.errors = []
 
       if (this.username === '') {
@@ -81,6 +92,12 @@ export default {
       }
       if (this.email === '') {
         this.errors.push('Please, provide an email.')
+      }
+      if (this.last_name === '') {
+        this.errors.push('Please, provide a last name.')
+      }
+      if (this.first_name === '') {
+        this.errors.push('Please, provide a first name.')
       }
       if (this.password !== this.password2) {
         this.errors.push('Passwords do not match!')
@@ -90,7 +107,9 @@ export default {
         const formData = {
           username: this.username,
           email: this.email,
-          password: this.password
+          password: this.password,
+          first_name: this.first_name,
+          last_name: this.last_name
         }
       
       console.log("Sign up data", this.formData)
@@ -133,6 +152,7 @@ export default {
 
 .btn-nabshop {
   width: 100%;
+
 }
 
 
