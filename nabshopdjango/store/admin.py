@@ -85,7 +85,7 @@ class BookAdmin(admin.ModelAdmin):
   # add filtering panel on the right 
   list_filter = ['genre', 'updated_at']
   # set this search field to use autocomple in BOokEditionAdmin
-  search_fields = ['title']
+  search_fields = ['title', 'genre']
   inlines = [BookImageInline]
   # genre__title belongs to another table
   # this function imports it in the BookAdmin table
