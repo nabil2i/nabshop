@@ -19,7 +19,7 @@
               <router-link to="/" class="nav-link " >Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/store" class="nav-link " >Catalogue</router-link>
+              <router-link to="/books" class="nav-link " >Catalogue</router-link>
             </li>
             <!-- <li class="nav-item">
               <router-link to="/store/poetry" class="nav-link active" aria-current="page">Poetry</router-link>

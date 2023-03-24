@@ -76,12 +76,16 @@ import axios from 'axios'
       this.getBookEdition()
     },
     methods: {
-      getBookEdition() {
+      async getBookEdition() {
+        this.$store.commit('setIsLoading', true)
+        const book_id = this.$route.params.book_id
         const bookedition_id = this.$route.params.bookedition_id
-        const api_url = `/store/bookeditions/${bookedition_id}/`
+        //const api_url = `/store/bookeditions/${bookedition_id}/`
+        const api_url = `/store/books/${book_id}/bookeditions/${bookedition_id}/`
+        
         // console.log(api_url)
         
-        axios
+        await axios
           .get(api_url)
           .then((response) => {
             // console.log(response.data)

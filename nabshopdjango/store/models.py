@@ -187,7 +187,8 @@ class BookEdition(models.Model):
   def get_id_url(self):
     """Returns the url for the frontend"""
     # return f'/{self.book.slug}/{self.slug}/'
-    return f'/{self.id}/'
+    # return f'/{self.id}/'
+    return f'/books/{self.book.id}/bookeditions/{self.id}/'
 
   def __str__(self) -> str:
     return f'{self.book.title}-{self.booktype}'

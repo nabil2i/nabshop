@@ -98,7 +98,10 @@ class BookViewSet(ModelViewSet):
 
 
 class BookEditionViewSet(ModelViewSet):
-  queryset = BookEdition.objects.select_related('book').all()
+  def get_queryset(self):
+    return BookEdition.objects.select_related('book').filter(book_id=self.kwargs['book_pk'])
+  
+  # queryset = BookEdition.objects.select_related('book').all()
   serializer_class = BookEditionSerializer
   # custom filtering
   filter_backends = [DjangoFilterBackend, SearchFilter]

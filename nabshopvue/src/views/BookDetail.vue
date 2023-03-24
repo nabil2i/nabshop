@@ -31,7 +31,7 @@
           <div class="justify-content-start"><strong>Booktype: </strong>{{bookedition.booktype}}</div>
           <div class="justify-content-start"><strong>ISBN: </strong> {{bookedition.isbn}}</div>
           <div class="justify-content-start"><strong>Pages: </strong> {{bookedition.pages}}</div>
-          <div class="justify-content-start"><strong>Paperback price: </strong> $<span>{{bookedition.unit_price}}</span></div>
+          <div class="justify-content-start"><strong>Unit price: </strong> $<span>{{bookedition.unit_price}}</span></div>
 
           <div class="input-group w-auto mt-3">
             <input
@@ -89,8 +89,10 @@ import axios from 'axios'
     methods: {
       async getBookEdition() {
         this.$store.commit('setIsLoading', true)
+        const book_id = this.$route.params.book_id
         const bookedition_id = this.$route.params.bookedition_id
-        const api_url = `/store/bookeditions/${bookedition_id}/`
+        // const api_url = `/store/bookeditions/${bookedition_id}/`
+        const api_url = `/store/books/${book_id}/bookeditions/${bookedition_id}/`
         console.log(api_url)
         
         await axios

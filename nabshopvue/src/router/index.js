@@ -37,7 +37,7 @@ const routes = [
     component: SignUp
   },
   {
-    path: '/store',
+    path: '/books',
     name: 'Catalogue',
     component: Catalogue, // 1 or 2
     children: [
@@ -59,15 +59,16 @@ const routes = [
     component: Genre
   },
   {
-    path: '/:bookedition_id/',
+    path: '/books/:book_id/bookeditions/:bookedition_id/',
     name: 'BookDetail',
     component: BookDetail // 1 or 2
   },
-  {
-    path: '/:bookedition_id/',
-    name: 'BookDetailEbook',
-    component: BookDetailEbook // 1 or 2
-  },
+  // {
+  //   //path: '/:bookedition_id/',
+  //   path: '/books/:book_id/bookeditions/:bookedition_id/',
+  //   name: 'BookDetailEbook',
+  //   component: BookDetailEbook // 1 or 2
+  // },
   {
     path: '/search',
     name: 'Search',

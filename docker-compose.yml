@@ -40,7 +40,7 @@ services:
   db:
     image: mysql:8.0
     ports:
-      - 33000:3306
+      - 9000:3306
     restart: always
     environment:
       - MYSQL_DATABASE=nabshop

@@ -2,7 +2,7 @@
   <div class="success-page">
     <!-- <Navbar
       v-bind:user_data="user_data"/> -->
-    <h1 class="mt-5 mb-5"> You have successfully place your order </h1>
+    <h1 class="mt-5 mb-5"> You have successfully placed your order </h1>
       <p> Your order is being proccessed and will be delievered shorlty!</p>
 
       <div class="container"> 
