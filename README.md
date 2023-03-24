@@ -18,7 +18,7 @@ We aim to use technology to propose sustainable solutions to the problems we fac
 ## Author
 My name is Nabil. I am passionate about providing sustainable solutions to problems around us in order to make life easier and more beautiful for all.
 
-[**Nabil Affo**](https://www.linkedin.com/in/thenabverse/) - Author, Poet, Artist , Content Creator, Telecoms & Software Engineer.
+[**Nabil Affo**](https://www.linkedin.com/in/thenabverse/) ([**@TheNabVerse**](https://www.twitter.com/thenabverse/))- Author, Poet, Artist , Content Creator, Telecoms & Software Engineer.
 
 
 <!-- ## Blog posts
