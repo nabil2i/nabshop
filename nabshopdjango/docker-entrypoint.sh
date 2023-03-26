@@ -15,7 +15,7 @@ python manage.py migrate
 
 # Populate the database with some sample data
 echo "Populating the database with dummy data..."
-python manage.py nabshopdb
+# python manage.py nabshopdb
 
 # Collect static files
 echo "Collecting static files..."

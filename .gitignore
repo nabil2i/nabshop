@@ -39,4 +39,5 @@ TrashTemplateForCatalogue.vue
 initial_tables.sql
 initial_tables1.sql
 nabshop_db.sql
-
+/old_settings
+/media
