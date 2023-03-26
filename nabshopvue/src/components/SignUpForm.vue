@@ -1,8 +1,8 @@
 <template>
   <div class="loginform container" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
     <div class="text-center mb-5">
-      <div class="mt-4"><img src="../assets/nabshop-light.png" width="150" alt="" class=""></div>
-        <h1 class="mt-4">Sign up</h1>
+      <div class="mt-2"><img src="../assets/nabshop-light.png" width="150" alt="" class=""></div>
+        <h1 class="mt-3">Sign up</h1>
     </div>
 
     <form @submit.prevent="submitForm" class="signup-form">
@@ -117,9 +117,8 @@ export default {
         axios
           .post('/auth/users/', formData)
           .then(response => {
-         
-
             this.$router.push('/login')
+            location.reload();
           })
           .catch(error => {
             if (error.response) {

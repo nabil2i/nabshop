@@ -9,7 +9,7 @@
         <h1 class="mt-4">Change name</h1>
     </div>
 
-    <div>
+    <div> 
       <div class="row ">
         <div class="col-md-9">
           <div class="form-floating mb-4">
@@ -50,6 +50,7 @@
       </div>
       <hr>
 
+
       <div class="row ">
         <div class="col-md-9">
           <div class="form-floating mb-4">
@@ -63,6 +64,19 @@
       </div>
       <hr>
 
+
+      <div class="row ">
+        <div class="col-md-9">
+          <!-- <div class="form-floating mb-4">
+            <input type="text" id="phone" class="form-control" v-model="customer_data.phone" readonly/>
+            <label class="form-label" for="phone">Phone number</label>
+          </div> -->
+        </div>
+        <div class="col-md-3">
+          <router-link to="/account/delete-account" type="submit" class="btn btn-danger btn-block btn-nabshop mb-4">Delete account</router-link>
+        </div>
+      </div>
+   
     </div>
   </div>
     <ShopFooter/>

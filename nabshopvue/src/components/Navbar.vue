@@ -135,6 +135,7 @@ export default {
 
       this.$store.commit('removeAccess')
       this.$store.commit('removeName')
+      this.$store.commit('removeCart')
 
       this.$router.push('/')
     }

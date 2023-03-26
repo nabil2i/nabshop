@@ -143,8 +143,11 @@ The backend is served by *gunicorn*
 
   When all containers are launched and connected:
   - type `http://localhost:8080/` in the browser for the frontend app and try it out
-  - type `http://localhost:8000/` in the browser for the backend app (`http://localhost:8000/store/`) you can try the API endpoints and see the response returned. You can try admin operations in the admin panel (`http://localhost:8000/admin/`)
-  - to add images to the preloaded books provided in the folder [/public/images/books/](/public/images/books/) , create an admin user, navigate to the books page in the admin panel and add an image to a book:
+  - type `http://localhost:8000/` in the browser for the backend app (`http://localhost:8000/store/`) you can try the API endpoints and see the response returned. You can try admin operations in the admin panel (`http://localhost:8000/admin/`) with username `admin`  and password `admin` (this admin user is created when building the images and running the containers with the command `python manage.py nabshopdb`in the `nabshop/nabshopdjango/docker-entrypoint.sh` that populates the database) 
+  - to add images to the preloaded books provided in the folder [/public/images/books/](/public/images/books/), log in as admin and edit the books
+  
+  
+  <!-- create an admin user, navigate to the books page in the admin panel and add an image to a book:
   ```shell
   # list the running containers and note the ID of the backend container
   docker ps
@@ -155,7 +158,7 @@ The backend is served by *gunicorn*
   # create a superuser
   python manage.py createsuperuser
 
-  ```
+  ``` -->
 
 
 # Acknowledegments

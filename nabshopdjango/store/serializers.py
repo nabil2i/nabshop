@@ -361,7 +361,7 @@ class OrderSerializer(serializers.ModelSerializer):
               'shippingaddress', 'street',
               'zipcode',
               'items', 'stripe_token','total_amount',
-              'payment_status',
+              'payment_status', 'delivery_status'
               ]
   def create(self, validated_data):
     cart_items = validated_data.pop('items')

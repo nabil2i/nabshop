@@ -32,7 +32,7 @@ DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 SECRET_KEY = os.environ['SECRET_KEY']
 
 
-#STRIPE_SECRET_KEY = 'sk_test_51MnI9lBwcqwfQakZcJKfr282Uh9fQqo9bjbxy8JYqVO2Xk3o9U69hmkrEUZVavTvzFfvozrvDWuChPJo2GV9Vclc00FzDbL7Ne'
+# STRIPE_SECRET_KEY = 'sk_test_51MnI9lBwcqwfQakZcJKfr282Uh9fQqo9bjbxy8JYqVO2Xk3o9U69hmkrEUZVavTvzFfvozrvDWuChPJo2GV9Vclc00FzDbL7Ne'
 
 STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
 

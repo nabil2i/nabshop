@@ -26,7 +26,19 @@ export default {
   name: 'ChangeEmail',
   props: {
     msg: String
-  }
+  },
+  data() {
+    return {
+      username: '',
+      email: '',
+      first_name: '',
+      last_name: '',
+      password: '',
+      password2: '',
+      errors: [],
+      
+    }
+  },
 }
 </script>
 

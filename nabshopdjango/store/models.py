@@ -9,6 +9,8 @@ from django.db import models  # , File
 from PIL import Image
 from store.validators import validate_file_size
 
+Image.MAX_IMAGE_PIXELS = None # to avoid DecompressionBombWarning
+
 
 class Discount(models.Model):
   """Model for discounts"""
@@ -324,9 +326,21 @@ class Order(models.Model):
       (PAYMENT_STATUS_FAILED, 'Failed')
   ]
 
+  DELIVERY_STATUS_PENDING = 'P'
+  DELIVERY_STATUS_COMPLETE = 'C'
+  DELIVERY_STATUS_FAILED = 'F'
+  DELIVERY_STATUS_CHOICES = [
+      (DELIVERY_STATUS_PENDING, 'Pending'),
+      (DELIVERY_STATUS_COMPLETE, 'Complete'),
+      (DELIVERY_STATUS_FAILED, 'Failed')
+  ]
+  
   payment_status = models.CharField(max_length=1,
                                     choices=PAYMENT_STATUS_CHOICES,
-                                    default=PAYMENT_STATUS_PENDING)
+                                    default=PAYMENT_STATUS_COMPLETE)
+  delivery_status = models.CharField(max_length=1,
+                                  choices=DELIVERY_STATUS_CHOICES,
+                                  default=DELIVERY_STATUS_PENDING)
   customer = models.ForeignKey(Customer,
                                on_delete=models.PROTECT,
                                related_name="orders")

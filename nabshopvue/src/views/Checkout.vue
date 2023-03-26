@@ -300,6 +300,7 @@ export default {
           console.log(response.data)
           this.$store.commit('removeCart')
           this.$router.push('/cart/success')
+          location.reload();
         })
         .catch(error => {
           this.errors.push('Something went wrong.')

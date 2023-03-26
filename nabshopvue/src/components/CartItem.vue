@@ -93,11 +93,10 @@ export default {
       this.updateCart()
     },
     updateCart() {
-      localStorage.setItem('cart', JSON.stringify(this.$store.cart))
+      localStorage.setItem('cart', JSON.stringify(this.$store.state.cart))
     },
     removeFromCart(item) {
       this.$emit('removeFromCart', item)
-
       this.updateCart()
     }
   }

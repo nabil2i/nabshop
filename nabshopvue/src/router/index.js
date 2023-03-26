@@ -1,24 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import LogIn from '../views/LogIn.vue'
-import Catalogue from '../views/Catalogue.vue'
-import Checkout from '../views/Checkout.vue'
-import Contact from '../views/Contact.vue'
-import Orders from '../views/Orders.vue'
+import store from '../store'
 import Account from '../views/Account.vue'
-import SignUp from '../views/SignUp.vue'
-import Cart from '../views/Cart.vue'
 import Addresses from '../views/Addresses.vue'
 import BookDetail from '../views/BookDetail.vue'
-import BookDetailEbook from '../views/BookDetailEbook.vue'
+import Cart from '../views/Cart.vue'
+import Catalogue from '../views/Catalogue.vue'
 import ChangeEmail from '../views/ChangeEmail.vue'
 import ChangePassword from '../views/ChangePassword.vue'
-import Genre from '../views/Genre.vue'
-import Search from '../views/Search.vue'
-import store from '../store'
-import Success from '../views/Success.vue'
-import Privacy from '../views/Privacy.vue'
+import Checkout from '../views/Checkout.vue'
 import Conditions from '../views/Conditions.vue'
+import Contact from '../views/Contact.vue'
+import DeleteAccount from '../views/DeleteAccount.vue'
+import Genre from '../views/Genre.vue'
+import Home from '../views/Home.vue'
+import LogIn from '../views/LogIn.vue'
+import Orders from '../views/Orders.vue'
+import Privacy from '../views/Privacy.vue'
+import Search from '../views/Search.vue'
+import SignUp from '../views/SignUp.vue'
+import Success from '../views/Success.vue'
 
 const routes = [
   {
@@ -53,11 +53,11 @@ const routes = [
       },
     ]
   },
-  {
-    path: '/genre/:genre_id/',
-    name: 'Genre',
-    component: Genre
-  },
+  // {
+  //   path: '/genre/:genre_id/',
+  //   name: 'Genre',
+  //   component: Genre
+  // },
   {
     path: '/books/:book_id/bookeditions/:bookedition_id/',
     name: 'BookDetail',
@@ -105,7 +105,10 @@ const routes = [
   {
     path: '/cart/success',
     name: 'Success',
-    component: Success
+    component: Success,
+    meta: {
+      requireLogin: true
+    }
   },
   {
     path: '/cart/checkout',
@@ -115,6 +118,14 @@ const routes = [
       requireLogin: true
     }
   },
+  // {
+  //   path: '/account/delete-account',
+  //   name: 'DeleteAccount',
+  //   component: DeleteAccount,
+  //   meta: {
+  //     requireLogin: true
+  //   },
+  // },
   {
     path: '/account',
     name: 'Account',
@@ -139,6 +150,7 @@ const routes = [
           requireLogin: true
         },
       },
+      
     ]
   },
   {

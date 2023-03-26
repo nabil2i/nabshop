@@ -50,7 +50,7 @@
             </button>
           </div>
           <div class="mt-5">
-            <router-link to="/store" type="button" class="btn btn-primary btn-block btn-lg">
+            <router-link to="/books" type="button" class="btn btn-primary btn-block btn-lg">
               <div class="d-flex justify-content-between">
                 <span>Add other books</span>
               </div>

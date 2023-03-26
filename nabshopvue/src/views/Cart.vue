@@ -48,7 +48,7 @@
             </div>
           </div>
           <div v-else class="mt-5"> <p>You dont have any product in the cart</p> 
-            <router-link to="/store" type="button" class="btn btn-primary btn-block btn-lg">
+            <router-link to="/books" type="button" class="btn btn-primary btn-block btn-lg">
               <div class="d-flex justify-content-between">
                 <span>Go shopping</span>
               </div>
@@ -210,6 +210,7 @@ export default {
   methods: {
     removeFromCart(item) {
       this.cart.items = this.cart.items.filter(i => i.bookedition.id !== item.bookedition.id)
+      //localStorage.setItem('cart', JSON.stringify(this.cart))
     },
     getUserData() {
           axios

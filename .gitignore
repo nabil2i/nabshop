@@ -34,3 +34,9 @@ pnpm-debug.log*
 credentials
 TrashTemplateForCatalogue.vue
 *2.vue
+
+#
+initial_tables.sql
+initial_tables1.sql
+nabshop_db.sql
+
