@@ -118,7 +118,7 @@ export default {
           .post('/auth/users/', formData)
           .then(response => {
             this.$router.push('/login')
-            location.reload();
+            // location.reload();
           })
           .catch(error => {
             if (error.response) {
