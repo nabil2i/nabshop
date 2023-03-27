@@ -136,7 +136,7 @@ The backend is served by *gunicorn*
 - Navigate to the repository root folder
 - Execute docker compose command
 ```shell
-  docker compose up --build
+  docker compose up
   ```
 
   **Test:**
