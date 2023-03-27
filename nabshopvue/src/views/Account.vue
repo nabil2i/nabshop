@@ -6,7 +6,7 @@
     <div class="loginform container" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
     <div class="text-center mb-5">
       <div class="mt-4"><img src="../assets/nabshop-light.png" width="150" alt="" class=""></div>
-        <h1 class="mt-4">Change name</h1>
+        <!-- <h1 class="mt-4"></h1> -->
     </div>
 
     <div> 
