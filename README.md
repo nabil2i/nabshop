@@ -84,7 +84,7 @@ The admin users can manage the website in the admin panel, add-edit-update-delet
 
 
 
-[Click here to watch the video presenting the app](https://youtu.be/)
+[Click here to watch the video presenting the app](https://www.youtube.com/watch?v=3j6Yfl5uGZ4)
 
 <!-- ## Known bugs
 *  -->

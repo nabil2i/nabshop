@@ -33,7 +33,7 @@ export default {
   mounted() {
     document.title = 'Success - NabShop'
     this.getUserData()
-    location.reload()
+    
   },
   methods: {
     getUserData() {
