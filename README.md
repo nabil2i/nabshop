@@ -124,7 +124,7 @@ The backend is served by *gunicorn*
 
 ## Server/Deployment
 - The deployment in production used an instance at digitalocean.com
-- The app is deploy at [nabshop](http://143.110.230.206)
+<!-- - The app is deploy at [nabshop](http://143.110.230.206) -->
 
 # Installation
 **Requirements:**
