@@ -10,25 +10,12 @@ The user that has an account can view their account details, their past orders.
 
 ## The Context
 A webstack portfolio project is a requirement for completing the advanced curicullum of the ALX SE program. Having an affinity with literature and having published a few books, I decided to use the skills learned in the ALX SE program to build an ecommerce website to sell those books. We were able to choose our project partners and project topic, as long as we present a working program at the end of the two weeks of development. 
-<!-- ## Story behind ARC
-Since COVID-19, it has proven necessary to not only have in person  healthcare assistance services but also virtual health care services. With a healthcare website that intends to bridge the gap between time and a user's needs, lives could be saved and better.
-Oftentimes when people get sick (nothing too serious but still need to see a doctor), they encounter several challenges trying to get treated as soon as possible. The hospital could be far away from them in the city, there could be a long queue there… This is why we wanted to build **“ARC”** (African Rapid Care).
-We aim to use technology to propose sustainable solutions to the problems we face daily in the different aspects of our  lives, the health domain being one of the most important ones. We ceased this opportunity to propose something that has the potential of saving people's lives. -->
 
 ## Author
 My name is Nabil. I am passionate about providing sustainable solutions to problems around us in order to make life easier and more beautiful for all.
 
 [**Nabil Affo**](https://www.linkedin.com/in/thenabverse/) ([**@TheNabVerse**](https://www.twitter.com/thenabverse/))- Author, Poet, Artist , Content Creator, Telecoms & Software Engineer.
 
-
-<!-- ## Blog posts
-I wrote a blog post about my NabShop journey.
-
-* Nabil's article: [ARC: Reflections on building a healthcare web app](https://medium.com/@nabilwrites/arc-reflections-on-building-a-healthcare-web-app-55ce5d8543a9) -->
-
-
-
-<!-- ## Take a tour of the deployed version at [https://african-rapid-care.tk](https://african-rapid-care.tk) -->
 
 # Features
 ![technology](/public/images/user-stories.png)
@@ -124,13 +111,13 @@ The backend is served by *gunicorn*
 
 ## Server/Deployment
 - The deployment in production used an instance at digitalocean.com
-<!-- - The app is deploy at [nabshop](http://143.110.230.206) -->
+<!-- - The app is deploy at [nabshop](http://) -->
 
 # Installation
 **Requirements:**
 - Docker (https://www.docker.com/)
 - Docker compose
-- Stripe key token for test (set an environment variable `VUE_APP_STRIPE_TOKEN`)
+- Stripe key token for test (set an environment variable `VUE_APP_STRIPE_TOKEN` in the file `.env` in `/nabshopvue` directory)
 
 **Installation in local setup:**
 - Navigate to the repository root folder
@@ -145,20 +132,6 @@ The backend is served by *gunicorn*
   - type `http://localhost:8080/` in the browser for the frontend app and try it out
   - type `http://localhost:8000/` in the browser for the backend app (`http://localhost:8000/store/`) you can try the API endpoints and see the response returned. You can try admin operations in the admin panel (`http://localhost:8000/admin/`) with username `admin`  and password `admin` (this admin user is created when building the images and running the containers with the command `python manage.py nabshopdb`in the `nabshop/nabshopdjango/docker-entrypoint.sh` that populates the database) 
   - to add images to the preloaded books provided in the folder [/public/images/books/](/public/images/books/), log in as admin and edit the books
-  
-  
-  <!-- create an admin user, navigate to the books page in the admin panel and add an image to a book:
-  ```shell
-  # list the running containers and note the ID of the backend container
-  docker ps
-
-  # enter the container in interactive mode and use the shell
-  docker exec -ti [containerID] sh
-
-  # create a superuser
-  python manage.py createsuperuser
-
-  ``` -->
 
 
 # Acknowledegments
