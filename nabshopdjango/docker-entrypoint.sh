@@ -8,6 +8,7 @@ done
 
 # Applying database migrations
 echo "Applying database migrations..."
+python manage.py makemigrations
 
 # Run the migrations
 echo "Running migratoins..."

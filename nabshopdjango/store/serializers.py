@@ -124,7 +124,6 @@ class SimplestBookEditionSerializer(serializers.ModelSerializer):
   """Serializer for simplest BookEdition model"""
   # book = SimplestBookSerializer()
   book = serializers.StringRelatedField()
-  # book__title = serializers.StringRelatedField(read_only=True)
   
   class Meta:
     model = BookEdition
@@ -370,6 +369,7 @@ class OrderSerializer(serializers.ModelSerializer):
     for item_data in cart_items:
       OrderItem.objects.create(order=order, **item_data)
 
+    order_created.send_robust(self.__class__, order=order)
     return order
 
 
@@ -378,61 +378,6 @@ class UpdateOrderSerializer(serializers.ModelSerializer):
   class Meta:
     model = Order
     fields = ['payment_status']
-
-
-class CreateOrderSerializer(serializers.Serializer):
-  """Serializer for creating an order"""
-
-  def save(self, **kwargs):
-    with transaction.atomic():
-      # retrive the customer to place the order
-      customer = Customer.objects.get(
-        user_id=self.context['user_id']
-      )
-      # create the order
-      # order = Order.objects.create(customer=customer, **validated_data)
-      print(stripe.api_key)
-  
-      total_amount = sum(
-        item.get('quantity') * item.get('bookedition').unit_price
-        # item.get('price') for item in serializer.data['items']
-          # for item in serializer.validated_data['items']
-          for item in serializer.validated_data['items']
-          )
-      
-      print("the total amount is", total_amount)
-   
-      try:
-        print("about to charge")
-        charge = stripe.Charge.create(
-          amount=int(total_amount * 100),
-          currency='USD',
-          description='Charge from NabShop',
-          source=serializer.validated_data['stripe_token'] # validated_data
-        )
-        print("charged")
-    
-        order = Order.objects.create(customer=customer, total_amount=total_amount, **validated_data)
-        
-        # retrieve the items in the cart 
-        cart_items = validated_data.pop('items')
-  
-        # we create the order items for performance
-        for item_data in cart_items:
-          OrderItem.objects.create(order=order, **item_data)
-        # delete the cart
-        #Cart.objects.filter(pk=cart_id).delete()
-
-        # make payment here
-
-        # send a signal when an order is complete
-        # send(): if a receiver failes to receive, other will not get notified
-        order_created.send_robust(self.__class__, order=order)
-
-        # update the payment status of the order
-        return order
-      except Exception:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class AddressSerializer(serializers.ModelSerializer):

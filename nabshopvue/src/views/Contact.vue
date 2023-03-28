@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-    <!-- <Navbar
-      v-bind:user_data="user_data"/> -->
     <h1 class="mt-5 mb-5"> Contact</h1>
 
     <ShopFooter/>

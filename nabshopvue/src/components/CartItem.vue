@@ -1,5 +1,4 @@
 <template>
-
   <tr>
     <th scope="row">
       <div class="d-flex align-items-center">
@@ -19,11 +18,6 @@
     </td>
     <td class="align-middle">
       <div class="d-flex flex-row">
-        <!-- <button class="btn btn-link px-2"
-          onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-          >
-          <i class="fas fa-minus"></i>
-        </button> -->
         <button class="btn btn-link px-2"
           @click="decrementQuantity(item)"
           >
@@ -38,10 +32,6 @@
           >
           <i class="fas fa-plus"></i>
         </button>
-        <!-- <button class="btn btn-link px-2"
-          onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-          <i class="fas fa-plus"></i>
-        </button> -->
       </div>
     </td>
     <td class="align-middle">
@@ -103,7 +93,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
 </style>

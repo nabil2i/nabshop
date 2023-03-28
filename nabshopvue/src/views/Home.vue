@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-    <!-- <Navbar
-      v-bind:user_data="user_data"/> -->
     <Nabshop/>
   </div>
  

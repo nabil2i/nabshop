@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     submitForm(e) {
-      console.log(this.username, this.email, this.first_name, this.last_name, this.password, this.password2, this.errors)
+      // console.log(this.username, this.email, this.first_name, this.last_name, this.password, this.password2, this.errors)
       this.errors = []
 
       if (this.username === '') {
@@ -112,7 +112,7 @@ export default {
           last_name: this.last_name
         }
       
-      console.log("Sign up data", this.formData)
+      // console.log("Sign up data", this.formData)
 
         axios
           .post('/auth/users/', formData)
@@ -153,6 +153,4 @@ export default {
   width: 100%;
 
 }
-
-
 </style>

@@ -100,31 +100,17 @@ export default {
   },
   mounted() {
     this.cart = this.$store.state.cart
-    // this.getUserData()
   },
   data() {
     return {
       showPhoneMenu: false,
       name: this.$store.state.name,
-      //name: localStorage.getItem('name'),
       cart: {
         items: []
       }
     };
   },
-  // beforeCreate() {
-  //  //commit: call the function in the mutation of the store
-  //   this.$store.commit('initializeStore')
-  // }
   methods: {
-    // getUserData() {
-    //   axios
-    //     .get('/auth/users/me/')
-    //     .then(response => {
-    //       console.log(response.data)
-    //       this.user_data = response.data
-    //     })
-    // },
     logout() {
       axios.defaults.headers.common['Authorization'] = ''
 
@@ -143,7 +129,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
 </style>

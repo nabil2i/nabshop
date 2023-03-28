@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-    <!-- <Navbar
-      v-bind:user_data="user_data"/> -->
     <h1 class="mt-5 mb-5">Checkout</h1>
     <section class="h-100 h-custom">
       <div class="container cart-container h-100 py-5">
@@ -94,7 +92,7 @@
               <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px;">
                 <div class="card-body p-4">
 
-                  <div class="row"> <!-- Row of 3 col -->
+                  <div class="row"> <!-- Row of 3 cols -->
                     <div class="col-md-6 col-lg-4 col-xl-3 mb-4 mb-md-0">
                       <div class="form">
                         <div class="d-flex flex-row">
@@ -113,32 +111,7 @@
                     <div class="col-md-6 col-lg-4 col-xl-6">
                       <div class="row">
                       <div id="stripe-card" col-12 col-xl-6> </div>
-                        <!-- <div class="col-12 col-xl-6">
-                          <div class="form-outline mb-4 mb-xl-5">
-                            <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
-                              placeholder="John Smith" />
-                            <label class="form-label" for="typeName">Name on card</label>
-                          </div>
-
-                          <div class="form-outline mb-4 mb-xl-5">
-                            <input type="text" id="typeExp" class="form-control form-control-lg" placeholder="MM/YY"
-                              size="7"  minlength="7" maxlength="7" />
-                            <label class="form-label" for="typeExp">Expiration</label>
-                          </div>
-                        </div>
-                        <div class="col-12 col-xl-6">
-                          <div class="form-outline mb-4 mb-xl-5">
-                            <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
-                              placeholder="1111 2222 3333 4444" minlength="19" maxlength="19" />
-                            <label class="form-label" for="typeText">Card Number</label>
-                          </div>
-
-                          <div class="form-outline mb-4 mb-xl-5">
-                            <input type="password" id="typeText" class="form-control form-control-lg"
-                              placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
-                            <label class="form-label" for="typeText">Cvv</label>
-                          </div>
-                        </div> -->
+                        
                       </div>
                     </div> <!-- End of col 2: col 2 is divided into 2 cols-->
                     <div class="col-lg-4 col-xl-3">
@@ -147,29 +120,18 @@
                         <p class="mb-2">${{ cartTotalPrice.toFixed(2) }}</p>
                       </div>
 
-                      <!-- <div class="d-flex justify-content-between" style="font-weight: 500;">
-                        <p class="mb-0">Shipping</p>
-                        <p class="mb-0">$0</p>
-                      </div> -->
-
                       <hr class="my-4">
-
-                      <!-- <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
-                        <p class="mb-2">Total (tax included)</p>
-                        <p class="mb-2">$26.48</p>
-                      </div> -->
 
                       <button @click="submitForm" type="button" class="btn btn-primary btn-block btn-lg">
                         Pay
                       </button>
 
                     </div> <!-- End of col 3 -->
-                  </div>
+                  </div> <!-- End of row of 3 cols -->
 
               </div>
             </div> <!-- Checkout -->
 
-              <!-- <button @click="submitForm" class="btn btn-success btn-block btn-nabshop mb-4">Save</button> -->
             </div>
             <!-- End of payment form -->
           </div> <!-- End of main div -->
@@ -297,7 +259,7 @@ export default {
       await axios
         .post('/store/checkout/', data)
         .then(response => {
-          console.log(response.data)
+          // console.log(response.data)
           this.$store.commit('removeCart')
           this.$router.push('/cart/success')
           

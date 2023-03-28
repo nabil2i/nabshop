@@ -42,11 +42,11 @@ export default {
         const formData = {
           "current_password": this.password
         }
-        console.log("password", formData)
+        // console.log("password", formData)
         axios
           .delete('/auth/users/me/', formData )
           .then(response => {
-            console.log(response)
+            // console.log(response)
             this.$router.push('/')
           })
           .catch(error => {
@@ -59,9 +59,7 @@ export default {
               this.errors.push('Something went wrong. Please try again')
               console.log(JSON.stringify(error))
             }
-          })
-
-      
+          })  
       }
     }
     

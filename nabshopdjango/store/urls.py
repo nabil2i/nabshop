@@ -24,7 +24,7 @@ carts_router.register('items', views.CartItemViewSet, basename="cart-items")
 customers_router = routers.NestedDefaultRouter(router, 'customers', lookup='customer')
 customers_router.register('addresses', views.AddressViewSet, basename='customer-addresses')
 
-urlpatterns = router.urls + books_router.urls + carts_router.urls + customers_router.urls
+# urlpatterns = router.urls + books_router.urls + carts_router.urls + customers_router.urls
 
 urlpatterns = [
     path('', include(router.urls)),

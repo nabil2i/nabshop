@@ -11,21 +11,6 @@
           v-for="edition in book.bookeditions"
           v-bind:key="edition.id"
           v-bind:edition="edition"/>
-
-        <!-- <div class="col-lg-6 mt-3 d-flex justify-content-center">
-          
-          <router-link :to="book.bookeditions?.[1]?.get_id_url" class=" btn btn-success btn-nabshop" aria-current="page">
-            <div>Paperback</div>$<span>{{ book.bookeditions?.[1]?.unit_price }}</span>
-          </router-link>
-        </div>
-
-        <div class="col-lg-6 mt-3 d-flex justify-content-center">
-
-          <router-link :to="book.bookeditions?.[0]?.get_id_url" class=" btn btn-success btn-nabshop" aria-current="page">
-            <div>Ebook</div>$<span>{{ book.bookeditions?.[0]?.unit_price }}</span>
-          </router-link>
-        </div> -->
-
       </div>
     </div>
   </div> 
@@ -56,7 +41,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .btn-nabshop {
   width:120px;

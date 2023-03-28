@@ -42,3 +42,4 @@ nabshop_db.sql
 /old_settings
 
 wait-for-it.sh
+nginx2.conf

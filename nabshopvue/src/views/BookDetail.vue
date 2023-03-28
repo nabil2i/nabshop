@@ -1,7 +1,5 @@
 <template>
   <div class="bookdetail">
-    <!-- <Navbar
-      v-bind:user_data="user_data"/> -->
     <div class="container mt-5">
       <Toasts
         :show-progress="true"
@@ -56,10 +54,7 @@
               </div>
             </router-link>
           </div>
-
-          <!-- <div>
-            <a href="#" class="btn btn-success btn-nabshop mt-3" type="submit"><div>Buy Ebook</div>$<span>1.99</span></a>
-          </div>  -->
+          
         </div>
 
       </div>

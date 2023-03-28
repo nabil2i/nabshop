@@ -11,35 +11,18 @@
         </div>
       </div>
     </th>
+
     <td class="align-middle">
       <p class="mb-0" style="font-weight: 500;">{{ item.bookedition?.booktype}}</p>
     </td>
-    <!-- <td class="align-middle">
-      <p class="mb-0" style="font-weight: 500;"><span>$</span>{{ item.bookedition.unit_price}}</p>
-    </td> -->
+    
     <td class="align-middle">
-      <!-- <div class="d-flex flex-row"> -->
-        <!-- <button class="btn btn-link px-2"
-          onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-          <i class="fas fa-minus"></i>
-        </button> -->
-
-        <!-- <input id="form1" min="0" name="quantity" v-model="item.quantity" type="number"
-          class="form-control form-control-sm" style="width: 50px;" /> -->
       <p class="mb-0" style="font-weight: 500;"><span>$</span>{{ item.quantity }}</p>
-
-        <!-- <button class="btn btn-link px-2"
-          onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-          <i class="fas fa-plus"></i>
-        </button> -->
-      <!-- </div> -->
     </td>
+
     <td class="align-middle">
       <p class="mb-0" style="font-weight: 500;"><span>$</span>{{ getItemTotal(item).toFixed(2) }}</p>
     </td>
-    <!-- <td class="align-middle">
-      <button class="" @click="removeFromCart(item)"><i class="fas fa-trash fa-lg"></i></button>  
-    </td> -->
   </tr>
 
   
@@ -68,7 +51,7 @@ export default {
   },
   methods: {
     getItemTotal(item) {
-      console.log(this.item)
+      // console.log(this.item)
       return item.quantity * item.bookedition.unit_price
     },
     updateCart() {
@@ -83,7 +66,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
 </style>

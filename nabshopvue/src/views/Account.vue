@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-    <!-- <Navbar
-      v-bind:user_data="user_data"/> -->
     <h1 class="mt-5 mb-5">Account</h1>
     <div class="loginform container" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
     <div class="text-center mb-5">
@@ -67,10 +65,6 @@
 
       <div class="row ">
         <div class="col-md-9">
-          <!-- <div class="form-floating mb-4">
-            <input type="text" id="phone" class="form-control" v-model="customer_data.phone" readonly/>
-            <label class="form-label" for="phone">Phone number</label>
-          </div> -->
         </div>
         <div class="col-md-3">
           <router-link to="/account/delete-account" type="submit" class="btn btn-danger btn-block btn-nabshop mb-4">Delete account</router-link>
@@ -113,7 +107,7 @@ export default {
         .get('/auth/users/me/')
         .then(response => {
           this.user_data = response.data
-          console.log(this.user_data)
+          // console.log(this.user_data)
         })
     },
     async getCustomerData() {
@@ -121,7 +115,7 @@ export default {
         .get('/store/customers/me/')
         .then(response => {
           this.customer_data = response.data
-          console.log(this.customer_data)
+          // console.log(this.customer_data)
         })
     }
   }

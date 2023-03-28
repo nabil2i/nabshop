@@ -1,8 +1,13 @@
+import stripe
+from django.conf import settings
 from django.db.models.aggregates import Count
+from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import status
-from rest_framework.decorators import action, permission_classes
+from rest_framework import authentication, permissions, status
+from rest_framework.decorators import (action, api_view,
+                                       authentication_classes,
+                                       permission_classes)
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.mixins import (CreateModelMixin, DestroyModelMixin,
                                    RetrieveModelMixin, UpdateModelMixin)
@@ -10,6 +15,7 @@ from rest_framework.permissions import (AllowAny, DjangoModelPermissions,
                                         DjangoModelPermissionsOrAnonReadOnly,
                                         IsAdminUser, IsAuthenticated)
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from store.pagination import DefaultPagination
 from store.permissions import (FullDjangoModelPermissions, IsAdminOrReadOnly,
@@ -23,27 +29,14 @@ from .serializers import (AddCartItemSerializer, AddressSerializer,
                           AuthorSerializer, BookEditionSerializer,
                           BookImageSerializer, BookSerializer,
                           CartItemSerializer, CartSerializer,
-                          CreateOrderSerializer, 
-                          CustomerSerializer,
-                          GenreSerializer, OrderItemSerializer,
-                          OrderSerializer, PublisherSerializer,
-                          ReviewSerializer, SimpleBookEditionSerializer,
-                          SimpleBookSerializer, SimpleGenreSerializer,
-                          SimplestBookEditionSerializer,
+                          CustomerSerializer, DisplayOrderItemSerializer,
+                          DisplayOrderSerializer, GenreSerializer,
+                          OrderItemSerializer, OrderSerializer,
+                          PublisherSerializer, ReviewSerializer,
+                          SimpleBookEditionSerializer, SimpleBookSerializer,
+                          SimpleGenreSerializer, SimplestBookEditionSerializer,
                           SimplestBookSerializer, UpdateCartItemSerializer,
-                          UpdateOrderSerializer,
-                          DisplayOrderSerializer,
-                          DisplayOrderItemSerializer)
-
-import stripe
-from django.conf import settings
-from rest_framework import status, authentication, permissions
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from django.http import Http404
-from django.shortcuts import render
-
+                          UpdateOrderSerializer)
 
 
 class GenreViewSet(ModelViewSet):
@@ -72,21 +65,9 @@ class BookViewSet(ModelViewSet):
   # pagination_class = DefaultPagination
   permission_classes = [IsAdminOrReadOnly]
   
-  # search button in the navbar
- 
-  
-  # ordering
   ordering_fields = ['created_at']
 
-  # def get_queryset(self):
-  #   queryset = Book.objects.prefetch_related('images', 'bookeditions').all()
-  #   genre_id = self.request.query_params.get('genre_id')
-  #   if genre_id is not None:
-  #     queryset = queryset.filter(genre_id=genre_id)
-  #   return queryset # add basename to the view in urls
-    
   def get_serializer_context(self):
-    # give the data posted by user to the serializer
     return {'request': self.request}
 
   def destroy(self, request, *args, **kwargs):
@@ -101,9 +82,8 @@ class BookEditionViewSet(ModelViewSet):
   def get_queryset(self):
     return BookEdition.objects.select_related('book').filter(book_id=self.kwargs['book_pk'])
   
-  # queryset = BookEdition.objects.select_related('book').all()
   serializer_class = BookEditionSerializer
-  # custom filtering
+
   filter_backends = [DjangoFilterBackend, SearchFilter]
   filterset_class = BookEditionFilter
   search_fields = ['book__title', 'book__description', 'book__genre__title']
@@ -124,7 +104,6 @@ class BookEditionViewSet(ModelViewSet):
 
 
 class ReviewViewSet(ModelViewSet):
-  # queryset = Review.objects.all()
   serializer_class = ReviewSerializer
 
   def get_queryset(self):
@@ -148,8 +127,6 @@ class CartViewSet(CreateModelMixin,
 
 
 class CartItemViewSet(ModelViewSet):
-  # serializer_class = CartItemSerializer
-  # prevent put requests
   http_method_names = ['get', 'post', 'patch', 'delete']
 
   def get_serializer_class(self):
@@ -159,8 +136,6 @@ class CartItemViewSet(ModelViewSet):
       return UpdateCartItemSerializer
     return CartItemSerializer
 
-  # get the cart_id from the url and send it to
-  # the serializer
   def get_serializer_context(self):
         return {'cart_id': self.kwargs['cart_pk']}
 
@@ -180,19 +155,7 @@ class CustomerViewSet(ModelViewSet
   serializer_class = CustomerSerializer
   permission_classes = [IsAdminUser]
 
-  # any one can retrive a customer , but only admin can update
-  # demo code for permissions
-  # def get_permissions(self):
-  #   if self.request.method == 'GET':
-  #     return [AllowAny()]
-  #   return [IsAuthenticated()]
-
-  # custom model permission
-  # @action(detail=True, permission_classes=[ViewCustomerHistoryPermission])
-  # def history(self, request, pk):
-  #   return Response('ok')
-  
-
+  # custom action
   @action(detail=False, methods=['GET', 'PUT'], permission_classes=[IsAuthenticated])
   def me(self, request):
     customer = Customer.objects.get(user_id=request.user.id)
@@ -204,55 +167,9 @@ class CustomerViewSet(ModelViewSet
       serializer.is_valid(raise_exception=True)
       serializer.save()
       return Response(serializer.data)
-############################################
 
-# class OrderViewSet(ModelViewSet):
-#   #permission_classes = [IsAuthenticated]
-#   http_method_names = ['get', 'post', 'patch', 'delete', 'head', 'options']
-
-#   def get_permissions(self):
-#     if self.request.method in ['PATCH', 'DELETE']:
-#       return [IsAdminUser()]
-#     return [IsAuthenticated()]
-  
-#   # to get an order object instead of a cart_id we
-#   # need to override the create() method
-#   def create(self, request, *args, **kwargs):
-#     serializer = CreateOrderSerializer(
-#       data=request.data,
-#       context={'user_id': self.request.user.id}
-#       )
-#     answer = serializer.is_valid()
-#     print(answer)
-#     print("serializer is: ", serializer)
-#     print("initial data: ", serializer.initial_data)
-#     print("validated_data is: ", serializer.validated_data)
-    
-#     order = serializer.save()
-    
-#     serializer = OrderSerializer(order)
-#     return Response(serializer.data)
-    
-
-#   def get_serializer_class(self):
-#     if self.request.method == 'POST':
-#       return CreateOrderSerializer
-#     elif self.request.method == 'PATCH':
-#       return UpdateOrderSerializer
-#     return OrderSerializer
-  
-#   def get_queryset(self):
-#     user = self.request.user
-#     if user.is_staff:
-#       return Order.objects.all()
-#     customer_id = Customer.objects.only('id').get(user_id=user.id)
-#     return Order.objects.filter(customer_id=customer_id)
-
-#   # def get_serializer_context(self):
-#   #   return {'user_id': self.request.user.id}
 
 class OrderViewSet(ModelViewSet):
-  #permission_classes = [IsAuthenticated]
   http_method_names = ['get', 'patch', 'delete', 'head', 'options']
 
   def get_permissions(self):
@@ -276,50 +193,49 @@ class OrderViewSet(ModelViewSet):
     return {'user_id': self.request.user.id}
 
 
-##########################################
-
+# checkout view
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])
 def checkout(request):
   customer = Customer.objects.get(user_id=request.user.id)
   
-  print("user id: ", request.user.id)
-  print("customer: ", customer)
+  # print("user id: ", request.user.id)
+  # print("customer: ", customer)
   
   serializer = OrderSerializer(data=request.data)
-  answer = serializer.is_valid()
+  serializer.is_valid(raise_exception=True)
   
-  print(answer)
-  print("serializer is: ", serializer)
-  print("initial data: ", serializer.initial_data)
-  print("validated_data is: ", serializer.validated_data)
+  # answer = serializer.is_valid()
+  
+  # print(answer)
+  # print("serializer is: ", serializer)
+  # print("initial data: ", serializer.initial_data)
+  # print("validated_data is: ", serializer.validated_data)
   
 
   stripe.api_key = settings.STRIPE_SECRET_KEY
   
-  print(stripe.api_key)
+  # print(stripe.api_key)
   
   total_amount = sum(
     item.get('quantity') * item.get('bookedition').unit_price
-    # item.get('price') for item in serializer.data['items']
-      # for item in serializer.validated_data['items']
       for item in serializer.validated_data['items']
       )
   
-  print("the total amount is", total_amount)
+  # print("the total amount is", total_amount)
    
   try:
-    print("about to charge")
+    # print("about to charge")
     charge = stripe.Charge.create(
       amount=int(total_amount * 100),
       currency='USD',
       description='Charge from NabShop',
       source=serializer.validated_data['stripe_token'] # validated_data
     )
-    print("charged")
+    # print("charged")
     
     serializer.save(customer=customer, total_amount=total_amount)
-    print("saved ok")
+    # print("saved ok")
     return Response(serializer.data, status=status.HTTP_201_CREATED)
   except Exception:
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

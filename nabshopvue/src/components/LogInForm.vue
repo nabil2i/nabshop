@@ -16,21 +16,6 @@
         <label class="form-label" for="password">Password</label>
       </div>
 
-      <!-- <div class="row mb-4">
-        <div class="col-md-6 d-flex justify-content-center">
-
-          <div class="form-check mb-3 mb-md-0">
-            <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
-            <label class="form-check-label" for="loginCheck"> Remember me </label>
-          </div>
-        </div>
-
-        <div class="col-md-6 d-flex justify-content-center">
-          
-          <a href="#!">Forgot password?</a>
-        </div>
-      </div> -->
-
       <div class="toast align-items-center text-white bg-primary border-0"
         v-if="success"
         role="alert" aria-live="assertive" aria-atomic="true">
@@ -41,10 +26,9 @@
           <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
       </div>
-      <!-- Submit button -->
+
       <button type="submit" class="btn btn-success btn-block btn-nabshop mb-4">Sign in</button>
 
-      <!-- Register buttons -->
       <div class="text-center">
         <p>Don't have an account? <a href="sign-up">Sign up</a></p>
       </div>
@@ -80,7 +64,7 @@ export default {
       await axios
         .post('/auth/jwt/create', formData)
         .then(response => {
-          console.log(response)
+          // console.log(response)
 
           const access = response.data.access
           const refresh = response.data.refresh
@@ -123,7 +107,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .loginform {
   width: 400px;

@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <!-- <Navbar/> -->
     <Navbar/>
     <!-- <div class="progress">
       <div class="progress-bar progress-bar-striped progress-bar-animated"

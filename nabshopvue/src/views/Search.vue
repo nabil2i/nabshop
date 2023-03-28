@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-    <!-- <Navbar
-      v-bind:user_data="user_data"/> -->
+  
     <div class="container mt-5">
       <h1 class="mt-5 mb-5"> Search</h1>
       <h2 class="text-secondary"> Search terms: "{{ query }}"</h2>

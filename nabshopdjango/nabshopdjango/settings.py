@@ -21,18 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-##############################################################
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-qoqt=gb(b7^dquy$ohkpai2r-n79i9k%8qepgr#y6g4-%-bo66'
 
 SECRET_KEY = os.environ['SECRET_KEY']
-
-
-# STRIPE_SECRET_KEY = 'sk_test_51MnI9lBwcqwfQakZcJKfr282Uh9fQqo9bjbxy8JYqVO2Xk3o9U69hmkrEUZVavTvzFfvozrvDWuChPJo2GV9Vclc00FzDbL7Ne'
 
 STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
 
@@ -69,7 +62,6 @@ ALLOWED_HOSTS.extend(
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda request: True
 }
-#######################################""
 
 # Application definition
 
@@ -218,4 +210,3 @@ SIMPLE_JWT = {
    'ACCESS_TOKEN_LIFETIME': timedelta(days=15), # days=1
    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
-

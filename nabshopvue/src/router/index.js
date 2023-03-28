@@ -11,7 +11,6 @@ import Checkout from '../views/Checkout.vue'
 import Conditions from '../views/Conditions.vue'
 import Contact from '../views/Contact.vue'
 import DeleteAccount from '../views/DeleteAccount.vue'
-import Genre from '../views/Genre.vue'
 import Home from '../views/Home.vue'
 import LogIn from '../views/LogIn.vue'
 import Orders from '../views/Orders.vue'
@@ -39,17 +38,17 @@ const routes = [
   {
     path: '/books',
     name: 'Catalogue',
-    component: Catalogue, // 1 or 2
+    component: Catalogue,
     children: [
       {
         path: 'poetry',
         name: 'poetry',
-        component: Catalogue // 1 or 2
+        component: Catalogue
       },
       {
         path: 'prose',
         name: 'prose',
-        component: Catalogue // 1 or 2
+        component: Catalogue
       },
     ]
   },
@@ -61,14 +60,8 @@ const routes = [
   {
     path: '/books/:book_id/bookeditions/:bookedition_id/',
     name: 'BookDetail',
-    component: BookDetail // 1 or 2
+    component: BookDetail
   },
-  // {
-  //   //path: '/:bookedition_id/',
-  //   path: '/books/:book_id/bookeditions/:bookedition_id/',
-  //   name: 'BookDetailEbook',
-  //   component: BookDetailEbook // 1 or 2
-  // },
   {
     path: '/search',
     name: 'Search',
@@ -100,7 +93,7 @@ const routes = [
   {
     path: '/cart',
     name: 'Cart',
-    component: Cart // 1 or 2
+    component: Cart
   },
   {
     path: '/cart/success',

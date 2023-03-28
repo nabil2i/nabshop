@@ -12,7 +12,6 @@
                 </p>
                 <div class="hero-btn mt-5 d-flex">
                     <router-link to="/books" class="btn custom-btn btn-info mr-4">Explore the bookstore</router-link>
-                    <!-- <button class="btn custom-btn btn-outline-secondary ms-4">Products</button> -->
                 </div>
               </div>
             </div>
@@ -35,7 +34,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .hero{
     padding-top: 7rem;

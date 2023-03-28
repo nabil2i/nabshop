@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-    <!-- <Navbar
-      v-bind:user_data="user_data"/> -->
     <div class="container mt-5">
       <h1 class="mt-5 mb-5"> Bookstore</h1>
       <div class="row row-cols-1 row-cols-md-3 g-5" >

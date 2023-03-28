@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.core.files import File
 from django.core.validators import MinValueValidator
-from django.db import models  # , File
+from django.db import models
 from PIL import Image
 from store.validators import validate_file_size
 
@@ -51,7 +51,6 @@ class Genre(models.Model):
 
   def get_id_url(self):
     """Returns the url for the frontend"""
-    # return f'/{self.slug}/'
     return f'/genres/{self.id}/'
 
   class Meta:
@@ -88,7 +87,6 @@ class Book(models.Model):
 
   def get_id_url(self):
     """Return the url for the frontend"""
-    # return f'/{self.genre.slug}/{self.slug}/'
     return f'/{self.id}/'
 
   class Meta:
@@ -104,7 +102,6 @@ class BookImage(models.Model):
                             validators=[validate_file_size],
                             blank=True,
                             null=True)
-  # image = models.Image.Field(upload_to)
   thumbnail = models.ImageField(upload_to='store/thumbnails',
                                 blank=True,
                                 null=True)
@@ -188,8 +185,6 @@ class BookEdition(models.Model):
 
   def get_id_url(self):
     """Returns the url for the frontend"""
-    # return f'/{self.book.slug}/{self.slug}/'
-    # return f'/{self.id}/'
     return f'/books/{self.book.id}/bookeditions/{self.id}/'
 
   def __str__(self) -> str:
@@ -298,7 +293,7 @@ class Cart(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
 
 
-# if storing cart and cartitems in localstorage
+# If storing cart and cartitems in localstorage
 # Cart and CartItem are not needed
 class CartItem(models.Model):
   """Model of an item in a cart"""
@@ -346,19 +341,14 @@ class Order(models.Model):
                                related_name="orders")
   placed_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
   
-  # new implementation adding these fields
   fullname = models.CharField(max_length=255)
   phone = models.CharField(max_length=255)
   email = models.CharField(max_length=255)
-  # email = models.EmailField(max_length=255)
   shippingaddress = models.CharField(max_length=255)
   zipcode = models.CharField(max_length=255)
   street = models.CharField(max_length=255)
-
-  
   total_amount = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
   stripe_token = models.CharField(max_length=255)
-
 
   class Meta:
     permissions = [
